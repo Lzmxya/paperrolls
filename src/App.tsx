@@ -3,7 +3,7 @@ function App() {
     <>
       <h1>All receipts are paper rolls until they are printed.</h1>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
