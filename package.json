@@ -42,7 +42,15 @@
     "rules": {
       "react/react-in-jsx-scope": "off",
       "camelcase": "error",
-      "spaced-comment": ["error", "always", { "markers": ["/"] }],
+      "spaced-comment": [
+        "error",
+        "always",
+        {
+          "markers": [
+            "/"
+          ]
+        }
+      ],
       "no-duplicate-imports": "error",
       "prettier/prettier": "warn"
     },
@@ -70,6 +78,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "postcss": "^8.4.16",
     "prettier": "^2.7.1",
+    "prettier-plugin-tailwindcss": "^0.1.13",
     "tailwindcss": "^3.1.8",
     "typescript": "^4.6.4",
     "vite": "^3.0.7"
