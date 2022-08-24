@@ -1,8 +1,11 @@
+import Layout from "./components/Layout";
+import Receipts from "./pages/Receipts";
+
 function App() {
   return (
-    <>
-      <h1>All receipts are paper rolls until they are printed.</h1>
-    </>
+    <Layout>
+      <Receipts />
+    </Layout>
   );
 }
 
