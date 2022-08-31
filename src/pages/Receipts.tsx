@@ -1,17 +1,18 @@
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { FileWithPath } from "file-selector";
+
+import { importReceipts } from "../utils";
 import ReceiptsEmpty from "../components/receipts/ReceiptsEmpty";
 
 function Receipts() {
   const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
-    console.log(acceptedFiles);
+    importReceipts(acceptedFiles);
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
       "text/csv": [".csv"],
     },
-    maxFiles: 1,
     noClick: true,
     noKeyboard: true,
     onDrop,
