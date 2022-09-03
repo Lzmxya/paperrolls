@@ -7,7 +7,7 @@ export class ReceiptsDB extends Dexie {
   constructor() {
     super("ReceiptsDB");
     this.version(1).stores({
-      receipts: "invNum",
+      receipts: "invNum, invDate, amount, cardType",
     });
   }
 }
