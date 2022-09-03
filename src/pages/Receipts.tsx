@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import { FileWithPath } from "file-selector";
 
 import { importReceipts } from "../utils";
-import ReceiptsEmpty from "../components/receipts/ReceiptsEmpty";
+import ReceiptsInbox from "../components/receipts/ReceiptsInbox";
 
 function Receipts() {
   const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
@@ -22,7 +22,7 @@ function Receipts() {
     <main
       {...getRootProps()}
       className={
-        "ml-[4.5rem] mb-2 mr-2 flex w-full rounded-xl bg-white " +
+        "ml-[4.5rem] mb-2 mr-2 flex w-full overflow-hidden rounded-xl bg-white " +
         (isDragActive && "border-2 border-blue-400")
       }
     >
@@ -34,7 +34,7 @@ function Receipts() {
           </p>
         </div>
       ) : (
-        <ReceiptsEmpty />
+        <ReceiptsInbox />
       )}
     </main>
   );
