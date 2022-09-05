@@ -57,22 +57,24 @@ const ReceiptsList = ({ data, setCurrentMonth }: ReceiptsListProp) => {
   );
 
   return (
-    <AutoSizer>
-      {({ width, height }) => (
-        <FixedSizeList
-          height={height}
-          itemCount={data.length}
-          itemSize={80}
-          width={width}
-          overscanCount={10}
-          onItemsRendered={({ visibleStartIndex }) =>
-            setCurrentMonth(data[visibleStartIndex].invDate.getMonth())
-          }
-        >
-          {Row}
-        </FixedSizeList>
-      )}
-    </AutoSizer>
+    <div className="grow">
+      <AutoSizer>
+        {({ width, height }) => (
+          <FixedSizeList
+            height={height}
+            itemCount={data.length}
+            itemSize={80}
+            width={width}
+            overscanCount={10}
+            onItemsRendered={({ visibleStartIndex }) =>
+              setCurrentMonth(data[visibleStartIndex].invDate.getMonth())
+            }
+          >
+            {Row}
+          </FixedSizeList>
+        )}
+      </AutoSizer>
+    </div>
   );
 };
 
