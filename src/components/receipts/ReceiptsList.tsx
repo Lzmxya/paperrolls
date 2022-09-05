@@ -6,6 +6,7 @@ import { Receipt } from "../../models/Receipt";
 
 interface ReceiptsListProp {
   data: Receipt[];
+  setCurrentMonth: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface RowProp {
@@ -22,7 +23,7 @@ const receiptDetailPreviewString = (details: Receipt["details"]) => {
   return descriptions;
 };
 
-const ReceiptsList = ({ data }: ReceiptsListProp) => {
+const ReceiptsList = ({ data, setCurrentMonth }: ReceiptsListProp) => {
   const Row = ({ index, style }: RowProp) => (
     <a href="">
       <div
@@ -64,6 +65,9 @@ const ReceiptsList = ({ data }: ReceiptsListProp) => {
           itemSize={80}
           width={width}
           overscanCount={10}
+          onItemsRendered={({ visibleStartIndex }) =>
+            setCurrentMonth(data[visibleStartIndex].invDate.getMonth())
+          }
         >
           {Row}
         </FixedSizeList>

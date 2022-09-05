@@ -1,13 +1,29 @@
+import { useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 
 import { db } from "../../models/db";
 import ReceiptsList from "./ReceiptsList";
 
+interface ReceiptsListTitleProp {
+  currentMonth: number;
+}
+
+const ReceiptsListTitle = ({ currentMonth }: ReceiptsListTitleProp) => (
+  <div className="flex h-14 border-b border-gray-200">
+    <div className="m-4 flex gap-2">
+      <div>🔽</div>
+      <div className="text-xl text-gray-700">{currentMonth + 1} 月</div>
+      <div>🔼</div>
+    </div>
+  </div>
+);
+
 function ReceiptsInbox() {
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+
   const receipts = useLiveQuery(() =>
     db.receipts.orderBy("invDate").reverse().toArray()
   );
-  console.log(receipts);
 
   if (!receipts) {
     return (
@@ -32,8 +48,9 @@ function ReceiptsInbox() {
 
   return (
     <div className="flex grow">
-      <div className="min-w-[15rem] grow">
-        <ReceiptsList data={receipts} />
+      <div className="flex min-w-[15rem] grow flex-col">
+        <ReceiptsListTitle currentMonth={currentMonth} />
+        <ReceiptsList data={receipts} setCurrentMonth={setCurrentMonth} />
       </div>
       <div className="min-w-[28rem] grow"></div>
     </div>
