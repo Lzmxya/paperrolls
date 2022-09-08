@@ -4,11 +4,11 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../../models/db";
 import ReceiptsList from "./ReceiptsList";
 
-interface ReceiptsListTitleProp {
+interface ReceiptsListTitleProps {
   currentMonth: number;
 }
 
-const ReceiptsListTitle = ({ currentMonth }: ReceiptsListTitleProp) => (
+const ReceiptsListTitle = ({ currentMonth }: ReceiptsListTitleProps) => (
   <div className="flex h-14 border-b border-gray-200">
     <div className="m-4 flex gap-2">
       <div>🔽</div>

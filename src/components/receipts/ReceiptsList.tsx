@@ -4,12 +4,12 @@ import AutoSizer from "react-virtualized-auto-sizer";
 
 import { Receipt } from "../../models/Receipt";
 
-interface ReceiptsListProp {
+interface ReceiptsListProps {
   data: Receipt[];
   setCurrentMonth: React.Dispatch<React.SetStateAction<number>>;
 }
 
-interface RowProp {
+interface RowProps {
   index: number;
   style: CSSProperties;
   data: Receipt[];
@@ -23,8 +23,8 @@ const receiptDetailPreviewString = (details: Receipt["details"]) => {
   return descriptions;
 };
 
-const ReceiptsList = ({ data, setCurrentMonth }: ReceiptsListProp) => {
-  const Row = ({ index, style }: RowProp) => (
+const ReceiptsList = ({ data, setCurrentMonth }: ReceiptsListProps) => {
+  const Row = ({ index, style }: RowProps) => (
     <a href="">
       <div
         style={style}
