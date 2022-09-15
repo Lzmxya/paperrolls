@@ -1,4 +1,6 @@
-import { CSSProperties } from "react";
+import { CSSProperties, MouseEvent } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { setSelected, toggleChecked } from "../../features/inbox/inboxSlice";
 import { FixedSizeList } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
@@ -24,15 +26,41 @@ const receiptDetailPreviewString = (details: Receipt["details"]) => {
 };
 
 const ReceiptsList = ({ data, setCurrentMonth }: ReceiptsListProps) => {
+  const { currentSelectedReceipt, checkedReceipts } = useAppSelector(
+    (state) => state.inbox
+  );
+
+  const dispatch = useAppDispatch();
+  const handleSelect = (event: MouseEvent, payload: Receipt) => {
+    event.preventDefault();
+    dispatch(setSelected(payload));
+  };
+  const handleCheck = (event: MouseEvent, payload: Receipt["invNum"]) => {
+    event.preventDefault();
+    event.stopPropagation();
+    dispatch(toggleChecked(payload));
+  };
+
   const Row = ({ index, style }: RowProps) => (
-    <a href="">
+    <a href="" onClick={(event) => handleSelect(event, data[index])}>
       <div
         style={style}
-        className="flex border-b border-gray-200 hover:shadow-md"
+        className="relative flex border-b border-gray-200 hover:shadow-md"
       >
+        {/* Indicator */}
+        {currentSelectedReceipt?.invNum === data[index].invNum && (
+          <div className="absolute top-0 left-0 h-full w-1  bg-blue-400"></div>
+        )}
         {/* Supporting visuals */}
         <div className="h-20 w-20 p-4">
-          <div className="h-12 w-12 rounded-full bg-gray-200"></div>
+          <div
+            className={`h-12 w-12 rounded-full ${
+              checkedReceipts.includes(data[index].invNum)
+                ? "bg-blue-200"
+                : "bg-gray-200"
+            }`}
+            onClick={(event) => handleCheck(event, data[index].invNum)}
+          ></div>
         </div>
         {/* Primary text */}
         <div className="m-auto grow overflow-hidden text-sm">
