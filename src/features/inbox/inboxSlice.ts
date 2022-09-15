@@ -1,34 +1,43 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Receipt } from "../../models/Receipt";
 
-interface ReceiptState extends Receipt {
-  checked: boolean;
-  selected: boolean;
+interface InboxState {
+  currentSelectedReceipt: Receipt | null;
+  checkedReceipts: Receipt["invNum"][];
 }
 
-type Partial<ReceiptState> = {
-  [P in keyof ReceiptState]?: ReceiptState[P];
+const initialState: InboxState = {
+  currentSelectedReceipt: null,
+  checkedReceipts: [],
 };
-
-type InboxState = Partial<ReceiptState>[];
-
-const initialState: InboxState = [];
 
 const inboxSlice = createSlice({
   name: "inbox",
   initialState,
   reducers: {
-    setData(state, action) {
-      const payload: Receipt[] = action.payload;
-      const data: InboxState = payload.map((element) => ({
-        ...element,
-        checked: false,
-        selected: false,
-      }));
-      return data;
+    // check receipts
+    toggleChecked(state, action: PayloadAction<Receipt["invNum"]>) {
+      if (state.checkedReceipts.includes(action.payload)) {
+        state.checkedReceipts = state.checkedReceipts.filter(
+          (element) => element !== action.payload
+        );
+        return;
+      }
+      state.checkedReceipts.push(action.payload);
+    },
+    clearChecked(state) {
+      state.checkedReceipts = [];
+    },
+    // select receipt
+    setSelected(state, action: PayloadAction<Receipt>) {
+      state.currentSelectedReceipt = action.payload;
+    },
+    clearSelected(state) {
+      state.currentSelectedReceipt = null;
     },
   },
 });
 
-export const { setData } = inboxSlice.actions;
+export const { toggleChecked, clearChecked, setSelected, clearSelected } =
+  inboxSlice.actions;
 export default inboxSlice.reducer;

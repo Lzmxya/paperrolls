@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { setData } from "../../features/inbox/inboxSlice";
 import { useLiveQuery } from "dexie-react-hooks";
 
 import { db } from "../../models/db";
@@ -21,20 +19,11 @@ const ReceiptsListTitle = ({ currentMonth }: ReceiptsListTitleProps) => (
 );
 
 function ReceiptsInbox() {
-  const dispatch = useAppDispatch();
-
-  useLiveQuery(async () => {
-    const rows = await db.receipts.orderBy("invDate").reverse().toArray();
-    dispatch(setData(rows));
-  });
-
-  const receipts = useAppSelector((state) => state.inbox);
-
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
 
-  // const receipts = useLiveQuery(() =>
-  //   db.receipts.orderBy("invDate").reverse().toArray()
-  // );
+  const receipts = useLiveQuery(() =>
+    db.receipts.orderBy("invDate").reverse().toArray()
+  );
 
   if (!receipts) {
     return (
