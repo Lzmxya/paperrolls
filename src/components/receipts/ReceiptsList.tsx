@@ -45,7 +45,11 @@ const ReceiptsList = ({ data, setCurrentMonth }: ReceiptsListProps) => {
     <a href="" onClick={(event) => handleSelect(event, data[index])}>
       <div
         style={style}
-        className="relative flex border-b border-gray-200 hover:shadow-md"
+        className={`relative flex border-b border-gray-200 hover:z-20 hover:shadow-md ${
+          currentSelectedReceipt?.invNum === data[index].invNum
+            ? "z-10 bg-blue-100 shadow-md"
+            : "bg-white"
+        }`}
       >
         {/* Indicator */}
         {currentSelectedReceipt?.invNum === data[index].invNum && (
