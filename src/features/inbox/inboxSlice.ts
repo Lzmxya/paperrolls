@@ -1,13 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Receipt } from "../../models/Receipt";
 
-interface InboxState {
-  currentSelectedReceipt: Receipt | null;
+export interface InboxState {
+  selectedReceipt: {
+    previous: number | null;
+    current: number | null;
+    next: number | null;
+  };
   checkedReceipts: Receipt["invNum"][];
 }
 
 const initialState: InboxState = {
-  currentSelectedReceipt: null,
+  selectedReceipt: {
+    previous: null,
+    current: null,
+    next: null,
+  },
   checkedReceipts: [],
 };
 
@@ -29,15 +37,27 @@ const inboxSlice = createSlice({
       state.checkedReceipts = [];
     },
     // select receipt
-    setSelected(state, action: PayloadAction<Receipt>) {
-      state.currentSelectedReceipt = action.payload;
+    setSelected(state, action: PayloadAction<InboxState["selectedReceipt"]>) {
+      state.selectedReceipt = action.payload;
+    },
+    previousSelected(state) {
+      state.selectedReceipt.current && state.selectedReceipt.current--;
+    },
+    nextSelected(state) {
+      state.selectedReceipt.current !== null && state.selectedReceipt.current++;
     },
     clearSelected(state) {
-      state.currentSelectedReceipt = null;
+      state.selectedReceipt = initialState.selectedReceipt;
     },
   },
 });
 
-export const { toggleChecked, clearChecked, setSelected, clearSelected } =
-  inboxSlice.actions;
+export const {
+  toggleChecked,
+  clearChecked,
+  setSelected,
+  previousSelected,
+  nextSelected,
+  clearSelected,
+} = inboxSlice.actions;
 export default inboxSlice.reducer;

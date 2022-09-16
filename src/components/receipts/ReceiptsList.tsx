@@ -1,6 +1,7 @@
 import { CSSProperties, MouseEvent } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { setSelected, toggleChecked } from "../../features/inbox/inboxSlice";
+// eslint-disable-next-line prettier/prettier
+import { InboxState, setSelected, toggleChecked } from "../../features/inbox/inboxSlice";
 import { FixedSizeList } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
@@ -26,12 +27,15 @@ const receiptDetailPreviewString = (details: Receipt["details"]) => {
 };
 
 const ReceiptsList = ({ data, setCurrentMonth }: ReceiptsListProps) => {
-  const { currentSelectedReceipt, checkedReceipts } = useAppSelector(
+  const { selectedReceipt, checkedReceipts } = useAppSelector(
     (state) => state.inbox
   );
 
   const dispatch = useAppDispatch();
-  const handleSelect = (event: MouseEvent, payload: Receipt) => {
+  const handleSelect = (
+    event: MouseEvent,
+    payload: InboxState["selectedReceipt"]
+  ) => {
     event.preventDefault();
     dispatch(setSelected(payload));
   };
@@ -42,17 +46,26 @@ const ReceiptsList = ({ data, setCurrentMonth }: ReceiptsListProps) => {
   };
 
   const Row = ({ index, style }: RowProps) => (
-    <a href="" onClick={(event) => handleSelect(event, data[index])}>
+    <a
+      href=""
+      onClick={(event) =>
+        handleSelect(event, {
+          previous: index - 1,
+          current: index,
+          next: index + 1,
+        })
+      }
+    >
       <div
         style={style}
         className={`relative flex border-b border-gray-200 hover:z-20 hover:shadow-md ${
-          currentSelectedReceipt?.invNum === data[index].invNum
+          selectedReceipt.current === index
             ? "z-10 bg-blue-100 shadow-md"
             : "bg-white"
         }`}
       >
         {/* Indicator */}
-        {currentSelectedReceipt?.invNum === data[index].invNum && (
+        {selectedReceipt.current === index && (
           <div className="absolute top-0 left-0 h-full w-1  bg-blue-400"></div>
         )}
         {/* Supporting visuals */}
