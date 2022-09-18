@@ -3,6 +3,7 @@ import { useLiveQuery } from "dexie-react-hooks";
 
 import { db } from "../../models/db";
 import ReceiptsList from "./ReceiptsList";
+import InboxDetail from "./InboxDetail";
 
 interface ReceiptsListTitleProps {
   currentMonth: number;
@@ -47,12 +48,14 @@ function ReceiptsInbox() {
   }
 
   return (
-    <div className="flex grow">
-      <div className="flex min-w-[15rem] grow flex-col">
+    <div className="flex grow divide-x">
+      <div className="flex w-[50%] flex-col">
         <ReceiptsListTitle currentMonth={currentMonth} />
         <ReceiptsList data={receipts} setCurrentMonth={setCurrentMonth} />
       </div>
-      <div className="min-w-[28rem] grow"></div>
+      <div className="flex w-[50%]">
+        <InboxDetail data={receipts} />
+      </div>
     </div>
   );
 }

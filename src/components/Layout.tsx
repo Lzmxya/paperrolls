@@ -9,7 +9,7 @@ function Layout({ children }: Props) {
   return (
     <div className="flex h-screen flex-col bg-blue-50">
       <Header />
-      <div className="flex flex-grow">
+      <div className="flex h-[calc(100vh-4rem)] flex-grow">
         <Aside />
         {children}
       </div>
