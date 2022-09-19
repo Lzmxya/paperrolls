@@ -6,6 +6,7 @@ import {
   clearSelected,
 } from "../../features/inbox/inboxSlice";
 import { Receipt } from "../../models/Receipt";
+import Avatar from "../Avatar";
 
 interface InboxDetailProps {
   data: Receipt[];
@@ -58,7 +59,9 @@ function InboxDetail({ data }: InboxDetailProps) {
         {/* Header */}
         <div className="flex gap-6">
           {/* Avatar */}
-          <div className="h-16 w-16 rounded-full bg-gray-200"></div>
+          <div className="h-16 w-16">
+            <Avatar name={data[index].sellerName} className="text-lg" />
+          </div>
           {/* Title */}
           <div className="flex grow flex-col gap-6">
             {/* Title Row1 */}

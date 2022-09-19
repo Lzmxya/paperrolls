@@ -6,6 +6,7 @@ import { FixedSizeList } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
 import { Receipt } from "../../models/Receipt";
+import Avatar from "../Avatar";
 
 interface ReceiptsListProps {
   data: Receipt[];
@@ -66,18 +67,19 @@ const ReceiptsList = ({ data, setCurrentMonth }: ReceiptsListProps) => {
       >
         {/* Indicator */}
         {selectedReceipt.current === index && (
-          <div className="absolute top-0 left-0 h-full w-1  bg-blue-400"></div>
+          <div className="absolute top-0 left-0 h-full w-1 bg-blue-400"></div>
         )}
         {/* Supporting visuals */}
-        <div className="h-20 w-20 p-4">
-          <div
+        <div className="h-20 w-20 shrink-0 p-4">
+          {/* <div
             className={`h-12 w-12 rounded-full ${
               checkedReceipts.includes(data[index].invNum)
                 ? "bg-blue-200"
                 : "bg-gray-200"
             }`}
             onClick={(event) => handleCheck(event, data[index].invNum)}
-          ></div>
+          ></div> */}
+          <Avatar name={data[index].sellerName} />
         </div>
         {/* Primary text */}
         <div className="m-auto grow overflow-hidden text-sm">
