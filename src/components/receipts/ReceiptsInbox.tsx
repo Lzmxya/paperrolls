@@ -29,7 +29,7 @@ function ReceiptsInbox() {
   if (!receipts) {
     return (
       // TODO: skeleton loading
-      <div className="flex grow flex-col self-center text-center">
+      <div className="grow self-center text-center">
         <h2 className="m-2 text-xl">正在載入…</h2>
       </div>
     );
@@ -37,7 +37,7 @@ function ReceiptsInbox() {
 
   if (receipts.length === 0) {
     return (
-      <div className="flex grow flex-col self-center text-center">
+      <div className="grow self-center text-center">
         <h2 className="m-2 text-xl">沒有發票</h2>
         <p className="text-gray-500">
           將由財政部寄送的「消費資訊」郵件中的 .csv
