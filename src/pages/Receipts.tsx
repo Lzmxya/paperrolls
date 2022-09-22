@@ -20,10 +20,7 @@ function Receipts() {
   });
 
   return (
-    <main
-      {...getRootProps()}
-      className="relative ml-[4.5rem] mb-2 mr-2 flex w-full overflow-hidden rounded-xl bg-white "
-    >
+    <div {...getRootProps()} className="relative flex grow">
       <input {...getInputProps()} />
       {isDragActive && (
         <div className="absolute z-10 flex h-full w-full items-center justify-center rounded-xl border-2 border-blue-400 bg-blue-100">
@@ -36,7 +33,7 @@ function Receipts() {
         </div>
       )}
       <ReceiptsInbox />
-    </main>
+    </div>
   );
 }
 

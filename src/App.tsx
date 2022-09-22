@@ -1,10 +1,11 @@
+import { Outlet } from "react-router-dom";
+
 import Layout from "./components/Layout";
-import Receipts from "./pages/Receipts";
 
 function App() {
   return (
     <Layout>
-      <Receipts />
+      <Outlet />
     </Layout>
   );
 }

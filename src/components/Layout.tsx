@@ -11,7 +11,9 @@ function Layout({ children }: Props) {
       <Header />
       <div className="flex h-[calc(100vh-4rem)] flex-grow">
         <Aside />
-        {children}
+        <main className="ml-[4.5rem] mb-2 mr-2 flex grow overflow-hidden rounded-xl bg-white">
+          {children}
+        </main>
       </div>
     </div>
   );
