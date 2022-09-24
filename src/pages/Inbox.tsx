@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 
-import { db } from "../../models/db";
-import ReceiptsList from "./ReceiptsList";
-import InboxDetail from "./InboxDetail";
+import { db } from "../models/db";
+import ReceiptsList from "../components/receipts/ReceiptsList";
+import InboxDetail from "../components/receipts/InboxDetail";
 
 interface ReceiptsListTitleProps {
   currentMonth: number;
@@ -19,7 +19,7 @@ const ReceiptsListTitle = ({ currentMonth }: ReceiptsListTitleProps) => (
   </div>
 );
 
-function ReceiptsInbox() {
+function Inbox() {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
 
   const receipts = useLiveQuery(() =>
@@ -60,4 +60,4 @@ function ReceiptsInbox() {
   );
 }
 
-export default ReceiptsInbox;
+export default Inbox;

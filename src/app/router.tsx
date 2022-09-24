@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 
 import App from "../App";
 // import ErrorBoundary from "../components/ErrorBoundary";
-import Receipts from "../pages/Receipts";
+import Inbox from "../pages/Inbox";
 import Statistics from "../pages/Statistics";
 
 const router = createBrowserRouter([
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Receipts />,
+        element: <Inbox />,
       },
       {
         path: "stats",
