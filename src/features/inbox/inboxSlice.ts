@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Receipt } from "../../models/Receipt";
+import { Receipt } from "@/models/Receipt";
 
 export interface InboxState {
   selectedReceipt: {

@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { FileWithPath } from "file-selector";
 
-import { importReceipts } from "../utils";
+import { importReceipts } from "@/utils";
 
 import Header from "./Header";
 import Aside from "./Aside";

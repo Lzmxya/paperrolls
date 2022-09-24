@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 
-import { db } from "../models/db";
-import ReceiptsList from "../components/receipts/ReceiptsList";
-import InboxDetail from "../components/receipts/InboxDetail";
+import { db } from "@/models/db";
+import ReceiptsList from "@/components/receipts/ReceiptsList";
+import InboxDetail from "@/components/receipts/InboxDetail";
 
 interface ReceiptsListTitleProps {
   currentMonth: number;

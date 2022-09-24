@@ -1,7 +1,7 @@
 import NavigationPill from "./NavigationPill";
-import iconInbox from "../assets/images/ic-inbox.svg";
-import iconStats from "../assets/images/ic-stats.svg";
-import iconMap from "../assets/images/ic-map.svg";
+import iconInbox from "@/assets/images/ic-inbox.svg";
+import iconStats from "@/assets/images/ic-stats.svg";
+import iconMap from "@/assets/images/ic-map.svg";
 
 export default function Aside() {
   return (

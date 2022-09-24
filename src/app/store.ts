@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import inboxReducer from "../features/inbox/inboxSlice";
+import inboxReducer from "@/features/inbox/inboxSlice";
 
 export const store = configureStore({
   reducer: {

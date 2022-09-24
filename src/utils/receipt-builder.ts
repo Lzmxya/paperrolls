@@ -1,8 +1,8 @@
 import Papa, { ParseResult } from "papaparse";
 import { FileWithPath } from "file-selector";
 
-import { db } from "../models/db";
-import { Receipt } from "../models/Receipt";
+import { db } from "@/models/db";
+import { Receipt } from "@/models/Receipt";
 
 type ResultDataRows = {
   [index in 0]: string;
