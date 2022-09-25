@@ -103,7 +103,7 @@ export function InboxList({ data, setCurrentMonth }: InboxListProps) {
   );
 
   return (
-    <div className="grow">
+    <div className="grow cursor-pointer">
       <AutoSizer>
         {({ width, height }) => (
           <FixedSizeList
