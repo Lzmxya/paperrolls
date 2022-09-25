@@ -2,14 +2,13 @@ import { useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 
 import { db } from "@/models/db";
-import ReceiptsList from "@/components/receipts/ReceiptsList";
-import InboxDetail from "@/components/receipts/InboxDetail";
+import { InboxDetail, InboxList } from "@/features/inbox";
 
-interface ReceiptsListTitleProps {
+interface InboxListTitleProps {
   currentMonth: number;
 }
 
-const ReceiptsListTitle = ({ currentMonth }: ReceiptsListTitleProps) => (
+const InboxListTitle = ({ currentMonth }: InboxListTitleProps) => (
   <div className="flex h-14 border-b border-gray-200">
     <div className="m-4 flex gap-2">
       <div>🔽</div>
@@ -50,8 +49,8 @@ function Inbox() {
   return (
     <div className="flex grow divide-x">
       <div className="flex w-[50%] flex-col">
-        <ReceiptsListTitle currentMonth={currentMonth} />
-        <ReceiptsList data={receipts} setCurrentMonth={setCurrentMonth} />
+        <InboxListTitle currentMonth={currentMonth} />
+        <InboxList data={receipts} setCurrentMonth={setCurrentMonth} />
       </div>
       <div className="flex w-[50%]">
         <InboxDetail data={receipts} />

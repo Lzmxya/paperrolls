@@ -1,18 +1,14 @@
 import { memo, useEffect, useRef } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import {
-  previousSelected,
-  nextSelected,
-  clearSelected,
-} from "../../features/inbox/inboxSlice";
-import { Receipt } from "../../models/Receipt";
-import Avatar from "../Avatar";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { previousSelected, nextSelected, clearSelected } from "../inboxSlice";
+import { Receipt } from "@/models/Receipt";
+import Avatar from "@/components/Avatar";
 
 interface InboxDetailProps {
   data: Receipt[];
 }
 
-function InboxDetail({ data }: InboxDetailProps) {
+function _InboxDetail({ data }: InboxDetailProps) {
   const index = useAppSelector((state) => state.inbox.selectedReceipt.current);
   const endIndex = data.length - 1;
 
@@ -168,4 +164,4 @@ function InboxDetail({ data }: InboxDetailProps) {
   );
 }
 
-export default memo(InboxDetail);
+export const InboxDetail = memo(_InboxDetail);

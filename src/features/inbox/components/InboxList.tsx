@@ -1,14 +1,13 @@
 import { CSSProperties, MouseEvent } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-// eslint-disable-next-line prettier/prettier
-import { InboxState, setSelected, toggleChecked } from "../../features/inbox/inboxSlice";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { InboxState, setSelected, toggleChecked } from "../inboxSlice";
 import { FixedSizeList } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
-import { Receipt } from "../../models/Receipt";
-import Avatar from "../Avatar";
+import { Receipt } from "@/models/Receipt";
+import Avatar from "@/components/Avatar";
 
-interface ReceiptsListProps {
+interface InboxListProps {
   data: Receipt[];
   setCurrentMonth: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -27,7 +26,7 @@ const receiptDetailPreviewString = (details: Receipt["details"]) => {
   return descriptions;
 };
 
-const ReceiptsList = ({ data, setCurrentMonth }: ReceiptsListProps) => {
+export function InboxList({ data, setCurrentMonth }: InboxListProps) {
   const { selectedReceipt, checkedReceipts } = useAppSelector(
     (state) => state.inbox
   );
@@ -123,6 +122,4 @@ const ReceiptsList = ({ data, setCurrentMonth }: ReceiptsListProps) => {
       </AutoSizer>
     </div>
   );
-};
-
-export default ReceiptsList;
+}
