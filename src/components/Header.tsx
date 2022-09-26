@@ -1,3 +1,5 @@
+import { SearchField } from "@/features/search";
+
 function Header() {
   return (
     <header className="flex h-16 items-center p-2">
@@ -7,12 +9,8 @@ function Header() {
         <h1 className="ml-2 text-2xl">發票</h1>
       </div>
       {/* Search field */}
-      <div className="flex-grow">
-        <input
-          placeholder="在發票中搜尋"
-          type="text"
-          className="h-12 w-full max-w-[45rem] rounded-lg bg-blue-100 p-4 transition-all focus:bg-white focus:shadow-md focus:outline-none"
-        />
+      <div className="w-[45rem]">
+        <SearchField />
       </div>
       {/* Overflow menu */}
       <div></div>
