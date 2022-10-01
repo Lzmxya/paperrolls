@@ -1,7 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+// Redux
+import { useAppDispatch } from "@/app/hooks";
+import { clearChecked, clearSelected } from "@/features/inbox/inboxSlice";
+// Dexie
 import { useLiveQuery } from "dexie-react-hooks";
+// Router
+import { useSearchParams } from "react-router-dom";
+// Fuse
+import Fuse from "fuse.js";
 
 import { db } from "@/models/db";
+import { Receipt } from "@/models/Receipt";
+import { queryBuilder } from "@/features/search";
 import { InboxDetail, InboxList } from "@/features/inbox";
 
 interface InboxListTitleProps {
@@ -20,10 +30,37 @@ const InboxListTitle = ({ currentMonth }: InboxListTitleProps) => (
 
 function Inbox() {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchResult, setSearchResult] = useState<Receipt[] | null>(null);
+  const dispatch = useAppDispatch();
 
   const receipts = useLiveQuery(() =>
     db.receipts.orderBy("invDate").reverse().toArray()
   );
+
+  const fuse = new Fuse(receipts || [], {
+    includeScore: true,
+    includeMatches: true,
+    keys: ["sellerName", "details.description"],
+  });
+
+  useEffect(() => {
+    const keywords = searchParams.get("q");
+
+    if (keywords) {
+      const query = queryBuilder(keywords, [
+        "sellerName",
+        "details.description",
+      ]);
+      const result = fuse.search(query).map((result) => result.item);
+      setSearchResult(result);
+    } else {
+      setSearchResult(null);
+    }
+
+    dispatch(clearChecked());
+    dispatch(clearSelected());
+  }, [searchParams]);
 
   if (!receipts) {
     return (
@@ -50,10 +87,13 @@ function Inbox() {
     <div className="flex grow divide-x">
       <div className="flex w-[50%] flex-col">
         <InboxListTitle currentMonth={currentMonth} />
-        <InboxList data={receipts} setCurrentMonth={setCurrentMonth} />
+        <InboxList
+          data={searchResult || receipts}
+          setCurrentMonth={setCurrentMonth}
+        />
       </div>
       <div className="flex w-[50%]">
-        <InboxDetail data={receipts} />
+        <InboxDetail data={searchResult || receipts} />
       </div>
     </div>
   );
