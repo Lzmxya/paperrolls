@@ -9,7 +9,9 @@ interface InboxDetailProps {
   data: Receipt[];
 }
 
-function _InboxDetail({ data }: InboxDetailProps) {
+export const InboxDetail = memo(function InboxDetail({
+  data,
+}: InboxDetailProps) {
   const index = useAppSelector((state) => state.inbox.selectedReceipt.current);
   const endIndex = data.length - 1;
 
@@ -21,6 +23,7 @@ function _InboxDetail({ data }: InboxDetailProps) {
   const handleClose = () => dispatch(clearSelected());
 
   const scrollContainer = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     scrollContainer?.current?.scrollTo(0, 0);
   }, [index]);
@@ -167,6 +170,4 @@ function _InboxDetail({ data }: InboxDetailProps) {
       </div>
     </div>
   );
-}
-
-export const InboxDetail = memo(_InboxDetail);
+});
