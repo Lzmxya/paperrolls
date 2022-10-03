@@ -101,9 +101,9 @@ function _InboxDetail({ data }: InboxDetailProps) {
         <table className="mt-[-0.25rem] border-separate border-spacing-y-2">
           <thead>
             <tr className="text-sm">
-              <th className="w-[60%] text-left font-normal">品項</th>
-              <th className="w-[20%] text-right font-normal">件數</th>
-              <th className="w-[20%] text-right font-normal">小計</th>
+              <th className="w-3/5 text-left font-normal">品項</th>
+              <th className="w-1/5 text-right font-normal">件數</th>
+              <th className="w-1/5 text-right font-normal">小計</th>
             </tr>
           </thead>
           <tbody>

@@ -89,14 +89,14 @@ function Inbox() {
 
   return (
     <div className="flex grow divide-x">
-      <div className="flex w-[50%] flex-col">
+      <div className="flex w-1/2 flex-col">
         <InboxListTitle currentMonth={currentMonth} />
         <InboxList
           data={searchResult || receipts}
           setCurrentMonth={setCurrentMonth}
         />
       </div>
-      <div className="flex w-[50%]">
+      <div className="flex w-1/2">
         <InboxDetail data={searchResult || receipts} />
       </div>
     </div>
