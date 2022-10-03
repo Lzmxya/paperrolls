@@ -1,7 +1,7 @@
-import { CSSProperties, MouseEvent } from "react";
+import { memo, CSSProperties, MouseEvent } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { InboxState, setSelected, toggleChecked } from "../inboxSlice";
-import { FixedSizeList } from "react-window";
+import { FixedSizeList, areEqual } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
 import { SearchHighlighter } from "@/features/search";
@@ -46,32 +46,33 @@ export function InboxList({ data, setCurrentMonth }: InboxListProps) {
     dispatch(toggleChecked(payload));
   };
 
-  const Row = ({ index, style }: RowProps) => (
-    <a
-      href=""
-      onClick={(event) =>
-        handleSelect(event, {
-          previous: index - 1,
-          current: index,
-          next: index + 1,
-        })
-      }
-    >
-      <div
-        style={style}
-        className={`relative flex border-b border-gray-200 hover:z-20 hover:shadow-md ${
-          selectedReceipt.current === index
-            ? "z-10 bg-blue-100 shadow-md"
-            : "bg-white"
-        }`}
+  const Row = memo(function Row({ index, style }: RowProps) {
+    return (
+      <a
+        href=""
+        onClick={(event) =>
+          handleSelect(event, {
+            previous: index - 1,
+            current: index,
+            next: index + 1,
+          })
+        }
       >
-        {/* Indicator */}
-        {selectedReceipt.current === index && (
-          <div className="absolute top-0 left-0 h-full w-1 bg-blue-400"></div>
-        )}
-        {/* Supporting visuals */}
-        <div className="h-20 w-20 shrink-0 p-4">
-          {/* <div
+        <div
+          style={style}
+          className={`relative flex border-b border-gray-200 hover:z-20 hover:shadow-md ${
+            selectedReceipt.current === index
+              ? "z-10 bg-blue-100 shadow-md"
+              : "bg-white"
+          }`}
+        >
+          {/* Indicator */}
+          {selectedReceipt.current === index && (
+            <div className="absolute top-0 left-0 h-full w-1 bg-blue-400"></div>
+          )}
+          {/* Supporting visuals */}
+          <div className="h-20 w-20 shrink-0 p-4">
+            {/* <div
             className={`h-12 w-12 rounded-full ${
               checkedReceipts.includes(data[index].invNum)
                 ? "bg-blue-200"
@@ -79,33 +80,34 @@ export function InboxList({ data, setCurrentMonth }: InboxListProps) {
             }`}
             onClick={(event) => handleCheck(event, data[index].invNum)}
           ></div> */}
-          <Avatar name={data[index].sellerName} />
-        </div>
-        {/* Primary text */}
-        <div className="m-auto grow overflow-hidden text-sm">
-          <p className="truncate font-bold">{data[index].invNum}</p>
-          <p className="truncate text-gray-700">
-            <SearchHighlighter content={data[index].sellerName} />
-          </p>
-          <p className="truncate text-gray-700">
-            <SearchHighlighter
-              content={receiptDetailPreviewString(data[index].details)}
-            />
-          </p>
-        </div>
-        {/* Metadata */}
-        {/* TODO: FormatJS */}
-        <div className="flex flex-col items-end justify-between whitespace-nowrap py-[0.625rem] pl-2 pr-4">
-          <div>
-            <p className="text-sm">{data[index].amount} 元</p>
+            <Avatar name={data[index].sellerName} />
           </div>
-          <div>
-            <p className="text-xs">{data[index].invDate.toLocaleString()}</p>
+          {/* Primary text */}
+          <div className="m-auto grow overflow-hidden text-sm">
+            <p className="truncate font-bold">{data[index].invNum}</p>
+            <p className="truncate text-gray-700">
+              <SearchHighlighter content={data[index].sellerName} />
+            </p>
+            <p className="truncate text-gray-700">
+              <SearchHighlighter
+                content={receiptDetailPreviewString(data[index].details)}
+              />
+            </p>
+          </div>
+          {/* Metadata */}
+          {/* TODO: FormatJS */}
+          <div className="flex flex-col items-end justify-between whitespace-nowrap py-[0.625rem] pl-2 pr-4">
+            <div>
+              <p className="text-sm">{data[index].amount} 元</p>
+            </div>
+            <div>
+              <p className="text-xs">{data[index].invDate.toLocaleString()}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </a>
-  );
+      </a>
+    );
+  }, areEqual);
 
   return (
     <div className="grow cursor-pointer">
