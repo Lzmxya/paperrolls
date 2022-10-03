@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import inboxReducer from "@/features/inbox/inboxSlice";
+import searchReducer from "@/features/search/searchSlice";
 
 export const store = configureStore({
   reducer: {
     inbox: inboxReducer,
+    search: searchReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -4,6 +4,7 @@ import { InboxState, setSelected, toggleChecked } from "../inboxSlice";
 import { FixedSizeList } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
+import { SearchHighlighter } from "@/features/search";
 import { Receipt } from "@/models/Receipt";
 import Avatar from "@/components/Avatar";
 
@@ -83,9 +84,13 @@ export function InboxList({ data, setCurrentMonth }: InboxListProps) {
         {/* Primary text */}
         <div className="m-auto grow overflow-hidden text-sm">
           <p className="truncate font-bold">{data[index].invNum}</p>
-          <p className="truncate text-gray-700">{data[index].sellerName}</p>
           <p className="truncate text-gray-700">
-            {receiptDetailPreviewString(data[index].details)}
+            <SearchHighlighter content={data[index].sellerName} />
+          </p>
+          <p className="truncate text-gray-700">
+            <SearchHighlighter
+              content={receiptDetailPreviewString(data[index].details)}
+            />
           </p>
         </div>
         {/* Metadata */}

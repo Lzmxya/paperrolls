@@ -2,6 +2,7 @@ import { memo, useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { previousSelected, nextSelected, clearSelected } from "../inboxSlice";
 import { Receipt } from "@/models/Receipt";
+import { SearchHighlighter } from "@/features/search";
 import Avatar from "@/components/Avatar";
 
 interface InboxDetailProps {
@@ -65,7 +66,9 @@ function _InboxDetail({ data }: InboxDetailProps) {
               {/* Invoice Number and Seller Name */}
               <div>
                 <h2 className="text-2xl">{data[index].invNum}</h2>
-                <p>{data[index].sellerName}</p>
+                <p>
+                  <SearchHighlighter content={data[index].sellerName} />
+                </p>
               </div>
               {/* Menu */}
               <div>
@@ -106,7 +109,9 @@ function _InboxDetail({ data }: InboxDetailProps) {
           <tbody>
             {data[index].details.map((detail, index) => (
               <tr key={index}>
-                <td className="text-left">{detail.description}</td>
+                <td className="text-left">
+                  <SearchHighlighter content={detail.description} />
+                </td>
                 <td className="text-right">1</td>
                 <td className="text-right">{detail.amount}</td>
               </tr>

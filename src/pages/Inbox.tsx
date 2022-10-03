@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 // Redux
-import { useAppDispatch } from "@/app/hooks";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { clearChecked, clearSelected } from "@/features/inbox/inboxSlice";
+import { clearKeywords, setKeywords } from "@/features/search/searchSlice";
 // Dexie
 import { useLiveQuery } from "dexie-react-hooks";
 // Router
@@ -30,8 +31,9 @@ const InboxListTitle = ({ currentMonth }: InboxListTitleProps) => (
 
 function Inbox() {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [searchResult, setSearchResult] = useState<Receipt[] | null>(null);
+  const keywords = useAppSelector((state) => state.search.keywords);
   const dispatch = useAppDispatch();
 
   const receipts = useLiveQuery(() =>
@@ -45,9 +47,14 @@ function Inbox() {
   });
 
   useEffect(() => {
-    const keywords = searchParams.get("q");
+    const queryString = searchParams.get("q");
+    dispatch(queryString ? setKeywords(queryString) : clearKeywords());
+    dispatch(clearChecked());
+    dispatch(clearSelected());
+  }, [searchParams]);
 
-    if (keywords) {
+  useEffect(() => {
+    if (keywords.length !== 0) {
       const query = queryBuilder(keywords, [
         "sellerName",
         "details.description",
@@ -57,10 +64,7 @@ function Inbox() {
     } else {
       setSearchResult(null);
     }
-
-    dispatch(clearChecked());
-    dispatch(clearSelected());
-  }, [searchParams]);
+  }, [keywords]);
 
   if (!receipts) {
     return (
