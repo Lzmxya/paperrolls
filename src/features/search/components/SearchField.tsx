@@ -1,9 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Form, useSearchParams } from "react-router-dom";
+import { useSearchHotkeys } from "@/features/search";
 
 export function SearchField() {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const queryString = searchParams.get("q");
+
+  useSearchHotkeys(inputRef);
 
   useEffect(() => {
     if (queryString) {
@@ -24,6 +28,7 @@ export function SearchField() {
         }}
       >
         <input
+          ref={inputRef}
           id="q"
           name="q"
           type="search"
