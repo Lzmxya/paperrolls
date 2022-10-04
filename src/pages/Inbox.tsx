@@ -12,7 +12,7 @@ import Fuse from "fuse.js";
 
 import { db } from "@/models/db";
 import { Receipt } from "@/models/Receipt";
-import { queryBuilder } from "@/features/search";
+import { fuseOptions, queryBuilder } from "@/features/search";
 import { InboxDetail, InboxList } from "@/features/inbox";
 
 interface InboxListTitleProps {
@@ -40,11 +40,7 @@ function Inbox() {
     db.receipts.orderBy("invDate").reverse().toArray()
   );
 
-  const fuse = new Fuse(receipts || [], {
-    includeScore: true,
-    includeMatches: true,
-    keys: ["sellerName", "details.description"],
-  });
+  const fuse = new Fuse(receipts || [], fuseOptions);
 
   useEffect(() => {
     const queryString = searchParams.get("q");
@@ -55,10 +51,7 @@ function Inbox() {
 
   useEffect(() => {
     if (keywords.length !== 0) {
-      const query = queryBuilder(keywords, [
-        "sellerName",
-        "details.description",
-      ]);
+      const query = queryBuilder(keywords, fuseOptions.keys);
       const result = fuse.search(query).map((result) => result.item);
       setSearchResult(result);
     } else {
