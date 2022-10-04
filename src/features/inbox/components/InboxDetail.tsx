@@ -59,7 +59,7 @@ export const InboxDetail = memo(function InboxDetail({
         {/* Header */}
         <div className="flex gap-6">
           {/* Avatar */}
-          <div className="h-16 w-16">
+          <div className="h-16 w-16 shrink-0">
             <Avatar name={data[index].sellerName} className="text-lg" />
           </div>
           {/* Title */}
