@@ -32,7 +32,7 @@ function Layout({ children }: LayoutProps) {
         <Aside />
         <main
           {...getRootProps()}
-          className="relative mb-2 mr-2 flex grow overflow-hidden rounded-xl bg-white"
+          className="relative mb-20 flex grow overflow-hidden bg-white md:mb-2 md:mr-2 md:rounded-xl"
         >
           <input {...getInputProps()} />
           {isDragActive && (
