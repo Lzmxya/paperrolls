@@ -70,7 +70,7 @@
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.2",
     "react-highlight-words": "^0.18.0",
-    "react-redux": "^8.0.2",
+    "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.0",
     "react-virtualized-auto-sizer": "^1.0.7",
     "react-window": "^1.8.7"
