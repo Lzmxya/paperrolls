@@ -35,7 +35,7 @@ const Avatar = ({ className, name }: AvatarProps) => {
       className={`flex h-full w-full items-center justify-center rounded-full text-white ${className}`}
       style={{ backgroundColor: color }}
     >
-      <p>{shortName}</p>
+      <p className="select-none">{shortName}</p>
     </div>
   );
 };
