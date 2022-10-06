@@ -47,13 +47,13 @@ export const InboxDetail = memo(function InboxDetail({
         </p>
         <IconButton
           label="上一張"
-          icon="back"
+          icon="chevron-left"
           onClick={handlePrevious}
           disabled={index === 0}
         />
         <IconButton
           label="下一張"
-          icon="next"
+          icon="chevron-right"
           onClick={handleNext}
           disabled={index === endIndex}
         />
