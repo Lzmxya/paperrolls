@@ -55,7 +55,7 @@ export default function IconButton({
           fileName={icon}
           className={`m-2 stroke-transparent stroke-0 transition-all ${
             disabled
-              ? "opacity-50"
+              ? "opacity-30"
               : "group-hover:stroke-black group-hover:stroke-1"
           }`}
         />
