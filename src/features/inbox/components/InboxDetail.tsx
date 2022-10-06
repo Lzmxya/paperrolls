@@ -3,7 +3,9 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { previousSelected, nextSelected, clearSelected } from "../inboxSlice";
 import { Receipt } from "@/models/Receipt";
 import { SearchHighlighter } from "@/features/search";
+
 import Avatar from "@/components/Avatar";
+import IconButton from "@/components/IconButton";
 
 interface InboxDetailProps {
   data: Receipt[];
@@ -39,17 +41,23 @@ export const InboxDetail = memo(function InboxDetail({
   return (
     <div className="flex grow flex-col gap-2">
       {/* Toolbar */}
-      <div className="flex h-14 shrink-0 justify-end gap-4 p-6">
-        <p className="text-gray-700">
+      <div className="mx-2 flex h-14 shrink-0 items-center justify-end">
+        <p className="mx-2 select-none text-gray-700">
           {index + 1} / {endIndex + 1}
         </p>
-        <button onClick={handlePrevious} disabled={index === 0}>
-          ⬅
-        </button>
-        <button onClick={handleNext} disabled={index === endIndex}>
-          ➡
-        </button>
-        <button onClick={handleClose}>❎</button>
+        <IconButton
+          label="上一張"
+          icon="back"
+          onClick={handlePrevious}
+          disabled={index === 0}
+        />
+        <IconButton
+          label="下一張"
+          icon="next"
+          onClick={handleNext}
+          disabled={index === endIndex}
+        />
+        <IconButton label="關閉" icon="close" onClick={handleClose} />
       </div>
 
       <div
