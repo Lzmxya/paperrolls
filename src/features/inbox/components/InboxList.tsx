@@ -1,6 +1,11 @@
 import { memo, CSSProperties, MouseEvent } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { InboxState, setSelected, toggleChecked } from "../inboxSlice";
+import {
+  InboxState,
+  setSelected,
+  toggleChecked,
+  setViewportDate,
+} from "../inboxSlice";
 import { FixedSizeList, areEqual } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
@@ -10,7 +15,6 @@ import Avatar from "@/components/Avatar";
 
 interface InboxListProps {
   data: Receipt[];
-  setCurrentMonth: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface RowProps {
@@ -27,8 +31,8 @@ const receiptDetailPreviewString = (details: Receipt["details"]) => {
   return descriptions;
 };
 
-export function InboxList({ data, setCurrentMonth }: InboxListProps) {
-  const { selectedReceipt, checkedReceipts } = useAppSelector(
+export function InboxList({ data }: InboxListProps) {
+  const { selectedReceipt, checkedReceipts, viewportDate } = useAppSelector(
     (state) => state.inbox
   );
 
@@ -119,9 +123,12 @@ export function InboxList({ data, setCurrentMonth }: InboxListProps) {
             itemSize={80}
             width={width}
             overscanCount={10}
-            onItemsRendered={({ visibleStartIndex }) =>
-              setCurrentMonth(data[visibleStartIndex].invDate.getMonth())
-            }
+            onItemsRendered={({ visibleStartIndex }) => {
+              const startIndexDate = data[visibleStartIndex].invDate;
+              if (startIndexDate.getMonth() !== viewportDate?.getMonth()) {
+                dispatch(setViewportDate(startIndexDate));
+              }
+            }}
           >
             {Row}
           </FixedSizeList>

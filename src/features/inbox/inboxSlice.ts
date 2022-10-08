@@ -8,6 +8,7 @@ export interface InboxState {
     next: number | null;
   };
   checkedReceipts: Receipt["invNum"][];
+  viewportDate: Date | null;
 }
 
 const initialState: InboxState = {
@@ -17,6 +18,7 @@ const initialState: InboxState = {
     next: null,
   },
   checkedReceipts: [],
+  viewportDate: null,
 };
 
 const inboxSlice = createSlice({
@@ -49,6 +51,10 @@ const inboxSlice = createSlice({
     clearSelected(state) {
       state.selectedReceipt = initialState.selectedReceipt;
     },
+    // viewport date
+    setViewportDate(state, action: PayloadAction<InboxState["viewportDate"]>) {
+      state.viewportDate = action.payload;
+    },
   },
 });
 
@@ -59,5 +65,6 @@ export const {
   previousSelected,
   nextSelected,
   clearSelected,
+  setViewportDate,
 } = inboxSlice.actions;
 export default inboxSlice.reducer;

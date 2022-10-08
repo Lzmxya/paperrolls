@@ -13,24 +13,9 @@ import Fuse from "fuse.js";
 import { db } from "@/models/db";
 import { Receipt } from "@/models/Receipt";
 import { fuseOptions, queryBuilder } from "@/features/search";
-import { InboxDetail, InboxList } from "@/features/inbox";
-
-interface InboxListTitleProps {
-  currentMonth: number;
-}
-
-const InboxListTitle = ({ currentMonth }: InboxListTitleProps) => (
-  <div className="flex h-14 border-b border-gray-200">
-    <div className="m-4 flex gap-2">
-      <div>🔽</div>
-      <div className="text-xl text-gray-700">{currentMonth + 1} 月</div>
-      <div>🔼</div>
-    </div>
-  </div>
-);
+import { InboxDetail, InboxList, InboxToolbar } from "@/features/inbox";
 
 function Inbox() {
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [searchParams] = useSearchParams();
   const [searchResult, setSearchResult] = useState<Receipt[] | null>(null);
   const keywords = useAppSelector((state) => state.search.keywords);
@@ -83,11 +68,8 @@ function Inbox() {
   return (
     <div className="flex grow divide-x">
       <div className="flex w-1/2 flex-col">
-        <InboxListTitle currentMonth={currentMonth} />
-        <InboxList
-          data={searchResult || receipts}
-          setCurrentMonth={setCurrentMonth}
-        />
+        <InboxToolbar />
+        <InboxList data={searchResult || receipts} />
       </div>
       <div className="flex w-1/2">
         <InboxDetail data={searchResult || receipts} />
