@@ -1,4 +1,4 @@
-import { memo, CSSProperties, MouseEvent } from "react";
+import { memo, CSSProperties, MouseEvent, useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import {
   InboxState,
@@ -32,11 +32,13 @@ const receiptDetailPreviewString = (details: Receipt["details"]) => {
 };
 
 export function InboxList({ data }: InboxListProps) {
+  const listRef = useRef<FixedSizeList>(null);
+
+  const dispatch = useAppDispatch();
   const { selectedReceipt, checkedReceipts, viewportDate } = useAppSelector(
     (state) => state.inbox
   );
 
-  const dispatch = useAppDispatch();
   const handleSelect = (
     event: MouseEvent,
     payload: InboxState["selectedReceipt"]
@@ -113,11 +115,18 @@ export function InboxList({ data }: InboxListProps) {
     );
   }, areEqual);
 
+  useEffect(() => {
+    if (selectedReceipt.current !== null) {
+      listRef.current?.scrollToItem(selectedReceipt.current);
+    }
+  }, [selectedReceipt]);
+
   return (
     <div className="grow cursor-pointer">
       <AutoSizer>
         {({ width, height }) => (
           <FixedSizeList
+            ref={listRef}
             height={height}
             itemCount={data.length}
             itemSize={80}
