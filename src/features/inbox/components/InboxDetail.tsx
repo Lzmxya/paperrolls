@@ -6,6 +6,9 @@ import { SearchHighlighter } from "@/features/search";
 
 import Avatar from "@/components/Avatar";
 import IconButton from "@/components/IconButton";
+import { ReactComponent as ChevronLeft } from "@/assets/images/icons/chevron-left.svg";
+import { ReactComponent as ChevronRight } from "@/assets/images/icons/chevron-right.svg";
+import { ReactComponent as Close } from "@/assets/images/icons/close.svg";
 
 interface InboxDetailProps {
   data: Receipt[];
@@ -47,17 +50,17 @@ export const InboxDetail = memo(function InboxDetail({
         </p>
         <IconButton
           label="上一張"
-          icon="chevron-left"
+          icon={<ChevronLeft />}
           onClick={handlePrevious}
           disabled={index === 0}
         />
         <IconButton
           label="下一張"
-          icon="chevron-right"
+          icon={<ChevronRight />}
           onClick={handleNext}
           disabled={index === endIndex}
         />
-        <IconButton label="關閉" icon="close" onClick={handleClose} />
+        <IconButton label="關閉" icon={<Close />} onClick={handleClose} />
       </div>
 
       <div

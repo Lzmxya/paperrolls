@@ -1,40 +1,19 @@
-import { useEffect, useState } from "react";
+import { cloneElement, MouseEventHandler, ReactElement } from "react";
 import Ripples from "react-ripples";
 
 interface IconButtonProps {
-  icon: string;
+  icon: ReactElement;
   label: string;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  disabled?: boolean;
-}
-
-interface SvgIconProps {
-  fileName: string;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   className?: string;
-}
-
-/**
- * see {@link https://stackoverflow.com/a/71199308}.
- */
-function SvgIcon({ fileName, className }: SvgIconProps) {
-  const [element, setElement] = useState<JSX.Element | null>(null);
-
-  useEffect(() => {
-    import(`../assets/images/icons/${fileName}.svg`).then((res) => {
-      const Icon = res.ReactComponent as React.ComponentType<
-        JSX.IntrinsicElements["svg"]
-      >;
-      setElement(<Icon className={className} />);
-    });
-  }, [fileName, className]);
-
-  return element;
+  disabled?: boolean;
 }
 
 export default function IconButton({
   icon,
   label,
   onClick,
+  className,
   disabled,
 }: IconButtonProps) {
   return (
@@ -45,20 +24,19 @@ export default function IconButton({
     >
       <button
         className={`group h-10 w-10 rounded-full transition-all ${
-          disabled ? "" : "hover:bg-gray-100"
+          disabled ? "" : "hover:bg-black/[.05]"
         }`}
         onClick={onClick}
         disabled={disabled || false}
         title={label}
       >
-        <SvgIcon
-          fileName={icon}
-          className={`m-2 stroke-transparent stroke-0 transition-all ${
+        {cloneElement(icon, {
+          className: `m-2 stroke-transparent stroke-0 transition-all ${
             disabled
               ? "opacity-30"
               : "group-hover:stroke-black group-hover:stroke-1"
-          }`}
-        />
+          } ${className}`,
+        })}
       </button>
     </Ripples>
   );
