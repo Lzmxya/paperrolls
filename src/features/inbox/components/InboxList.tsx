@@ -12,6 +12,10 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import { SearchHighlighter } from "@/features/search";
 import { Receipt } from "@/models/Receipt";
 import Avatar from "@/components/Avatar";
+import IconButton from "@/components/IconButton";
+import { ReactComponent as Delete } from "@/assets/images/icons/delete.svg";
+import { ReactComponent as Archive } from "@/assets/images/icons/archive.svg";
+import { ReactComponent as Star } from "@/assets/images/icons/star.svg";
 
 interface InboxListProps {
   data: Receipt[];
@@ -66,7 +70,7 @@ export function InboxList({ data }: InboxListProps) {
       >
         <div
           style={style}
-          className={`relative flex border-b border-gray-200 hover:z-20 hover:shadow-md ${
+          className={`group relative flex border-b border-gray-200 hover:z-20 hover:shadow-md ${
             selectedReceipt.current === index
               ? "z-10 bg-blue-100 shadow-md"
               : "bg-white"
@@ -102,12 +106,43 @@ export function InboxList({ data }: InboxListProps) {
           </div>
           {/* Metadata */}
           {/* TODO: FormatJS */}
-          <div className="flex flex-col items-end justify-between whitespace-nowrap py-[0.625rem] pl-2 pr-4">
-            <div>
+          <div className="flex flex-col items-end justify-between whitespace-nowrap pl-2">
+            <div className="mt-[0.625rem] mr-3">
               <p className="text-sm">{data[index].amount} 元</p>
             </div>
-            <div>
-              <p className="text-xs">{data[index].invDate.toLocaleString()}</p>
+            <div className="flex items-end">
+              <p className="mb-[0.625rem] text-xs  group-hover:invisible">
+                {data[index].invDate.toLocaleString("default", {
+                  month: "long",
+                  day: "numeric",
+                })}
+              </p>
+              <ul className="flex h-10">
+                <li className="hidden group-hover:list-item">
+                  <IconButton
+                    label="刪除"
+                    icon={<Delete />}
+                    onClick={() => null}
+                    className="opacity-60"
+                  />
+                </li>
+                <li className="hidden group-hover:list-item">
+                  <IconButton
+                    label="封存"
+                    icon={<Archive />}
+                    onClick={() => null}
+                    className="opacity-60"
+                  />
+                </li>
+                <li>
+                  <IconButton
+                    label="加上星號"
+                    icon={<Star />}
+                    onClick={() => null}
+                    className="opacity-60"
+                  />
+                </li>
+              </ul>
             </div>
           </div>
         </div>
