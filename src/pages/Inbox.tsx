@@ -16,16 +16,17 @@ import { fuseOptions, queryBuilder } from "@/features/search";
 import { InboxDetail, InboxList, InboxToolbar } from "@/features/inbox";
 
 function Inbox() {
-  const [searchParams] = useSearchParams();
-  const [searchResult, setSearchResult] = useState<Receipt[] | null>(null);
-  const keywords = useAppSelector((state) => state.search.keywords);
   const dispatch = useAppDispatch();
+  const [data, setData] = useState<Receipt[]>([]);
+  const [searchResult, setSearchResult] = useState<Receipt[] | null>(null);
+  const [searchParams] = useSearchParams();
+  const keywords = useAppSelector((state) => state.search.keywords);
+  const fuse = new Fuse(data, fuseOptions);
 
-  const receipts = useLiveQuery(() =>
-    db.receipts.orderBy("invDate").reverse().toArray()
-  );
-
-  const fuse = new Fuse(receipts || [], fuseOptions);
+  useLiveQuery(async () => {
+    const rows = await db.receipts.orderBy("invDate").reverse().toArray();
+    setData(rows);
+  });
 
   useEffect(() => {
     const queryString = searchParams.get("q");
@@ -42,9 +43,9 @@ function Inbox() {
     } else {
       setSearchResult(null);
     }
-  }, [keywords]);
+  }, [data, keywords]);
 
-  if (!receipts) {
+  if (!data) {
     return (
       // TODO: skeleton loading
       <div className="grow self-center text-center">
@@ -53,7 +54,7 @@ function Inbox() {
     );
   }
 
-  if (receipts.length === 0) {
+  if (data.length === 0) {
     return (
       <div className="grow self-center text-center">
         <h2 className="m-2 text-xl">沒有發票</h2>
@@ -69,10 +70,10 @@ function Inbox() {
     <div className="flex grow divide-x">
       <div className="flex w-1/2 flex-col">
         <InboxToolbar />
-        <InboxList data={searchResult || receipts} />
+        <InboxList data={searchResult || data} />
       </div>
       <div className="flex w-1/2">
-        <InboxDetail data={searchResult || receipts} />
+        <InboxDetail data={searchResult || data} />
       </div>
     </div>
   );
