@@ -9,13 +9,16 @@ import {
 import { FixedSizeList, areEqual } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
-import { SearchHighlighter } from "@/features/search";
+import { db } from "@/models/db";
 import { Receipt } from "@/models/Receipt";
+
+import { SearchHighlighter } from "@/features/search";
 import Avatar from "@/components/Avatar";
 import IconButton from "@/components/IconButton";
 import { ReactComponent as Delete } from "@/assets/images/icons/delete.svg";
 import { ReactComponent as Archive } from "@/assets/images/icons/archive.svg";
 import { ReactComponent as Star } from "@/assets/images/icons/star.svg";
+import { ReactComponent as Starred } from "@/assets/images/icons/starred.svg";
 
 interface InboxListProps {
   data: Receipt[];
@@ -121,25 +124,33 @@ export function InboxList({ data }: InboxListProps) {
                 <li className="hidden group-hover:list-item">
                   <IconButton
                     label="刪除"
-                    icon={<Delete />}
+                    icon={<Delete className="opacity-60" />}
                     onClick={() => null}
-                    className="opacity-60"
                   />
                 </li>
                 <li className="hidden group-hover:list-item">
                   <IconButton
                     label="封存"
-                    icon={<Archive />}
+                    icon={<Archive className="opacity-60" />}
                     onClick={() => null}
-                    className="opacity-60"
                   />
                 </li>
                 <li>
                   <IconButton
                     label="加上星號"
-                    icon={<Star />}
-                    onClick={() => null}
-                    className="opacity-60"
+                    icon={
+                      data[index].starred ? (
+                        <Starred className="fill-current text-amber-400" />
+                      ) : (
+                        <Star className="opacity-60" />
+                      )
+                    }
+                    onClick={(event) => {
+                      event.preventDefault();
+                      db.receipts.update(data[index], {
+                        starred: !data[index].starred,
+                      });
+                    }}
                   />
                 </li>
               </ul>
