@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { clearKeywords, setKeywords } from "../search/searchSlice";
 import { Receipt } from "@/models/Receipt";
 
 export interface InboxState {
@@ -55,6 +56,11 @@ const inboxSlice = createSlice({
     setViewportDate(state, action: PayloadAction<InboxState["viewportDate"]>) {
       state.viewportDate = action.payload;
     },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(clearKeywords, () => initialState)
+      .addCase(setKeywords, () => initialState);
   },
 });
 

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { clearChecked, clearSelected } from "@/features/inbox/inboxSlice";
 import { clearKeywords, setKeywords } from "@/features/search/searchSlice";
 // Dexie
 import { useLiveQuery } from "dexie-react-hooks";
@@ -31,8 +30,6 @@ function Inbox() {
   useEffect(() => {
     const queryString = searchParams.get("q");
     dispatch(queryString ? setKeywords(queryString) : clearKeywords());
-    dispatch(clearChecked());
-    dispatch(clearSelected());
   }, [searchParams]);
 
   useEffect(() => {
