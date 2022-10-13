@@ -11,6 +11,8 @@ export interface Receipt {
   amount: number;
   invStatus: string;
   details: { amount: number; description: string }[];
+  archived: boolean;
+  starred: boolean;
 }
 
 export class Receipt {
@@ -22,7 +24,9 @@ export class Receipt {
     sellerName: string,
     invNum: string,
     amount: number,
-    invStatus: string
+    invStatus: string,
+    archived?: boolean,
+    starred?: boolean
   ) {
     this.cardType = cardType;
     this.cardNo = cardNo;
@@ -33,6 +37,8 @@ export class Receipt {
     this.amount = +amount;
     this.invStatus = invStatus;
     this.details = [];
+    this.archived = archived || false;
+    this.starred = starred || false;
   }
 
   addDetail(amount: number, description: string) {
