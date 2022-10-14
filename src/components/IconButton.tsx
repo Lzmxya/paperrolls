@@ -5,7 +5,6 @@ interface IconButtonProps {
   icon: ReactElement;
   label: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
-  className?: string;
   disabled?: boolean;
 }
 
@@ -13,7 +12,6 @@ export default function IconButton({
   icon,
   label,
   onClick,
-  className,
   disabled,
 }: IconButtonProps) {
   return (
@@ -35,7 +33,7 @@ export default function IconButton({
             disabled
               ? "opacity-30"
               : "[.group-scoped:hover_&]:stroke-black [.group-scoped:hover_&]:stroke-[0.6px]"
-          } ${className}`,
+          } ${icon.props.className}`,
         })}
       </button>
     </Ripples>
