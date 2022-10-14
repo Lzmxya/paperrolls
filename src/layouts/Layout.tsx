@@ -5,7 +5,7 @@ import { FileWithPath } from "file-selector";
 import { importReceipts } from "@/utils";
 
 import Header from "./Header";
-import Aside from "./Aside";
+import Navigation from "./Navigation";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -29,7 +29,7 @@ function Layout({ children }: LayoutProps) {
     <div className="flex h-screen flex-col bg-blue-50">
       <Header />
       <div className="flex h-[calc(100vh-4rem)]">
-        <Aside />
+        <Navigation />
         <main
           {...getRootProps()}
           className="relative mb-20 flex grow overflow-hidden bg-white md:mb-2 md:mr-2 md:rounded-xl"
