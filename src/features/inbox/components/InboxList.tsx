@@ -140,7 +140,7 @@ export function InboxList({ data }: InboxListProps) {
                     label="加上星號"
                     icon={
                       data[index].starred ? (
-                        <Starred className="fill-current text-amber-400" />
+                        <Starred className="fill-blue-400" />
                       ) : (
                         <Star className="opacity-60" />
                       )
