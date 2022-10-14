@@ -1,4 +1,4 @@
-import NavigationPill from "./NavigationPill";
+import NavigationPill from "@/components/NavigationPill";
 import iconInbox from "@/assets/images/ic-inbox.svg";
 import iconStats from "@/assets/images/ic-stats.svg";
 import iconMap from "@/assets/images/ic-map.svg";
