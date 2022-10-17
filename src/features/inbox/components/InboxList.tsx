@@ -61,8 +61,8 @@ export function InboxList({ data }: InboxListProps) {
 
   const Row = memo(function Row({ index, style }: RowProps) {
     return (
-      <a
-        href=""
+      <div
+        style={style}
         onClick={(event) =>
           handleSelect(event, {
             previous: index - 1,
@@ -70,22 +70,19 @@ export function InboxList({ data }: InboxListProps) {
             next: index + 1,
           })
         }
+        className={`group relative flex border-b border-gray-200 hover:z-20 hover:shadow-md ${
+          selectedReceipt.current === index
+            ? "z-10 bg-blue-100 shadow-md"
+            : "bg-white"
+        }`}
       >
-        <div
-          style={style}
-          className={`group relative flex border-b border-gray-200 hover:z-20 hover:shadow-md ${
-            selectedReceipt.current === index
-              ? "z-10 bg-blue-100 shadow-md"
-              : "bg-white"
-          }`}
-        >
-          {/* Indicator */}
-          {selectedReceipt.current === index && (
-            <div className="absolute top-0 left-0 h-full w-1 bg-blue-400"></div>
-          )}
-          {/* Supporting visuals */}
-          <div className="h-20 w-20 shrink-0 p-4">
-            {/* <div
+        {/* Indicator */}
+        {selectedReceipt.current === index && (
+          <div className="absolute top-0 left-0 h-full w-1 bg-blue-400"></div>
+        )}
+        {/* Supporting visuals */}
+        <div className="h-20 w-20 shrink-0 p-4">
+          {/* <div
             className={`h-12 w-12 rounded-full ${
               checkedReceipts.includes(data[index].invNum)
                 ? "bg-blue-200"
@@ -93,71 +90,69 @@ export function InboxList({ data }: InboxListProps) {
             }`}
             onClick={(event) => handleCheck(event, data[index].invNum)}
           ></div> */}
-            <Avatar name={data[index].sellerName} />
+          <Avatar name={data[index].sellerName} />
+        </div>
+        {/* Primary text */}
+        <div className="m-auto grow overflow-hidden text-sm">
+          <p className="truncate font-bold">{data[index].invNum}</p>
+          <p className="truncate text-gray-700">
+            <SearchHighlighter content={data[index].sellerName} />
+          </p>
+          <p className="truncate text-gray-700">
+            <SearchHighlighter
+              content={receiptDetailPreviewString(data[index].details)}
+            />
+          </p>
+        </div>
+        {/* Metadata */}
+        {/* TODO: FormatJS */}
+        <div className="flex flex-col items-end justify-between whitespace-nowrap pl-2">
+          <div className="mt-[0.625rem] mr-3">
+            <p className="text-sm">{data[index].amount} 元</p>
           </div>
-          {/* Primary text */}
-          <div className="m-auto grow overflow-hidden text-sm">
-            <p className="truncate font-bold">{data[index].invNum}</p>
-            <p className="truncate text-gray-700">
-              <SearchHighlighter content={data[index].sellerName} />
+          <div className="flex items-end">
+            <p className="mb-[0.625rem] text-xs  group-hover:invisible">
+              {data[index].invDate.toLocaleString("default", {
+                month: "long",
+                day: "numeric",
+              })}
             </p>
-            <p className="truncate text-gray-700">
-              <SearchHighlighter
-                content={receiptDetailPreviewString(data[index].details)}
-              />
-            </p>
-          </div>
-          {/* Metadata */}
-          {/* TODO: FormatJS */}
-          <div className="flex flex-col items-end justify-between whitespace-nowrap pl-2">
-            <div className="mt-[0.625rem] mr-3">
-              <p className="text-sm">{data[index].amount} 元</p>
-            </div>
-            <div className="flex items-end">
-              <p className="mb-[0.625rem] text-xs  group-hover:invisible">
-                {data[index].invDate.toLocaleString("default", {
-                  month: "long",
-                  day: "numeric",
-                })}
-              </p>
-              <ul className="flex h-10">
-                <li className="hidden group-hover:list-item">
-                  <IconButton
-                    label="刪除"
-                    icon={<Delete className="opacity-60" />}
-                    onClick={() => null}
-                  />
-                </li>
-                <li className="hidden group-hover:list-item">
-                  <IconButton
-                    label="封存"
-                    icon={<Archive className="opacity-60" />}
-                    onClick={() => null}
-                  />
-                </li>
-                <li>
-                  <IconButton
-                    label="加上星號"
-                    icon={
-                      data[index].starred ? (
-                        <Starred className="fill-blue-400" />
-                      ) : (
-                        <Star className="opacity-60" />
-                      )
-                    }
-                    onClick={(event) => {
-                      event.preventDefault();
-                      db.receipts.update(data[index], {
-                        starred: !data[index].starred,
-                      });
-                    }}
-                  />
-                </li>
-              </ul>
-            </div>
+            <ul className="flex h-10">
+              <li className="hidden group-hover:list-item">
+                <IconButton
+                  label="刪除"
+                  icon={<Delete className="opacity-60" />}
+                  onClick={() => null}
+                />
+              </li>
+              <li className="hidden group-hover:list-item">
+                <IconButton
+                  label="封存"
+                  icon={<Archive className="opacity-60" />}
+                  onClick={() => null}
+                />
+              </li>
+              <li>
+                <IconButton
+                  label="加上星號"
+                  icon={
+                    data[index].starred ? (
+                      <Starred className="fill-blue-400" />
+                    ) : (
+                      <Star className="opacity-60" />
+                    )
+                  }
+                  onClick={() => {
+                    db.receipts.update(data[index], {
+                      starred: !data[index].starred,
+                    });
+                  }}
+                />
+              </li>
+            </ul>
           </div>
         </div>
-      </a>
+      </div>
     );
   }, areEqual);
 
