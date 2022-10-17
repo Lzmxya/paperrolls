@@ -19,8 +19,8 @@ const searchSlice = createSlice({
         .filter((element) => element !== "");
       state.keywords = keywords;
     },
-    clearKeywords(state) {
-      state.keywords = initialState.keywords;
+    clearKeywords() {
+      return initialState;
     },
   },
 });
