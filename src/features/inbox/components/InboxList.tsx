@@ -60,6 +60,9 @@ export function InboxList({ data }: InboxListProps) {
   };
 
   const Row = memo(function Row({ index, style }: RowProps) {
+    const { amount, details, invDate, invNum, sellerName, starred } =
+      data[index];
+
     return (
       <div
         style={style}
@@ -84,35 +87,33 @@ export function InboxList({ data }: InboxListProps) {
         <div className="h-20 w-20 shrink-0 p-4">
           {/* <div
             className={`h-12 w-12 rounded-full ${
-              checkedReceipts.includes(data[index].invNum)
+              checkedReceipts.includes(invNum)
                 ? "bg-blue-200"
                 : "bg-gray-200"
             }`}
-            onClick={(event) => handleCheck(event, data[index].invNum)}
+            onClick={(event) => handleCheck(event, invNum)}
           ></div> */}
-          <Avatar name={data[index].sellerName} />
+          <Avatar name={sellerName} />
         </div>
         {/* Primary text */}
         <div className="m-auto grow overflow-hidden text-sm">
-          <p className="truncate font-bold">{data[index].invNum}</p>
+          <p className="truncate font-bold">{invNum}</p>
           <p className="truncate text-gray-700">
-            <SearchHighlighter content={data[index].sellerName} />
+            <SearchHighlighter content={sellerName} />
           </p>
           <p className="truncate text-gray-700">
-            <SearchHighlighter
-              content={receiptDetailPreviewString(data[index].details)}
-            />
+            <SearchHighlighter content={receiptDetailPreviewString(details)} />
           </p>
         </div>
         {/* Metadata */}
         {/* TODO: FormatJS */}
         <div className="flex flex-col items-end justify-between whitespace-nowrap pl-2">
           <div className="mt-[0.625rem] mr-3">
-            <p className="text-sm">{data[index].amount} 元</p>
+            <p className="text-sm">{amount} 元</p>
           </div>
           <div className="flex items-end">
             <p className="mb-[0.625rem] text-xs  group-hover:invisible">
-              {data[index].invDate.toLocaleString("default", {
+              {invDate.toLocaleString("default", {
                 month: "long",
                 day: "numeric",
               })}
@@ -136,16 +137,14 @@ export function InboxList({ data }: InboxListProps) {
                 <IconButton
                   label="加上星號"
                   icon={
-                    data[index].starred ? (
+                    starred ? (
                       <Starred className="fill-blue-400" />
                     ) : (
                       <Star className="opacity-60" />
                     )
                   }
                   onClick={() => {
-                    db.receipts.update(data[index], {
-                      starred: !data[index].starred,
-                    });
+                    db.receipts.update(data[index], { starred: !starred });
                   }}
                 />
               </li>
