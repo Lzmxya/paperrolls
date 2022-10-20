@@ -23,7 +23,11 @@ function Inbox() {
   const fuse = new Fuse(data, fuseOptions);
 
   useLiveQuery(async () => {
-    const rows = await db.receipts.orderBy("invDate").reverse().toArray();
+    const rows = await db.receipts
+      .orderBy("invDate")
+      .reverse()
+      .and((receipt) => !receipt.archived)
+      .toArray();
     setData(rows);
   });
 

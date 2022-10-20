@@ -6,6 +6,7 @@ import {
   toggleChecked,
   setViewportDate,
 } from "../inboxSlice";
+import { setArchivedToast } from "@/features/toast";
 import { FixedSizeList, areEqual } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
@@ -130,7 +131,12 @@ export function InboxList({ data }: InboxListProps) {
                 <IconButton
                   label="封存"
                   icon={<Archive className="opacity-60" />}
-                  onClick={() => null}
+                  onClick={() => {
+                    db.receipts.update(data[index], {
+                      archived: true,
+                    });
+                    dispatch(setArchivedToast(invNum));
+                  }}
                 />
               </li>
               <li>
