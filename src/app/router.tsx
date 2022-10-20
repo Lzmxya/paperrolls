@@ -3,7 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "@/App";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Inbox from "@/pages/Inbox";
-import Statistics from "@/pages/Statistics";
+import Insights from "@/pages/Insights";
 
 const router = createBrowserRouter([
   {
@@ -16,8 +16,8 @@ const router = createBrowserRouter([
         element: <Inbox />,
       },
       {
-        path: "stats",
-        element: <Statistics />,
+        path: "insights",
+        element: <Insights />,
       },
     ],
   },

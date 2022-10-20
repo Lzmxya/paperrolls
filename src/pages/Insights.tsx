@@ -1,4 +1,4 @@
-export default function Statistics() {
+export default function Insights() {
   return (
     <div className="grow self-center text-center">
       <h2 className="m-2 text-xl">沒有發票</h2>
