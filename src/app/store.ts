@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import inboxReducer from "@/features/inbox/inboxSlice";
 import searchReducer from "@/features/search/searchSlice";
+import toastReducer from "@/features/toast/toastSlice";
 
 export const store = configureStore({
   reducer: {
     inbox: inboxReducer,
     search: searchReducer,
+    toast: toastReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

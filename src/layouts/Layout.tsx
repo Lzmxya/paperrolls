@@ -1,11 +1,13 @@
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { FileWithPath } from "file-selector";
+import * as ToastPrimitive from "@radix-ui/react-toast";
 
 import { importReceipts } from "@/utils";
 
 import Header from "./Header";
 import Navigation from "./Navigation";
+import { Toast } from "@/features/toast";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -46,6 +48,10 @@ function Layout({ children }: LayoutProps) {
             </div>
           )}
           {children}
+          <ToastPrimitive.ToastProvider>
+            <Toast />
+            <ToastPrimitive.Viewport />
+          </ToastPrimitive.ToastProvider>
         </main>
       </div>
     </div>
