@@ -55,6 +55,15 @@ function Inbox() {
     );
   }
 
+  if (searchResult?.length === 0) {
+    return (
+      <div className="grow self-center text-center">
+        <h2 className="m-2 text-xl">沒有相符的結果</h2>
+        <p className="text-gray-500">試試其他搜尋字詞</p>
+      </div>
+    );
+  }
+
   if (data.length === 0) {
     return (
       <div className="grow self-center text-center">
