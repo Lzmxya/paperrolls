@@ -16,19 +16,17 @@ import { InboxDetail, InboxList, InboxToolbar } from "@/features/inbox";
 
 function Inbox() {
   const dispatch = useAppDispatch();
-  const [data, setData] = useState<Receipt[]>([]);
+  const [data, setData] = useState<Receipt[] | null>(null);
+  const [searchSource, setSearchSource] = useState<Receipt[]>([]);
   const [searchResult, setSearchResult] = useState<Receipt[] | null>(null);
   const [searchParams] = useSearchParams();
   const keywords = useAppSelector((state) => state.search.keywords);
-  const fuse = new Fuse(data, fuseOptions);
+  const fuse = new Fuse(searchSource, fuseOptions);
 
   useLiveQuery(async () => {
-    const rows = await db.receipts
-      .orderBy("invDate")
-      .reverse()
-      .and((receipt) => !receipt.archived)
-      .toArray();
-    setData(rows);
+    const rows = await db.receipts.orderBy("invDate").reverse().toArray();
+    setData(rows.filter((receipt) => !receipt.archived));
+    setSearchSource(rows);
   });
 
   useEffect(() => {
