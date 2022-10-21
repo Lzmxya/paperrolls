@@ -26,6 +26,7 @@ export function SearchField() {
           event.preventDefault();
           setSearchParams();
         }}
+        action="/inbox"
       >
         <input
           ref={inputRef}

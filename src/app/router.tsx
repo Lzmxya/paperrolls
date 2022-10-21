@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
 import App from "@/App";
 import ErrorBoundary from "@/components/ErrorBoundary";
@@ -8,11 +8,15 @@ import Insights from "@/pages/Insights";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Navigate to="/inbox" />,
     errorElement: <ErrorBoundary />,
+  },
+  {
+    path: "/",
+    element: <App />,
     children: [
       {
-        index: true,
+        path: "inbox",
         element: <Inbox />,
       },
       {

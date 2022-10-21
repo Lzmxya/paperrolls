@@ -13,7 +13,7 @@ export default function Navigation() {
         </span>
       </button> */}
       <ul className="my-3 flex justify-evenly gap-3 md:mt-5 md:flex-col">
-        <NavigationPill path="/" label="票匣" icon={iconInbox} />
+        <NavigationPill path="inbox" label="票匣" icon={iconInbox} />
         <NavigationPill path="insights" label="統計" icon={iconStats} />
         <NavigationPill path="map" label="地圖" icon={iconMap} />
       </ul>
