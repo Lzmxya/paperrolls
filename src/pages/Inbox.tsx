@@ -20,7 +20,7 @@ function Inbox() {
   const [searchSource, setSearchSource] = useState<Receipt[]>([]);
   const [searchResult, setSearchResult] = useState<Receipt[] | null>(null);
   const [searchParams] = useSearchParams();
-  const keywords = useAppSelector((state) => state.search.keywords);
+  const terms = useAppSelector((state) => state.search.terms);
   const fuse = new Fuse(searchSource, fuseOptions);
 
   useLiveQuery(async () => {
@@ -35,14 +35,14 @@ function Inbox() {
   }, [searchParams]);
 
   useEffect(() => {
-    if (keywords.length !== 0) {
-      const query = queryBuilder(keywords, fuseOptions.keys);
+    if (terms.length !== 0) {
+      const query = queryBuilder(terms, fuseOptions.keys);
       const result = fuse.search(query).map((result) => result.item);
       setSearchResult(result);
     } else {
       setSearchResult(null);
     }
-  }, [data, keywords]);
+  }, [data, terms]);
 
   if (!data) {
     return (

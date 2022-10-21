@@ -6,11 +6,11 @@ interface SearchHighlighterProps {
 }
 
 export function SearchHighlighter({ content }: SearchHighlighterProps) {
-  const { keywords } = useAppSelector((state) => state.search);
+  const { terms } = useAppSelector((state) => state.search);
 
   return (
     <Highlighter
-      searchWords={keywords}
+      searchWords={terms}
       autoEscape={true}
       textToHighlight={content}
     />

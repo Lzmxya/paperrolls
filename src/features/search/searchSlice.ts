@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface SearchState {
-  keywords: string[];
+  terms: string[];
 }
 
 const initialState: SearchState = {
-  keywords: [],
+  terms: [],
 };
 
 const searchSlice = createSlice({
@@ -13,11 +13,11 @@ const searchSlice = createSlice({
   initialState,
   reducers: {
     setKeywords(state, action: PayloadAction<string>) {
-      const keywords = action.payload
+      const terms = action.payload
         .trim()
         .split(" ")
         .filter((element) => element !== "");
-      state.keywords = keywords;
+      state.terms = terms;
     },
     clearKeywords() {
       return initialState;
