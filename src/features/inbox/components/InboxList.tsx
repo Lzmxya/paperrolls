@@ -61,7 +61,7 @@ export function InboxList({ data }: InboxListProps) {
   };
 
   const Row = memo(function Row({ index, style }: RowProps) {
-    const { amount, details, invDate, invNum, sellerName, starred } =
+    const { amount, archived, details, invDate, invNum, sellerName, starred } =
       data[index];
 
     return (
@@ -77,7 +77,10 @@ export function InboxList({ data }: InboxListProps) {
         className={`group relative flex border-b border-gray-200 hover:z-20 hover:shadow-md ${
           selectedReceipt.current === index
             ? "z-10 bg-blue-100 shadow-md"
+            : archived
+            ? "bg-black/5"
             : "bg-white"
+        }
         }`}
       >
         {/* Indicator */}
@@ -98,7 +101,14 @@ export function InboxList({ data }: InboxListProps) {
         </div>
         {/* Primary text */}
         <div className="m-auto grow overflow-hidden text-sm">
-          <p className="truncate font-bold">{invNum}</p>
+          <p
+            className={`truncate font-bold after:ml-2 ${
+              archived &&
+              "after:rounded after:bg-black/50 after:py-0.5 after:px-1  after:text-xs after:font-normal after:text-white after:content-['封存']"
+            }`}
+          >
+            {invNum}
+          </p>
           <p className="truncate text-gray-700">
             <SearchHighlighter content={sellerName} />
           </p>
