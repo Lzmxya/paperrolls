@@ -13,13 +13,10 @@ export function Toast() {
     "radix-state-open:animate-toast-slide-in-bottom translate-x-radix-toast-swipe-move-x";
 
   useEffect(() => {
-    if (!open) {
-      dispatch(resetToast());
+    if (!description) {
+      setOpen(false);
+      return;
     }
-  }, [open]);
-
-  useEffect(() => {
-    if (!description) return;
 
     if (open) {
       setOpen(false);
@@ -44,7 +41,10 @@ export function Toast() {
           asChild
         >
           <button
-            onClick={() => toastActions.get(type)?.callback(target)}
+            onClick={() => {
+              toastActions.get(type)?.callback(target);
+              dispatch(resetToast());
+            }}
             className="p-2 font-semibold text-blue-300"
           >
             {toastActions.get(type)?.label}
