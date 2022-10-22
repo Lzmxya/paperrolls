@@ -6,7 +6,7 @@ import {
   toggleChecked,
   setViewportDate,
 } from "../inboxSlice";
-import { setArchivedToast } from "@/features/toast";
+import { resetToast, setArchivedToast } from "@/features/toast";
 import { FixedSizeList, areEqual } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
@@ -20,6 +20,7 @@ import { ReactComponent as Delete } from "@/assets/images/icons/delete.svg";
 import { ReactComponent as Archive } from "@/assets/images/icons/archive.svg";
 import { ReactComponent as Star } from "@/assets/images/icons/star.svg";
 import { ReactComponent as Starred } from "@/assets/images/icons/starred.svg";
+import { ReactComponent as Unarchive } from "@/assets/images/icons/unarchive.svg";
 
 interface InboxListProps {
   data: Receipt[];
@@ -139,13 +140,21 @@ export function InboxList({ data }: InboxListProps) {
               </li>
               <li className="hidden group-hover:list-item">
                 <IconButton
-                  label="封存"
-                  icon={<Archive className="opacity-60" />}
+                  label={archived ? "取消封存" : "封存"}
+                  icon={
+                    archived ? (
+                      <Unarchive className="opacity-60" />
+                    ) : (
+                      <Archive className="opacity-60" />
+                    )
+                  }
                   onClick={() => {
                     db.receipts.update(data[index], {
-                      archived: true,
+                      archived: !archived,
                     });
-                    dispatch(setArchivedToast(invNum));
+                    dispatch(
+                      archived ? resetToast() : setArchivedToast(invNum)
+                    );
                   }}
                 />
               </li>
