@@ -47,7 +47,7 @@ export const InboxDetail = memo(function InboxDetail({
     } = data[index];
 
     return (
-      <div className="flex h-full grow flex-col gap-2">
+      <div className="flex h-full grow flex-col gap-2 break-all">
         {/* Toolbar */}
         <div className="mx-2 flex h-14 shrink-0 items-center justify-end">
           <p className="mx-2 select-none text-gray-700">
