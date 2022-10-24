@@ -23,6 +23,9 @@ function Inbox() {
   const terms = useAppSelector((state) => state.search.terms);
   const fuse = new Fuse(searchSource, fuseOptions);
 
+  const hasSelected =
+    useAppSelector((state) => state.inbox.selectedReceipt.current) !== null;
+
   useLiveQuery(async () => {
     const rows = await db.receipts.orderBy("invDate").reverse().toArray();
     setData(rows.filter((receipt) => !receipt.archived));
@@ -76,11 +79,15 @@ function Inbox() {
 
   return (
     <div className="flex grow divide-x">
-      <div className="flex w-1/2 flex-col">
+      <div className="flex w-full flex-col md:w-1/2">
         <InboxToolbar />
         <InboxList data={searchResult || data} />
       </div>
-      <div className="flex w-1/2">
+      <div
+        className={`bg-white md:static md:flex md:w-1/2 ${
+          hasSelected ? "fixed inset-0 z-20" : "hidden"
+        }`}
+      >
         <InboxDetail data={searchResult || data} />
       </div>
     </div>
