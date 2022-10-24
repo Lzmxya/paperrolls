@@ -5,7 +5,7 @@ import iconMap from "@/assets/images/ic-map.svg";
 
 export default function Navigation() {
   return (
-    <nav className="fixed bottom-0 z-10 w-full md:static md:w-20">
+    <nav className="fixed bottom-0 z-10 w-full shrink-0 md:static md:w-20">
       {/* <button className="h-14 min-w-[3.5rem] rounded-2xl bg-blue-300 p-4 hover:shadow-lg">
         +
         <span className="ml-4 hidden whitespace-nowrap group-hover:inline">
