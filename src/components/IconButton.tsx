@@ -21,7 +21,7 @@ export default function IconButton({
       color={disabled ? "rgba(0,0,0,0)" : "rgba(0,0,0,.3)"}
     >
       <button
-        className={`group-scoped h-10 w-10 rounded-full transition-all ${
+        className={`group/icon h-10 w-10 rounded-full transition-all ${
           disabled ? "" : "hover:bg-black/[.05]"
         }`}
         onClick={onClick}
@@ -32,7 +32,7 @@ export default function IconButton({
           className: `m-2 stroke-transparent stroke-0 transition-all ${
             disabled
               ? "opacity-30"
-              : "[.group-scoped:hover_&]:stroke-black [.group-scoped:hover_&]:stroke-[0.6px]"
+              : "group-hover/icon:stroke-black group-hover/icon:stroke-[0.6px]"
           } ${icon.props.className}`,
         })}
       </button>
