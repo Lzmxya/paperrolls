@@ -2,25 +2,28 @@ import { cloneElement, MouseEventHandler, ReactElement } from "react";
 import Ripples from "react-ripples";
 
 interface IconButtonProps {
+  className?: string;
+  disabled?: boolean;
   icon: ReactElement;
   label: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
-  disabled?: boolean;
 }
 
 export default function IconButton({
+  className,
+  disabled,
   icon,
   label,
   onClick,
-  disabled,
 }: IconButtonProps) {
   return (
     <Ripples
-      className="h-10 w-10 rounded-full"
+      className={`h-10 w-10 rounded-full ${className}`}
       during={400}
       color={disabled ? "rgba(0,0,0,0)" : "rgba(0,0,0,.3)"}
     >
       <button
+        type="button"
         className={`group/icon h-10 w-10 rounded-full transition-all ${
           disabled ? "" : "hover:bg-black/[.05]"
         }`}
