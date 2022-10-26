@@ -1,24 +1,36 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Form, useSearchParams } from "react-router-dom";
 import { useSearchHotkeys } from "@/features/search";
 
+import IconButton from "@/components/IconButton";
+import { ReactComponent as IconCancel } from "@/assets/images/icons/cancel.svg";
+import { ReactComponent as IconSearch } from "@/assets/images/icons/search.svg";
+
 export function SearchField() {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
-  const queryString = searchParams.get("q");
+  // const [onComposition, setOnComposition] = useState(false);
+
+  // const handleComposition = (
+  //   event: React.CompositionEvent<HTMLInputElement>
+  // ) => {
+  //   if (event.type === "compositionstart") {
+  //     setOnComposition(true);
+  //   }
+  //   if (event.type === "compositionend") {
+  //     setOnComposition(false);
+  //   }
+  // };
 
   useSearchHotkeys(inputRef);
 
   useEffect(() => {
-    if (queryString) {
-      (document.getElementById("q") as HTMLInputElement).value = queryString;
-      return;
-    }
-    (document.getElementById("q") as HTMLInputElement).value = "";
-  }, [queryString]);
+    setSearchQuery(searchParams.get("q") || "");
+  }, [searchParams]);
 
   return (
-    <div className="relative">
+    <div className="relative h-full rounded-full bg-blue-100 transition-all focus-within:bg-white focus-within:shadow-md">
       <Form
         id="search-form"
         role="search"
@@ -27,7 +39,11 @@ export function SearchField() {
           setSearchParams();
         }}
         action="/inbox"
+        className="flex h-full grow items-center"
       >
+        <label htmlFor="q" className="p-3">
+          <IconSearch />
+        </label>
         <input
           ref={inputRef}
           id="q"
@@ -35,9 +51,23 @@ export function SearchField() {
           type="search"
           title="在發票中搜尋"
           placeholder="在發票中搜尋"
-          className="h-12 w-full rounded-lg bg-blue-100 p-4 transition-all focus:bg-white focus:shadow-md focus:outline-none"
+          className="h-full grow bg-transparent focus:outline-none"
           required
+          value={searchQuery}
+          onChange={(event) => {
+            setSearchQuery(event.target.value);
+          }}
+          // onCompositionStart={handleComposition}
+          // onCompositionEnd={handleComposition}
         />
+        {searchQuery !== "" && (
+          <IconButton
+            label="清除"
+            icon={<IconCancel />}
+            onClick={() => setSearchQuery("")}
+            className="mr-1"
+          />
+        )}
       </Form>
       <div className="absolute"></div>
     </div>
