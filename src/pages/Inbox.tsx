@@ -84,7 +84,7 @@ function Inbox() {
         <InboxList data={searchResult || data} />
       </div>
       <div
-        className={`bg-white md:static md:flex md:w-1/2 ${
+        className={`bg-white md:static md:z-auto md:flex md:w-1/2 ${
           hasSelected ? "fixed inset-0 z-20" : "hidden"
         }`}
       >
