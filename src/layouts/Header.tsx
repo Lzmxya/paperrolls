@@ -9,7 +9,7 @@ function Header() {
         <h1 className="ml-2 text-2xl">發票</h1>
       </div>
       {/* Search field */}
-      <div className="h-12 w-[45rem]">
+      <div className="relative h-12 w-[45rem]">
         <SearchField />
       </div>
       {/* Overflow menu */}

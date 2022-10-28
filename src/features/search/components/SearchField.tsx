@@ -4,6 +4,7 @@ import { useSearchHotkeys } from "@/features/search";
 
 import IconButton from "@/components/IconButton";
 import { ReactComponent as IconCancel } from "@/assets/images/icons/cancel.svg";
+import { ReactComponent as IconFilter } from "@/assets/images/icons/filter-list.svg";
 import { ReactComponent as IconSearch } from "@/assets/images/icons/search.svg";
 
 export function SearchField() {
@@ -30,7 +31,7 @@ export function SearchField() {
   }, [searchParams]);
 
   return (
-    <div className="relative h-full rounded-full bg-blue-100 transition-all focus-within:bg-white focus-within:shadow-md">
+    <div className="flex absolute z-10 h-full max-h-12 w-full flex-col overflow-hidden rounded-[1.75rem] bg-blue-100 transition-all focus-within:h-fit focus-within:max-h-80 focus-within:bg-white focus-within:shadow-md">
       <Form
         id="search-form"
         role="search"
@@ -39,7 +40,7 @@ export function SearchField() {
           setSearchParams();
         }}
         action="/inbox"
-        className="flex h-full grow items-center"
+        className="flex h-full items-center"
       >
         <label htmlFor="q" className="p-3">
           <IconSearch />
@@ -54,6 +55,9 @@ export function SearchField() {
           className="h-full grow bg-transparent focus:outline-none"
           required
           value={searchQuery}
+          onKeyUp={(event) => {
+            event.code === "Enter" && event.currentTarget.blur();
+          }}
           onChange={(event) => {
             setSearchQuery(event.target.value);
           }}
@@ -69,7 +73,22 @@ export function SearchField() {
           />
         )}
       </Form>
-      <div className="absolute"></div>
+      <div className="flex flex-col border-t" tabIndex={-1}>
+        <div className="flex">
+          <label className="p-3">
+            <IconFilter />
+          </label>
+          <div></div>
+        </div>
+        <hr className="mx-3" />
+        <div className="py-2 pl-10">
+          <p className="text-sm">
+            <kbd>↑</kbd> <kbd>↓</kbd> 以選取建議、<kbd>⏎</kbd> 以提交、
+            <kbd>⎋</kbd> 以取消搜尋、
+            <kbd>/</kbd> 以聚焦搜尋列
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
