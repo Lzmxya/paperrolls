@@ -31,7 +31,7 @@ export function SearchField() {
   }, [searchParams]);
 
   return (
-    <div className="flex absolute z-10 h-full max-h-12 w-full flex-col overflow-hidden rounded-[1.75rem] bg-blue-100 transition-all focus-within:h-fit focus-within:max-h-80 focus-within:bg-white focus-within:shadow-md">
+    <div className="absolute z-10 flex h-full max-h-12 w-full flex-col overflow-hidden rounded-[1.75rem] bg-blue-100 transition-all focus-within:h-fit focus-within:max-h-80 focus-within:bg-white focus-within:shadow-md">
       <Form
         id="search-form"
         role="search"
@@ -53,6 +53,7 @@ export function SearchField() {
           title="在發票中搜尋"
           placeholder="在發票中搜尋"
           className="h-full grow bg-transparent focus:outline-none"
+          autoComplete="off"
           required
           value={searchQuery}
           onKeyUp={(event) => {
