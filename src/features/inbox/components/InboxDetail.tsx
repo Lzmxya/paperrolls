@@ -1,4 +1,5 @@
 import { memo, useEffect, useRef } from "react";
+import { useIntersection } from "react-use";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { previousSelected, nextSelected, clearSelected } from "../inboxSlice";
 import { Receipt } from "@/models/Receipt";
@@ -28,10 +29,17 @@ export const InboxDetail = memo(function InboxDetail({
   };
   const handleClose = () => dispatch(clearSelected());
 
-  const scrollContainer = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const uppermostElementRef = useRef<HTMLDivElement>(null);
+
+  const intersection = useIntersection(uppermostElementRef, {
+    root: null,
+    rootMargin: "0px",
+    threshold: 1,
+  });
 
   useEffect(() => {
-    scrollContainer?.current?.scrollTo(0, 0);
+    scrollContainerRef?.current?.scrollTo(0, 0);
   }, [index]);
 
   if (index || index === 0) {
@@ -47,9 +55,13 @@ export const InboxDetail = memo(function InboxDetail({
     } = data[index];
 
     return (
-      <div className="flex h-full grow flex-col gap-2 break-all">
+      <div className="flex h-full grow flex-col break-all">
         {/* Toolbar */}
-        <div className="mx-2 flex h-14 shrink-0 items-center justify-end">
+        <div
+          className={`flex h-14 shrink-0 items-center justify-end px-2 transition-all md:bg-white ${
+            intersection && intersection.intersectionRatio < 1 && "bg-blue-100"
+          }`}
+        >
           <p className="mx-2 select-none text-gray-700">
             {index + 1} / {endIndex + 1}
           </p>
@@ -69,11 +81,11 @@ export const InboxDetail = memo(function InboxDetail({
         </div>
 
         <div
-          ref={scrollContainer}
-          className="flex grow flex-col gap-4 overflow-auto px-6"
+          ref={scrollContainerRef}
+          className="flex grow flex-col gap-4 overflow-auto px-6 pt-2"
         >
           {/* Header */}
-          <div className="flex gap-6">
+          <div ref={uppermostElementRef} className="flex gap-6">
             {/* Avatar */}
             <div className="h-16 w-16 shrink-0">
               <Avatar name={sellerName} className="text-lg" />
