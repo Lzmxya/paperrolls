@@ -17,5 +17,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-radix")],
+  plugins: [require("@headlessui/tailwindcss"), require("tailwindcss-radix")],
 };
