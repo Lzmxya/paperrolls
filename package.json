@@ -74,10 +74,10 @@
     "react-highlight-words": "^0.18.0",
     "react-redux": "^8.0.4",
     "react-ripples": "^2.2.1",
-    "react-router-dom": "^6.4.2",
+    "react-router-dom": "^6.4.3",
     "react-use": "^17.4.0",
     "react-virtualized-auto-sizer": "^1.0.7",
-    "react-window": "^1.8.7"
+    "react-window": "^1.8.8"
   },
   "devDependencies": {
     "@headlessui/tailwindcss": "^0.1.1",
@@ -87,8 +87,8 @@
     "@types/react-highlight-words": "^0.16.4",
     "@types/react-virtualized-auto-sizer": "^1.0.1",
     "@types/react-window": "^1.8.5",
-    "@typescript-eslint/eslint-plugin": "^5.41.0",
-    "@typescript-eslint/parser": "^5.41.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
     "@vitejs/plugin-react": "^2.2.0",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.26.0",
@@ -102,7 +102,7 @@
     "tailwindcss": "^3.2.1",
     "tailwindcss-radix": "^2.6.1",
     "typescript": "^4.8.4",
-    "vite": "^3.2.1",
+    "vite": "^3.2.2",
     "vite-plugin-svgr": "^2.2.2"
   },
   "cspell": {
