@@ -78,13 +78,13 @@ function Inbox() {
   }
 
   return (
-    <div className="flex grow divide-x">
+    <div className="flex grow dark:divide-neutral-800 md:divide-x">
       <div className="flex w-full flex-col md:w-1/2">
         <InboxToolbar />
         <InboxList data={searchResult || data} />
       </div>
       <div
-        className={`bg-white md:static md:z-auto md:flex md:w-1/2 ${
+        className={`bg-white transition-all dark:bg-neutral-800 md:static md:z-auto md:flex md:w-1/2 ${
           hasSelected ? "fixed inset-0 z-20" : "hidden"
         }`}
       >

@@ -58,11 +58,13 @@ export const InboxDetail = memo(function InboxDetail({
       <div className="flex h-full grow flex-col break-all">
         {/* Toolbar */}
         <div
-          className={`flex h-14 shrink-0 items-center justify-end px-2 transition-all md:bg-white ${
-            intersection && intersection.intersectionRatio < 1 && "bg-blue-100"
+          className={`flex h-14 shrink-0 items-center justify-end px-2 transition-all md:bg-white md:dark:bg-neutral-800 ${
+            intersection &&
+            intersection.intersectionRatio < 1 &&
+            "bg-blue-100 dark:bg-neutral-700"
           }`}
         >
-          <p className="mx-2 select-none text-gray-700">
+          <p className="mx-2 select-none opacity-80">
             {index + 1} / {endIndex + 1}
           </p>
           <IconButton
@@ -161,7 +163,7 @@ export const InboxDetail = memo(function InboxDetail({
             >
               {/* Hover Highlight Effect */}
               <div
-                className="absolute -inset-2 h-[calc(100%+1rem)] w-[calc(100%+1rem)] rounded-lg transition-all group-hover:bg-gray-100"
+                className="absolute -inset-2 h-[calc(100%+1rem)] w-[calc(100%+1rem)] rounded-lg transition-all group-hover:bg-black/5 dark:group-hover:bg-white/20"
                 aria-hidden="true"
               ></div>
               {/* Card Info */}

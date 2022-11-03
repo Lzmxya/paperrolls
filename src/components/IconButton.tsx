@@ -25,17 +25,17 @@ export default function IconButton({
       <button
         type="button"
         className={`group/icon h-10 w-10 rounded-full transition-all ${
-          disabled ? "" : "hover:bg-black/[.05]"
+          disabled ? "" : "hover:bg-black/5 dark:hover:bg-white/20"
         }`}
         onClick={onClick}
         disabled={disabled || false}
         title={label}
       >
         {cloneElement(icon, {
-          className: `m-2 stroke-transparent stroke-0 transition-all ${
+          className: `dark:fill-current m-2 stroke-transparent stroke-0 transition-all ${
             disabled
               ? "opacity-30"
-              : "group-hover/icon:stroke-black group-hover/icon:stroke-[0.6px]"
+              : "group-hover/icon:stroke-current group-hover/icon:stroke-[0.6px]"
           } ${icon.props.className}`,
         })}
       </button>

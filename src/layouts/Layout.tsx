@@ -28,17 +28,17 @@ function Layout({ children }: LayoutProps) {
   });
 
   return (
-    <div className="flex h-screen flex-col bg-blue-50">
+    <div className="flex h-screen flex-col bg-blue-50 transition-all dark:bg-neutral-900 dark:text-neutral-300">
       <Header />
       <div className="flex h-[calc(100vh-4rem)]">
         <Navigation />
         <main
           {...getRootProps()}
-          className="relative mb-20 flex grow overflow-hidden bg-white md:mb-2 md:mr-2 md:rounded-xl"
+          className="relative mb-20 flex grow overflow-hidden bg-white outline outline-white transition-all dark:bg-neutral-800 dark:outline-neutral-800 md:mb-2 md:mr-2 md:rounded-xl"
         >
           <input {...getInputProps()} />
           {isDragActive && (
-            <div className="absolute z-10 flex h-full w-full items-center justify-center rounded-xl border-2 border-blue-400 bg-blue-100">
+            <div className="absolute z-10 flex h-full w-full items-center justify-center rounded-xl border-2 border-blue-400 bg-blue-100 dark:bg-neutral-900">
               <div>
                 <p className="text-gray-500">
                   將由財政部寄送的「消費資訊」郵件中的 .csv

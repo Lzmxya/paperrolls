@@ -75,12 +75,12 @@ export function InboxList({ data }: InboxListProps) {
             next: index + 1,
           })
         }
-        className={`group relative flex border-b border-gray-200 hover:z-20 hover:shadow-md ${
+        className={`group relative flex border-b border-gray-200 transition-all hover:z-20 hover:shadow-md dark:border-neutral-700 dark:hover:text-white ${
           selectedReceipt.current === index
-            ? "z-10 bg-blue-100 shadow-md"
+            ? "z-10 bg-blue-100 shadow-md dark:bg-blue-200/20 dark:text-white"
             : archived
-            ? "bg-black/5"
-            : "bg-white"
+            ? "bg-black/5 dark:bg-black"
+            : "bg-white dark:bg-neutral-900"
         }
         }`}
       >
@@ -105,15 +105,15 @@ export function InboxList({ data }: InboxListProps) {
           <p
             className={`truncate font-bold after:ml-2 ${
               archived &&
-              "after:rounded after:bg-black/50 after:py-0.5 after:px-1  after:text-xs after:font-normal after:text-white after:content-['封存']"
+              "after:rounded after:bg-black/50 after:py-0.5 after:px-1 after:text-xs after:font-normal after:text-white after:content-['封存'] dark:after:bg-white dark:after:text-black"
             }`}
           >
             {invNum}
           </p>
-          <p className="truncate text-gray-700">
+          <p className="truncate opacity-80">
             <SearchHighlighter content={sellerName} />
           </p>
-          <p className="truncate text-gray-700">
+          <p className="truncate opacity-80">
             <SearchHighlighter content={receiptDetailPreviewString(details)} />
           </p>
         </div>

@@ -31,7 +31,7 @@ export function SearchField() {
   }, [searchParams]);
 
   return (
-    <div className="absolute z-10 flex h-full max-h-12 w-full flex-col overflow-hidden rounded-[1.75rem] bg-blue-100 transition-all focus-within:h-fit focus-within:max-h-80 focus-within:bg-white focus-within:shadow-md">
+    <div className="absolute z-10 flex h-full max-h-12 w-full flex-col overflow-hidden rounded-[1.75rem] bg-blue-100 transition-all focus-within:h-fit focus-within:max-h-80 focus-within:bg-white focus-within:shadow-md dark:bg-neutral-800 dark:focus-within:bg-neutral-700">
       <Form
         id="search-form"
         role="search"
@@ -43,7 +43,7 @@ export function SearchField() {
         className="flex h-full items-center"
       >
         <label htmlFor="q" className="p-3">
-          <IconSearch />
+          <IconSearch className="fill-current" />
         </label>
         <input
           ref={inputRef}
@@ -74,14 +74,17 @@ export function SearchField() {
           />
         )}
       </Form>
-      <div className="flex flex-col border-t" tabIndex={-1}>
+      <div
+        className="flex flex-col border-t dark:border-neutral-500"
+        tabIndex={-1}
+      >
         <div className="flex">
           <label className="p-3">
-            <IconFilter />
+            <IconFilter className="fill-current" />
           </label>
           <div></div>
         </div>
-        <hr className="mx-3" />
+        <hr className="mx-3 dark:border-neutral-500" />
         <div className="py-2 pl-10">
           <p className="text-sm">
             <kbd>↑</kbd> <kbd>↓</kbd> 以選取建議、<kbd>⏎</kbd> 以提交、

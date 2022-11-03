@@ -9,9 +9,9 @@ export function InboxToolbar() {
   const { viewportDate } = useAppSelector((state) => state.inbox);
 
   return (
-    <div className="flex h-14 items-center gap-0.5 border-b border-gray-200 px-2">
+    <div className="flex h-14 items-center gap-0.5 border-b border-gray-200 bg-white px-2 transition-all dark:border-transparent dark:bg-neutral-800">
       <IconButton label="前一月" icon={<ExpandMore />} onClick={() => null} />
-      <button className="select-none rounded-lg p-2 text-xl text-gray-700 hover:bg-gray-100">
+      <button className="select-none rounded-lg p-2 text-xl opacity-80 transition-all hover:bg-black/5 dark:hover:bg-white/20">
         {viewportDate &&
           viewportDate.toLocaleString("default", { month: "short" })}
       </button>
