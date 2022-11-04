@@ -13,7 +13,7 @@ export default function SegmentedButtons({ options }: SegmentedButtonsProps) {
           key={option.name}
           value={option.name}
           title={option.title}
-          className="cursor-pointer p-3 transition-all hover:bg-blue-300/60 ui-checked:bg-blue-300/80"
+          className="cursor-pointer fill-current p-3 transition-all hover:bg-blue-300/60 ui-checked:bg-blue-300/80"
         >
           {option.icon}
         </RadioGroup.Option>

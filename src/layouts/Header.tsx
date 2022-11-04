@@ -1,10 +1,11 @@
 import { SearchField } from "@/features/search";
+import { PreferencesMenu } from "@/features/preferences";
 
 function Header() {
   return (
-    <header className="flex h-16 items-center p-2">
+    <header className="flex h-16 items-center justify-between p-2">
       {/* Product name */}
-      <div className="flex h-12 min-w-[11.5rem] items-center">
+      <div className="flex shrink-0 items-center">
         <div className="mx-1 h-14 w-14 rounded-full bg-blue-200"></div>
         <h1 className="ml-2 text-2xl">發票</h1>
       </div>
@@ -13,7 +14,9 @@ function Header() {
         <SearchField />
       </div>
       {/* Overflow menu */}
-      <div></div>
+      <div className="mr-2">
+        <PreferencesMenu />
+      </div>
     </header>
   );
 }
