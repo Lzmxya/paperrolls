@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Form, useSearchParams } from "react-router-dom";
 import { useSearchHotkeys } from "@/features/search";
 
+import Divider from "@/components/Divider";
 import IconButton from "@/components/IconButton";
 import { ReactComponent as IconCancel } from "@/assets/images/icons/cancel.svg";
 import { ReactComponent as IconFilter } from "@/assets/images/icons/filter-list.svg";
@@ -84,7 +85,8 @@ export function SearchField() {
           </label>
           <div></div>
         </div>
-        <hr className="mx-3 dark:border-neutral-500" />
+        <Divider />
+        {/* <hr className="mx-3 dark:border-neutral-500" /> */}
         <div className="py-2 pl-10">
           <p className="text-sm">
             <kbd>↑</kbd> <kbd>↓</kbd> 以選取建議、<kbd>⏎</kbd> 以提交、

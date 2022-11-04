@@ -6,6 +6,7 @@ import { Receipt } from "@/models/Receipt";
 import { SearchHighlighter } from "@/features/search";
 
 import Avatar from "@/components/Avatar";
+import Divider from "@/components/Divider";
 import IconButton from "@/components/IconButton";
 import { ReactComponent as ChevronLeft } from "@/assets/images/icons/chevron-left.svg";
 import { ReactComponent as ChevronRight } from "@/assets/images/icons/chevron-right.svg";
@@ -128,10 +129,10 @@ export const InboxDetail = memo(function InboxDetail({
               </div>
             </div>
           </div>
-          <hr />
+          <Divider />
 
           {/* Details */}
-          <table className="mt-[-0.25rem] border-separate border-spacing-y-2">
+          <table className="-mt-1 border-separate border-spacing-y-2">
             <thead>
               <tr className="text-sm">
                 <th className="w-3/5 text-left font-normal">品項</th>
@@ -151,7 +152,7 @@ export const InboxDetail = memo(function InboxDetail({
               ))}
             </tbody>
           </table>
-          <hr />
+          <Divider />
 
           {/* Card Type */}
           <div>
@@ -177,7 +178,7 @@ export const InboxDetail = memo(function InboxDetail({
               </div>
             </a>
           </div>
-          <hr />
+          <Divider />
 
           {/* Seller Info */}
           <div>
@@ -185,7 +186,7 @@ export const InboxDetail = memo(function InboxDetail({
             <p>{sellerName}</p>
             <p>統一編號：{sellerBan}</p>
           </div>
-          <hr />
+          <Divider />
 
           {/* Note */}
           <div>
