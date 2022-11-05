@@ -164,7 +164,7 @@ export const InboxDetail = memo(function InboxDetail({
             >
               {/* Hover Highlight Effect */}
               <div
-                className="absolute -inset-2 h-[calc(100%+1rem)] w-[calc(100%+1rem)] rounded-lg transition-all group-hover:bg-black/5 dark:group-hover:bg-white/20"
+                className="absolute -inset-2 h-[calc(100%+1rem)] w-[calc(100%+1rem)] rounded-lg transition-all group-hover:bg-black/10 dark:group-hover:bg-white/25"
                 aria-hidden="true"
               ></div>
               {/* Card Info */}
