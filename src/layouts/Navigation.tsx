@@ -1,13 +1,13 @@
 import { NavLink } from "react-router-dom";
 import Ripples from "react-ripples";
 
-import { ReactComponent as IconInbox } from "@/assets/images/ic-inbox.svg";
-import { ReactComponent as IconStats } from "@/assets/images/ic-stats.svg";
-import { ReactComponent as IconMap } from "@/assets/images/ic-map.svg";
+import { ReactComponent as IconInbox } from "@/assets/images/icons/inbox.svg";
+import { ReactComponent as IconInsights } from "@/assets/images/icons/pie-chart.svg";
+import { ReactComponent as IconMap } from "@/assets/images/icons/map.svg";
 
 const destinations = [
   { label: "票匣", path: "inbox", icon: <IconInbox /> },
-  { label: "洞悉", path: "insights", icon: <IconStats /> },
+  { label: "洞悉", path: "insights", icon: <IconInsights /> },
   { label: "地圖", path: "map", icon: <IconMap /> },
 ];
 
