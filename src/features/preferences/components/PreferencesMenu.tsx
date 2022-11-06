@@ -13,7 +13,7 @@ export function PreferencesMenu() {
         <div className="h-full w-full rounded-full bg-blue-200"></div>
       </Popover.Button>
 
-      <Popover.Panel className="fixed right-4 top-14 z-30 flex w-fit flex-col gap-2 rounded bg-blue-100 py-2 shadow-md dark:bg-neutral-700">
+      <Popover.Panel className="fixed right-4 left-4 top-16 z-30 flex flex-col gap-2 rounded-lg bg-blue-100 py-2 shadow-md dark:bg-neutral-700 md:right-4 md:left-auto md:top-14 md:rounded">
         <div>
           <div className="flex h-12 items-center hover:bg-blue-200 dark:hover:bg-blue-200/20">
             <ThemeOptions />
