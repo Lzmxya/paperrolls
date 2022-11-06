@@ -13,6 +13,7 @@ export interface Receipt {
   details: { amount: number; description: string }[];
   archived: boolean;
   starred: boolean;
+  comment: string;
 }
 
 export class Receipt {
@@ -26,7 +27,8 @@ export class Receipt {
     amount: number,
     invStatus: string,
     archived?: boolean,
-    starred?: boolean
+    starred?: boolean,
+    comment?: string
   ) {
     this.cardType = cardType;
     this.cardNo = cardNo;
@@ -39,6 +41,7 @@ export class Receipt {
     this.details = [];
     this.archived = archived || false;
     this.starred = starred || false;
+    this.comment = comment || "";
   }
 
   addDetail(amount: number, description: string) {

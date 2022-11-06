@@ -1,10 +1,13 @@
-import { memo, useEffect, useRef } from "react";
-import { useIntersection } from "react-use";
+import { memo, useEffect, useRef, useState } from "react";
+import { useDebounce, useIntersection } from "react-use";
+import TextareaAutosize from "react-textarea-autosize";
+
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { previousSelected, nextSelected, clearSelected } from "../inboxSlice";
+import { db } from "@/models/db";
 import { Receipt } from "@/models/Receipt";
-import { SearchHighlighter } from "@/features/search";
 
+import { SearchHighlighter } from "@/features/search";
 import Avatar from "@/components/Avatar";
 import Divider from "@/components/Divider";
 import IconButton from "@/components/IconButton";
@@ -24,6 +27,11 @@ export const InboxDetail = memo(function InboxDetail({
   const index = useAppSelector((state) => state.inbox.selectedReceipt.current);
   const endIndex = data.length - 1;
 
+  const [saving, setSaving] = useState(false);
+  const [comment, setComment] = useState(
+    index !== null ? data[index].comment : ""
+  );
+
   const handlePrevious = () => dispatch(previousSelected());
   const handleNext = () => {
     !(index === endIndex) && dispatch(nextSelected());
@@ -39,8 +47,25 @@ export const InboxDetail = memo(function InboxDetail({
     threshold: 1,
   });
 
+  useDebounce(
+    () => {
+      if (saving === false || index === null) return;
+
+      db.receipts.update(data[index], {
+        comment: comment,
+      });
+      setSaving(false);
+    },
+    1000,
+    [comment, saving]
+  );
+
   useEffect(() => {
     scrollContainerRef?.current?.scrollTo(0, 0);
+
+    if (index !== null) {
+      setComment(data[index].comment);
+    }
   }, [index]);
 
   if (index || index === 0) {
@@ -190,13 +215,20 @@ export const InboxDetail = memo(function InboxDetail({
 
           {/* Note */}
           <div>
-            <p className="mb-2 text-sm">附註</p>
-            {/* <textarea
-            name="comment"
-            id=""
-            placeholder="新增附註"
-            className="w-full rounded-lg border border-gray-400 p-2"
-          ></textarea> */}
+            <div className="mb-2 flex gap-2 text-sm">
+              <p>附註</p>
+              <span>{saving && "儲存中…"}</span>
+            </div>
+            <TextareaAutosize
+              placeholder="新增附註"
+              value={comment}
+              onChange={(event) => {
+                setComment(event.target.value);
+                setSaving(true);
+              }}
+              minRows={2}
+              className="mb-4 w-full resize-none bg-transparent outline-none"
+            />
           </div>
         </div>
       </div>
