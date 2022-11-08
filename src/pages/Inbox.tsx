@@ -16,21 +16,24 @@ import { InboxDetail, InboxList, InboxToolbar } from "@/features/inbox";
 
 function Inbox() {
   const dispatch = useAppDispatch();
-  const [data, setData] = useState<Receipt[] | null>(null);
-  const [searchSource, setSearchSource] = useState<Receipt[]>([]);
+  const data = useLiveQuery(() =>
+    db.receipts
+      .orderBy("invDate")
+      .filter((receipt) => !receipt.archived)
+      .reverse()
+      .toArray()
+  );
+  const searchSource = useLiveQuery(
+    () => db.receipts.orderBy("invDate").reverse().toArray(),
+    [],
+    []
+  );
   const [searchResult, setSearchResult] = useState<Receipt[] | null>(null);
   const [searchParams] = useSearchParams();
   const terms = useAppSelector((state) => state.search.terms);
   const fuse = new Fuse(searchSource, fuseOptions);
-
   const hasSelected =
     useAppSelector((state) => state.inbox.selectedReceipt.current) !== null;
-
-  useLiveQuery(async () => {
-    const rows = await db.receipts.orderBy("invDate").reverse().toArray();
-    setData(rows.filter((receipt) => !receipt.archived));
-    setSearchSource(rows);
-  });
 
   useEffect(() => {
     const queryString = searchParams.get("q");
@@ -45,7 +48,7 @@ function Inbox() {
     } else {
       setSearchResult(null);
     }
-  }, [data, terms]);
+  }, [searchSource, terms]);
 
   if (!data) {
     return (
