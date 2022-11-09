@@ -7,48 +7,60 @@ import { useLiveQuery } from "dexie-react-hooks";
 // Router
 import { useSearchParams } from "react-router-dom";
 // Fuse
-import Fuse from "fuse.js";
+// import Fuse from "fuse.js";
 
 import { db } from "@/models/db";
-import { Receipt } from "@/models/Receipt";
-import { fuseOptions, queryBuilder } from "@/features/search";
+// import { Receipt } from "@/models/Receipt";
+// import { fuseOptions, queryBuilder } from "@/features/search";
 import { InboxDetail, InboxList, InboxToolbar } from "@/features/inbox";
 
 function Inbox() {
   const dispatch = useAppDispatch();
-  const data = useLiveQuery(() =>
-    db.receipts
-      .orderBy("invDate")
-      .filter((receipt) => !receipt.archived)
-      .reverse()
-      .toArray()
-  );
-  const searchSource = useLiveQuery(
-    () => db.receipts.orderBy("invDate").reverse().toArray(),
-    [],
-    []
-  );
-  const [searchResult, setSearchResult] = useState<Receipt[] | null>(null);
-  const [searchParams] = useSearchParams();
   const terms = useAppSelector((state) => state.search.terms);
-  const fuse = new Fuse(searchSource, fuseOptions);
   const hasSelected =
     useAppSelector((state) => state.inbox.selectedReceipt.current) !== null;
+
+  const data = useLiveQuery(
+    () =>
+      db.receipts
+        .orderBy("invDate")
+        .filter(
+          terms.length > 0
+            ? ({ comment, sellerName, details }) => {
+                const match = [];
+                // const uncasedComment = comment.toLowerCase();
+                const uncasedSellerName = sellerName.toLowerCase();
+                const uncasedDescriptions = details.map(({ description }) =>
+                  description.toLowerCase()
+                );
+                for (const term of terms) {
+                  if (
+                    uncasedSellerName.includes(term) ||
+                    // uncasedComment.includes(term) ||
+                    uncasedDescriptions.some((description) =>
+                      description.includes(term)
+                    )
+                  ) {
+                    match.push(true);
+                  } else {
+                    match.push(false);
+                    break;
+                  }
+                }
+                return match.every(Boolean);
+              }
+            : (receipt) => !receipt.archived
+        )
+        .reverse()
+        .toArray(),
+    [terms]
+  );
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     const queryString = searchParams.get("q");
     dispatch(queryString ? setKeywords(queryString) : clearKeywords());
   }, [searchParams]);
-
-  useEffect(() => {
-    if (terms.length !== 0) {
-      const query = queryBuilder(terms, fuseOptions.keys);
-      const result = fuse.search(query).map((result) => result.item);
-      setSearchResult(result);
-    } else {
-      setSearchResult(null);
-    }
-  }, [searchSource, terms]);
 
   if (!data) {
     return (
@@ -59,7 +71,7 @@ function Inbox() {
     );
   }
 
-  if (searchResult?.length === 0) {
+  if (terms.length > 0 && data.length === 0) {
     return (
       <div className="grow self-center text-center">
         <h2 className="m-2 text-xl">沒有相符的結果</h2>
@@ -84,14 +96,14 @@ function Inbox() {
     <div className="flex grow dark:divide-neutral-800 md:divide-x">
       <div className="flex w-full flex-col md:w-1/2">
         <InboxToolbar />
-        <InboxList data={searchResult || data} />
+        <InboxList data={data} />
       </div>
       <div
         className={`bg-white transition-all dark:bg-neutral-800 md:static md:z-auto md:flex md:w-1/2 ${
           hasSelected ? "fixed inset-0 z-20" : "hidden"
         }`}
       >
-        <InboxDetail data={searchResult || data} />
+        <InboxDetail data={data} />
       </div>
     </div>
   );
