@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { clearKeywords, setKeywords } from "@/features/search/searchSlice";
@@ -6,20 +6,15 @@ import { clearKeywords, setKeywords } from "@/features/search/searchSlice";
 import { useLiveQuery } from "dexie-react-hooks";
 // Router
 import { useSearchParams } from "react-router-dom";
-// Fuse
-// import Fuse from "fuse.js";
 
 import { db } from "@/models/db";
-// import { Receipt } from "@/models/Receipt";
-// import { fuseOptions, queryBuilder } from "@/features/search";
 import { InboxDetail, InboxList, InboxToolbar } from "@/features/inbox";
 
 function Inbox() {
   const dispatch = useAppDispatch();
-  const terms = useAppSelector((state) => state.search.terms);
+  const { terms } = useAppSelector((state) => state.search);
   const hasSelected =
     useAppSelector((state) => state.inbox.selectedReceipt.current) !== null;
-
   const data = useLiveQuery(
     () =>
       db.receipts
@@ -27,29 +22,21 @@ function Inbox() {
         .filter(
           terms.length > 0
             ? ({ comment, sellerName, details }) => {
-                const match = [];
                 // const uncasedComment = comment.toLowerCase();
                 const uncasedSellerName = sellerName.toLowerCase();
                 const uncasedDescriptions = details.map(({ description }) =>
                   description.toLowerCase()
                 );
-                for (const term of terms) {
-                  if (
+                return terms.every(
+                  (term) =>
                     uncasedSellerName.includes(term) ||
                     // uncasedComment.includes(term) ||
                     uncasedDescriptions.some((description) =>
                       description.includes(term)
                     )
-                  ) {
-                    match.push(true);
-                  } else {
-                    match.push(false);
-                    break;
-                  }
-                }
-                return match.every(Boolean);
+                );
               }
-            : (receipt) => !receipt.archived
+            : ({ archived }) => !archived
         )
         .reverse()
         .toArray(),
