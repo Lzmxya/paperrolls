@@ -70,7 +70,10 @@ export function SearchField() {
           <IconButton
             label="清除"
             icon={<IconCancel />}
-            onClick={() => setSearchQuery("")}
+            onClick={() => {
+              setSearchQuery("");
+              inputRef.current?.focus();
+            }}
             className="mr-1"
           />
         )}
