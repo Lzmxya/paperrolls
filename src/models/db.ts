@@ -3,12 +3,13 @@ import Dexie, { Table } from "dexie";
 import { Receipt } from "./Receipt";
 
 export class ReceiptsDB extends Dexie {
-  receipts!: Table<Receipt, number>;
+  receipts!: Table<Receipt, string>;
   constructor() {
     super("ReceiptsDB");
     this.version(1).stores({
       receipts: "invNum, invDate, amount, cardType",
     });
+    this.receipts.mapToClass(Receipt);
   }
 }
 

@@ -1,7 +1,6 @@
 import { formatDate } from "@/utils";
 
-export interface Receipt {
-  // id?: number;
+export interface IReceipt {
   cardType: string;
   cardNo: string;
   invDate: Date;
@@ -16,15 +15,28 @@ export interface Receipt {
   comment: string;
 }
 
-export class Receipt {
+export class Receipt implements IReceipt {
+  cardType: string;
+  cardNo: string;
+  invDate: Date;
+  sellerBan: number;
+  sellerName: string;
+  invNum: string;
+  amount: number;
+  invStatus: string;
+  details: { amount: number; description: string }[];
+  archived: boolean;
+  starred: boolean;
+  comment: string;
+
   constructor(
     cardType: string,
     cardNo: string,
     invDate: string,
-    sellerBan: number,
+    sellerBan: string | number,
     sellerName: string,
     invNum: string,
-    amount: number,
+    amount: string | number,
     invStatus: string,
     archived?: boolean,
     starred?: boolean,

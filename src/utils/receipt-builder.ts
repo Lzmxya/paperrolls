@@ -4,15 +4,10 @@ import { FileWithPath } from "file-selector";
 import { db } from "@/models/db";
 import { Receipt } from "@/models/Receipt";
 
-type ResultDataRows = {
-  [index in 0]: string;
-};
-
 const parseCsv = (csv: string) => {
-  const result: ParseResult<ResultDataRows> = Papa.parse(csv, {
+  const result: ParseResult<string[]> = Papa.parse(csv, {
     delimiter: "|",
     newline: "\n",
-    // dynamicTyping: true,
   });
 
   if (result.errors.length != 0) {
@@ -24,45 +19,19 @@ const parseCsv = (csv: string) => {
 };
 
 const organizeReceipts = async (file: FileWithPath) => {
-  const binaryStr = await file.text();
-  const parsedResult = parseCsv(binaryStr);
-  if (!parsedResult) {
-    // TODO
-    return;
-  }
-  const deHeaderResult = parsedResult.slice(2);
-  const receipts = deHeaderResult.reduce((a: Receipt[], x) => {
+  const binaryString = await file.text();
+  const parsedResult = parseCsv(binaryString);
+  const receipts = parsedResult?.slice(2).reduce((a: Receipt[], x) => {
     switch (x[0]) {
       case "M":
         {
-          let y: unknown[] = [];
-          y = y.concat(x).slice(1);
-          a.push(
-            new Receipt(
-              ...(y as [
-                string,
-                string,
-                string,
-                number,
-                string,
-                string,
-                number,
-                string
-              ])
-            )
-          );
-          // const y = x.slice(1);
-          // a.push(new Receipt(...x.slice(1)));
+          a.push(new Receipt(x[1], x[2], x[3], x[4], x[5], x[6], x[7], x[8]));
         }
         break;
 
       case "D":
         {
-          let y: unknown[] = [];
-          y = y.concat(x).slice(2);
-          a[a.length - 1].addDetail(...(y as [number, string]));
-          // const y = x.slice(2);
-          // a[a.length - 1].addDetail(...(y as [number, string]));
+          a[a.length - 1].addDetail(+x[2], x[3]);
         }
         break;
 
