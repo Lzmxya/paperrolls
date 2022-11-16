@@ -1,11 +1,11 @@
 import { memo, useEffect, useRef, useState } from "react";
-import { useDebounce, useIntersection } from "react-use";
+import { useIntersection } from "react-use";
 import TextareaAutosize from "react-textarea-autosize";
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { previousSelected, nextSelected, clearSelected } from "../inboxSlice";
 import { db } from "@/models/db";
-import { Receipt } from "@/models/Receipt";
+import { IReceipt } from "@/models/Receipt";
 
 import { SearchHighlighter } from "@/features/search";
 import Avatar from "@/components/Avatar";
@@ -16,7 +16,7 @@ import { ReactComponent as ChevronRight } from "@/assets/images/icons/chevron-ri
 import { ReactComponent as Close } from "@/assets/images/icons/close.svg";
 
 interface InboxDetailProps {
-  data: Receipt[];
+  data: IReceipt[];
 }
 
 export const InboxDetail = memo(function InboxDetail({
@@ -27,10 +27,8 @@ export const InboxDetail = memo(function InboxDetail({
   const index = useAppSelector((state) => state.inbox.selectedReceipt.current);
   const endIndex = data.length - 1;
 
-  const [saving, setSaving] = useState(false);
-  const [comment, setComment] = useState(
-    index !== null ? data[index].comment : ""
-  );
+  const [receipt, setReceipt] = useState<IReceipt | null>(null);
+  const [edited, setEdited] = useState(false);
 
   const handlePrevious = () => dispatch(previousSelected());
   const handleNext = () => {
@@ -38,6 +36,7 @@ export const InboxDetail = memo(function InboxDetail({
   };
   const handleClose = () => dispatch(clearSelected());
 
+  const receiptRef = useRef<IReceipt | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const uppermostElementRef = useRef<HTMLDivElement>(null);
 
@@ -47,38 +46,42 @@ export const InboxDetail = memo(function InboxDetail({
     threshold: 1,
   });
 
-  useDebounce(
-    () => {
-      if (saving === false || index === null) return;
-
-      db.receipts.update(data[index], {
-        comment: comment,
-      });
-      setSaving(false);
-    },
-    1000,
-    [comment, saving]
-  );
+  useEffect(() => {
+    setEdited(false);
+    if (index === null) return;
+    scrollContainerRef?.current?.scrollTo(0, 0);
+    setReceipt(data[index]);
+  }, [index, data]);
 
   useEffect(() => {
-    scrollContainerRef?.current?.scrollTo(0, 0);
+    receiptRef.current = receipt;
+  }, [receipt]);
 
-    if (index !== null) {
-      setComment(data[index].comment);
+  useEffect(() => {
+    function handleBeforeunload() {
+      if (!edited || !receiptRef.current) return;
+      const receipt = receiptRef.current;
+      db.receipts.update(receipt.invNum, receipt);
     }
-  }, [index]);
+    window.addEventListener("beforeunload", handleBeforeunload);
+    return () => {
+      handleBeforeunload();
+      window.removeEventListener("beforeunload", handleBeforeunload);
+    };
+  }, [edited]);
 
-  if (index || index === 0) {
+  if (receipt && index !== null) {
     const {
       amount,
       cardNo,
       cardType,
+      comment,
       details,
       invDate,
       invNum,
       sellerBan,
       sellerName,
-    } = data[index];
+    } = receipt;
 
     return (
       <div className="flex h-full grow flex-col break-all">
@@ -215,16 +218,13 @@ export const InboxDetail = memo(function InboxDetail({
 
           {/* Note */}
           <div>
-            <div className="mb-2 flex gap-2 text-sm">
-              <p>附註</p>
-              <span>{saving && "儲存中…"}</span>
-            </div>
+            <p className="mb-2 text-sm">附註</p>
             <TextareaAutosize
               placeholder="新增附註"
               value={comment}
               onChange={(event) => {
-                setComment(event.target.value);
-                setSaving(true);
+                setEdited(true);
+                setReceipt({ ...receipt, comment: event.target.value });
               }}
               minRows={2}
               className="mb-4 w-full resize-none bg-transparent outline-none"
