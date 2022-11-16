@@ -1,9 +1,18 @@
+import { useState } from "react";
 import { Popover } from "@headlessui/react";
 
+import { resetDatabase } from "@/models/db";
+
+import Button from "@/components/Button";
+import Dialog from "@/components/Dialog";
 import Divider from "@/components/Divider";
 import { ThemeOptions } from "./ThemeOptions";
 
+import { ReactComponent as DeleteForever } from "@/assets/images/icons/delete-forever.svg";
+
 export function PreferencesMenu() {
+  const [dialogIsOpen, setDialogIsOpen] = useState(false);
+
   return (
     <Popover className="flex">
       <Popover.Button
@@ -19,7 +28,7 @@ export function PreferencesMenu() {
             <ThemeOptions />
           </div>
           <Popover.Button
-            onClick={() => null}
+            onClick={() => setDialogIsOpen(true)}
             className="flex h-12 w-full items-center px-3 hover:bg-blue-200 dark:hover:bg-blue-200/20"
           >
             清除所有資料
@@ -38,6 +47,23 @@ export function PreferencesMenu() {
           </Popover.Button>
         </div>
       </Popover.Panel>
+      <Dialog
+        icon={<DeleteForever />}
+        headline="清除所有資料？"
+        content="這將會刪除所有你儲存於本應用程式的發票（包含星號標記、附註等內容）與偏好設定。此動作無法復原。"
+        dismiss={<Button label="取消" onClick={() => setDialogIsOpen(false)} />}
+        confirm={
+          <Button
+            label="清除"
+            onClick={() => {
+              resetDatabase();
+              setDialogIsOpen(false);
+            }}
+          />
+        }
+        isOpen={dialogIsOpen}
+        setIsOpen={setDialogIsOpen}
+      />
     </Popover>
   );
 }
