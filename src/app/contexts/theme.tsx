@@ -35,7 +35,7 @@ export function ThemeProvider({ children }: ThemeContextProps) {
     }
 
     setThemeConfig(theme);
-  }, [isPrefersDark, theme]);
+  }, [isPrefersDark, setThemeConfig, theme]);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>

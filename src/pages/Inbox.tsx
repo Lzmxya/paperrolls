@@ -47,7 +47,7 @@ function Inbox() {
   useEffect(() => {
     const queryString = searchParams.get("q");
     dispatch(queryString ? setKeywords(queryString) : clearKeywords());
-  }, [searchParams]);
+  }, [dispatch, searchParams]);
 
   if (!data) {
     return (
