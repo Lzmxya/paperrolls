@@ -57,7 +57,8 @@ export function PreferencesMenu() {
             label="清除"
             onClick={() => {
               resetDatabase();
-              setDialogIsOpen(false);
+              window.localStorage.clear();
+              window.location.reload();
             }}
           />
         }
