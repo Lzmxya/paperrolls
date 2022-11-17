@@ -28,7 +28,7 @@ function Layout({ children }: LayoutProps) {
   });
 
   return (
-    <div className="flex h-screen flex-col bg-blue-50 transition-all dark:bg-neutral-900 dark:text-neutral-300">
+    <div className="flex h-screen select-none flex-col bg-blue-50 transition-all dark:bg-neutral-900 dark:text-neutral-300">
       <Header />
       <div className="flex h-[calc(100vh-4rem)]">
         <Navigation />

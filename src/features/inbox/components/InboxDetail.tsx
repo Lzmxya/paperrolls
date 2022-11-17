@@ -93,9 +93,9 @@ export const InboxDetail = memo(function InboxDetail({
             "bg-blue-100 dark:bg-neutral-700"
           }`}
         >
-          <p className="mx-2 select-none opacity-80">
+          <span className="mx-2 opacity-80">
             {index + 1} / {endIndex + 1}
-          </p>
+          </span>
           <IconButton
             label="上一張"
             icon={<ChevronLeft />}
@@ -122,7 +122,7 @@ export const InboxDetail = memo(function InboxDetail({
               <Avatar name={sellerName} className="text-lg" />
             </div>
             {/* Title */}
-            <div className="flex grow flex-col gap-6">
+            <div className="flex grow select-text flex-col gap-6">
               {/* Title Row1 */}
               <div className="flex justify-between">
                 {/* Invoice Number and Seller Name */}
@@ -168,7 +168,7 @@ export const InboxDetail = memo(function InboxDetail({
                 <th className="w-1/5 text-right font-normal">小計</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="select-text">
               {details.map((detail, index) => (
                 <tr key={index}>
                   <td className="text-left">

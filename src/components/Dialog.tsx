@@ -24,7 +24,7 @@ export default function Dialog({
     <Transition appear show={isOpen} as={Fragment}>
       <Modal
         as="div"
-        className="relative z-10 dark:text-neutral-300"
+        className="relative z-10 select-none dark:text-neutral-300"
         onClose={() => setIsOpen(false)}
       >
         <Transition.Child
