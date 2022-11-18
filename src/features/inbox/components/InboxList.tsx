@@ -160,7 +160,7 @@ export function InboxList({ data }: InboxListProps) {
               </li>
               <li>
                 <IconButton
-                  label="加上星號"
+                  label={starred ? "移除星號" : "加上星號"}
                   icon={
                     starred ? (
                       <Starred className="fill-blue-400" />
