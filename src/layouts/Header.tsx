@@ -15,7 +15,7 @@ function Header() {
             <div className="mx-1 h-14 w-14 rounded-full bg-blue-200"></div>
             <span className="ml-2 text-2xl">發票</span>
           </NavLink>
-          <div className="relative h-12 w-[45rem]">
+          <div className="relative h-12 w-3/5">
             <SearchField />
           </div>
           <div className="mr-2">
