@@ -40,7 +40,7 @@ export default function DropdownMenu({ icons, items }: DropdownMenuProps) {
               onClick={onClick}
               className="flex h-12 w-full items-center gap-3 px-3 hover:bg-blue-200 ui-active:bg-blue-200 dark:hover:bg-blue-200/20 dark:ui-active:bg-blue-200/20"
             >
-              {icons && <div className="w-6">{icon}</div>}
+              {icons && <div className="w-6 fill-current">{icon}</div>}
               <div className="whitespace-nowrap">{label}</div>
             </Menu.Item>
           ))}
