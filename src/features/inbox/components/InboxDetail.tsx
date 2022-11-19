@@ -61,7 +61,10 @@ export const InboxDetail = memo(function InboxDetail({
     function handleBeforeunload() {
       if (!edited || !receiptRef.current) return;
       const receipt = receiptRef.current;
-      db.receipts.update(receipt.invNum, receipt);
+      db.receipts.update(receipt.invNum, {
+        ...receipt,
+        comment: receipt.comment.trim(),
+      });
     }
     window.addEventListener("beforeunload", handleBeforeunload);
     return () => {
@@ -224,7 +227,9 @@ export const InboxDetail = memo(function InboxDetail({
               value={comment}
               onChange={(event) => {
                 setEdited(true);
-                setReceipt({ ...receipt, comment: event.target.value });
+                setReceipt(
+                  (prev) => prev && { ...prev, comment: event.target.value }
+                );
               }}
               minRows={2}
               className="mb-4 w-full resize-none bg-transparent outline-none"
