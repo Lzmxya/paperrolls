@@ -53,7 +53,7 @@ export class Receipt implements IReceipt {
     this.details = [];
     this.archived = archived || false;
     this.starred = starred || false;
-    this.comment = comment || "";
+    this.comment = comment?.trim() || "";
   }
 
   addDetail(amount: number, description: string) {
