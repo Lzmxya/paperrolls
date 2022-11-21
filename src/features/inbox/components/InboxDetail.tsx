@@ -4,16 +4,23 @@ import TextareaAutosize from "react-textarea-autosize";
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { previousSelected, nextSelected, clearSelected } from "../inboxSlice";
+import { resetToast, setArchivedToast } from "@/features/toast";
 import { db } from "@/models/db";
 import { IReceipt } from "@/models/Receipt";
 
 import { SearchHighlighter } from "@/features/search";
 import Avatar from "@/components/Avatar";
 import Divider from "@/components/Divider";
+import DropdownMenu from "@/components/DropdownMenu";
 import IconButton from "@/components/IconButton";
 import { ReactComponent as ChevronLeft } from "@/assets/images/icons/chevron-left.svg";
 import { ReactComponent as ChevronRight } from "@/assets/images/icons/chevron-right.svg";
 import { ReactComponent as Close } from "@/assets/images/icons/close.svg";
+import { ReactComponent as Delete } from "@/assets/images/icons/delete.svg";
+import { ReactComponent as Archive } from "@/assets/images/icons/archive.svg";
+import { ReactComponent as Star } from "@/assets/images/icons/star.svg";
+import { ReactComponent as Starred } from "@/assets/images/icons/starred.svg";
+import { ReactComponent as Unarchive } from "@/assets/images/icons/unarchive.svg";
 
 interface InboxDetailProps {
   data: IReceipt[];
@@ -76,6 +83,7 @@ export const InboxDetail = memo(function InboxDetail({
   if (receipt && index !== null) {
     const {
       amount,
+      archived,
       cardNo,
       cardType,
       comment,
@@ -84,7 +92,26 @@ export const InboxDetail = memo(function InboxDetail({
       invNum,
       sellerBan,
       sellerName,
+      starred,
     } = receipt;
+
+    const menuItems = [
+      {
+        label: archived ? "取消封存" : "封存",
+        icon: archived ? <Unarchive /> : <Archive />,
+        onClick: () => {
+          db.receipts.update(invNum, {
+            archived: !archived,
+          });
+          dispatch(archived ? resetToast() : setArchivedToast(invNum));
+        },
+      },
+      {
+        label: "刪除",
+        icon: <Delete />,
+        onClick: () => null,
+      },
+    ];
 
     return (
       <div className="flex h-full grow flex-col break-all">
@@ -136,10 +163,17 @@ export const InboxDetail = memo(function InboxDetail({
                   </p>
                 </div>
                 {/* Menu */}
-                <div>
-                  {/* <button onClick={handleDelete}>🗑</button> */}
-                  {/* <button onClick={handleShare}>🗑</button> */}
-                  {/* <button onClick={handleStar}>🗑</button> */}
+                <div className="flex items-center">
+                  <IconButton
+                    label={starred ? "移除星號" : "加上星號"}
+                    icon={
+                      starred ? <Starred className="fill-blue-400" /> : <Star />
+                    }
+                    onClick={() =>
+                      db.receipts.update(invNum, { starred: !starred })
+                    }
+                  />
+                  <DropdownMenu items={menuItems} icons />
                 </div>
               </div>
               {/* Title Row2 */}
