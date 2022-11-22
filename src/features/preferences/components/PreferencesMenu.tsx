@@ -62,8 +62,7 @@ export function PreferencesMenu() {
             }}
           />
         }
-        isOpen={dialogIsOpen}
-        setIsOpen={setDialogIsOpen}
+        open={dialogIsOpen}
       />
     </Popover>
   );
