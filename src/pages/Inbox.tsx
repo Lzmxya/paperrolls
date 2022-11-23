@@ -8,7 +8,12 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { useSearchParams } from "react-router-dom";
 
 import { db } from "@/models/db";
-import { InboxDetail, InboxList, InboxToolbar } from "@/features/inbox";
+import {
+  InboxDetail,
+  InboxDialogDelete,
+  InboxList,
+  InboxToolbar,
+} from "@/features/inbox";
 
 function Inbox() {
   const dispatch = useAppDispatch();
@@ -92,6 +97,7 @@ function Inbox() {
       >
         <InboxDetail data={data} />
       </div>
+      <InboxDialogDelete />
     </div>
   );
 }

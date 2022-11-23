@@ -4,6 +4,7 @@ import {
   InboxState,
   setSelected,
   toggleChecked,
+  setDeleting,
   setViewportDate,
 } from "../inboxSlice";
 import { resetToast, setArchivedToast } from "@/features/toast";
@@ -135,7 +136,7 @@ export function InboxList({ data }: InboxListProps) {
                 <IconButton
                   label="刪除"
                   icon={<Delete className="opacity-60" />}
-                  onClick={() => null}
+                  onClick={() => dispatch(setDeleting(invNum))}
                 />
               </li>
               <li className="hidden group-hover:list-item">

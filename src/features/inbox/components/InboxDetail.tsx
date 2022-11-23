@@ -3,7 +3,12 @@ import { useIntersection } from "react-use";
 import TextareaAutosize from "react-textarea-autosize";
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { previousSelected, nextSelected, clearSelected } from "../inboxSlice";
+import {
+  previousSelected,
+  nextSelected,
+  clearSelected,
+  setDeleting,
+} from "../inboxSlice";
 import { resetToast, setArchivedToast } from "@/features/toast";
 import { db } from "@/models/db";
 import { IReceipt } from "@/models/Receipt";
@@ -109,7 +114,7 @@ export const InboxDetail = memo(function InboxDetail({
       {
         label: "刪除",
         icon: <Delete />,
-        onClick: () => null,
+        onClick: () => dispatch(setDeleting(invNum)),
       },
     ];
 
