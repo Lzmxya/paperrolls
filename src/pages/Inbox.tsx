@@ -18,8 +18,9 @@ import {
 function Inbox() {
   const dispatch = useAppDispatch();
   const { terms } = useAppSelector((state) => state.search);
-  const hasSelected =
-    useAppSelector((state) => state.inbox.selectedReceipt.current) !== null;
+  const selectedIndex = useAppSelector(
+    (state) => state.inbox.selectedReceipt.current
+  );
   const data = useLiveQuery(
     () =>
       db.receipts
@@ -92,7 +93,7 @@ function Inbox() {
       </div>
       <div
         className={`bg-white transition-all dark:bg-neutral-800 md:static md:z-auto md:flex md:w-1/2 ${
-          hasSelected ? "fixed inset-0 z-20" : "hidden"
+          selectedIndex && data[selectedIndex] ? "fixed inset-0 z-20" : "hidden"
         }`}
       >
         <InboxDetail data={data} />
