@@ -93,7 +93,9 @@ function Inbox() {
       </div>
       <div
         className={`bg-white transition-all dark:bg-neutral-800 md:static md:z-auto md:flex md:w-1/2 ${
-          selectedIndex && data[selectedIndex] ? "fixed inset-0 z-20" : "hidden"
+          selectedIndex !== null && data[selectedIndex]
+            ? "fixed inset-0 z-20"
+            : "hidden"
         }`}
       >
         <InboxDetail data={data} />
