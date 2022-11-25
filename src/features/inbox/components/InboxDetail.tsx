@@ -18,6 +18,7 @@ import Avatar from "@/components/Avatar";
 import Divider from "@/components/Divider";
 import DropdownMenu from "@/components/DropdownMenu";
 import IconButton from "@/components/IconButton";
+import Label from "@/components/Label";
 import { ReactComponent as ChevronLeft } from "@/assets/images/icons/chevron-left.svg";
 import { ReactComponent as ChevronRight } from "@/assets/images/icons/chevron-right.svg";
 import { ReactComponent as Close } from "@/assets/images/icons/close.svg";
@@ -189,8 +190,8 @@ export const InboxDetail = memo(function InboxDetail({
                   <p>{invDate.toLocaleTimeString()}</p>
                 </div>
                 {/* Amount */}
-                <div className="text-right">
-                  <p className="mb-1 text-sm">總計</p>
+                <div className="flex flex-col items-end justify-between">
+                  <Label>總計</Label>
                   <p className="text-2xl">
                     {amount}
                     <span className="ml-1">元</span>
@@ -200,8 +201,6 @@ export const InboxDetail = memo(function InboxDetail({
             </div>
           </div>
           <Divider />
-
-          {/* Details */}
           <table className="-mt-1 border-separate border-spacing-y-2">
             <thead>
               <tr className="text-sm">
@@ -223,8 +222,6 @@ export const InboxDetail = memo(function InboxDetail({
             </tbody>
           </table>
           <Divider />
-
-          {/* Card Type */}
           <div>
             <p className="mb-2 text-sm">載具</p>
             <a
@@ -249,19 +246,18 @@ export const InboxDetail = memo(function InboxDetail({
             </a>
           </div>
           <Divider />
-
-          {/* Seller Info */}
           <div>
-            <p className="mb-2 text-sm">賣方</p>
-            <p>{sellerName}</p>
-            <p>統一編號：{sellerBan}</p>
+            <Label>賣方</Label>
+            <div className="mt-2">
+              <p>{sellerName}</p>
+              <p>統一編號：{sellerBan}</p>
+            </div>
           </div>
           <Divider />
-
-          {/* Note */}
           <div>
-            <p className="mb-2 text-sm">附註</p>
+            <Label htmlFor="comment">附註</Label>
             <TextareaAutosize
+              id="comment"
               placeholder="新增附註"
               value={comment}
               onChange={(event) => {
@@ -271,7 +267,7 @@ export const InboxDetail = memo(function InboxDetail({
                 );
               }}
               minRows={2}
-              className="mb-4 w-full resize-none bg-transparent outline-none"
+              className="mt-2 mb-4 w-full resize-none bg-transparent outline-none"
             />
           </div>
         </div>
