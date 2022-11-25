@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { clearKeywords, setKeywords } from "../search/searchSlice";
-import { Receipt } from "@/models";
+import { IReceipt } from "@/models";
 
 export interface InboxState {
   selectedReceipt: {
@@ -8,8 +8,8 @@ export interface InboxState {
     current: number | null;
     next: number | null;
   };
-  checkedReceipts: Receipt["invNum"][];
-  deletingReceipt: Receipt["invNum"] | null;
+  checkedReceipts: IReceipt["invNum"][];
+  deletingReceipt: IReceipt["invNum"] | null;
   viewportDate: Date | null;
 }
 
@@ -29,7 +29,7 @@ const inboxSlice = createSlice({
   initialState,
   reducers: {
     // check receipts
-    toggleChecked(state, action: PayloadAction<Receipt["invNum"]>) {
+    toggleChecked(state, action: PayloadAction<IReceipt["invNum"]>) {
       if (state.checkedReceipts.includes(action.payload)) {
         state.checkedReceipts = state.checkedReceipts.filter(
           (element) => element !== action.payload

@@ -11,7 +11,7 @@ import { resetToast, setArchivedToast } from "@/features/toast";
 import { FixedSizeList, areEqual } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
-import { db, Receipt } from "@/models";
+import { db, IReceipt } from "@/models";
 
 import { SearchHighlighter } from "@/features/search";
 import Avatar from "@/components/Avatar";
@@ -23,16 +23,16 @@ import { ReactComponent as Starred } from "@/assets/images/icons/starred.svg";
 import { ReactComponent as Unarchive } from "@/assets/images/icons/unarchive.svg";
 
 interface InboxListProps {
-  data: Receipt[];
+  data: IReceipt[];
 }
 
 interface RowProps {
   index: number;
   style: CSSProperties;
-  data: Receipt[];
+  data: IReceipt[];
 }
 
-const receiptDetailPreviewString = (details: Receipt["details"]) => {
+const receiptDetailPreviewString = (details: IReceipt["details"]) => {
   const descriptions = details
     .slice(0, 3)
     .map((element) => element.description)
@@ -55,7 +55,7 @@ export function InboxList({ data }: InboxListProps) {
     event.preventDefault();
     dispatch(setSelected(payload));
   };
-  const handleCheck = (event: MouseEvent, payload: Receipt["invNum"]) => {
+  const handleCheck = (event: MouseEvent, payload: IReceipt["invNum"]) => {
     event.preventDefault();
     event.stopPropagation();
     dispatch(toggleChecked(payload));
@@ -149,7 +149,7 @@ export function InboxList({ data }: InboxListProps) {
                     )
                   }
                   onClick={() => {
-                    db.receipts.update(data[index], {
+                    db.receipts.update(invNum, {
                       archived: !archived,
                     });
                     dispatch(
@@ -169,7 +169,7 @@ export function InboxList({ data }: InboxListProps) {
                     )
                   }
                   onClick={() => {
-                    db.receipts.update(data[index], { starred: !starred });
+                    db.receipts.update(invNum, { starred: !starred });
                   }}
                 />
               </li>
