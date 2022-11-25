@@ -13,6 +13,7 @@ import AutoSizer from "react-virtualized-auto-sizer";
 
 import { db, IReceipt } from "@/models";
 
+import { InboxButtonStar } from "./InboxButtonStar";
 import { SearchHighlighter } from "@/features/search";
 import Avatar from "@/components/Avatar";
 import IconButton from "@/components/IconButton";
@@ -130,24 +131,22 @@ export function InboxList({ data }: InboxListProps) {
                 day: "numeric",
               })}
             </p>
-            <ul className="flex h-10">
+            <ul
+              className={`flex h-10 group-hover:opacity-100 ${
+                !starred && "opacity-60"
+              }`}
+            >
               <li className="hidden group-hover:list-item">
                 <IconButton
                   label="刪除"
-                  icon={<Delete className="opacity-60" />}
+                  icon={<Delete />}
                   onClick={() => dispatch(setDeleting(invNum))}
                 />
               </li>
               <li className="hidden group-hover:list-item">
                 <IconButton
                   label={archived ? "取消封存" : "封存"}
-                  icon={
-                    archived ? (
-                      <Unarchive className="opacity-60" />
-                    ) : (
-                      <Archive className="opacity-60" />
-                    )
-                  }
+                  icon={archived ? <Unarchive /> : <Archive />}
                   onClick={() => {
                     db.receipts.update(invNum, {
                       archived: !archived,
@@ -159,19 +158,7 @@ export function InboxList({ data }: InboxListProps) {
                 />
               </li>
               <li>
-                <IconButton
-                  label={starred ? "移除星號" : "加上星號"}
-                  icon={
-                    starred ? (
-                      <Starred className="fill-blue-400" />
-                    ) : (
-                      <Star className="opacity-60" />
-                    )
-                  }
-                  onClick={() => {
-                    db.receipts.update(invNum, { starred: !starred });
-                  }}
-                />
+                <InboxButtonStar invNum={invNum} starred={starred} />
               </li>
             </ul>
           </div>

@@ -12,6 +12,7 @@ import {
 import { resetToast, setArchivedToast } from "@/features/toast";
 import { db, IReceipt } from "@/models";
 
+import { InboxButtonStar } from "@/features/inbox";
 import { SearchHighlighter } from "@/features/search";
 import Avatar from "@/components/Avatar";
 import Divider from "@/components/Divider";
@@ -23,8 +24,6 @@ import { ReactComponent as ChevronRight } from "@/assets/images/icons/chevron-ri
 import { ReactComponent as Close } from "@/assets/images/icons/close.svg";
 import { ReactComponent as Delete } from "@/assets/images/icons/delete.svg";
 import { ReactComponent as Archive } from "@/assets/images/icons/archive.svg";
-import { ReactComponent as Star } from "@/assets/images/icons/star.svg";
-import { ReactComponent as Starred } from "@/assets/images/icons/starred.svg";
 import { ReactComponent as Unarchive } from "@/assets/images/icons/unarchive.svg";
 
 interface InboxDetailProps {
@@ -169,15 +168,7 @@ export const InboxDetail = memo(function InboxDetail({
                 </div>
                 {/* Menu */}
                 <div className="flex items-center">
-                  <IconButton
-                    label={starred ? "移除星號" : "加上星號"}
-                    icon={
-                      starred ? <Starred className="fill-blue-400" /> : <Star />
-                    }
-                    onClick={() =>
-                      db.receipts.update(invNum, { starred: !starred })
-                    }
-                  />
+                  <InboxButtonStar invNum={invNum} starred={starred} />
                   <DropdownMenu items={menuItems} icons />
                 </div>
               </div>

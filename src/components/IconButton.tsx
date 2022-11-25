@@ -32,7 +32,7 @@ export default function IconButton({
         title={label}
       >
         {cloneElement(icon, {
-          className: `dark:fill-current m-2 stroke-current stroke-0 transition-all ${
+          className: `fill-current m-2 stroke-current stroke-0 transition-all ${
             disabled ? "opacity-40" : "group-hover/icon:stroke-[0.6px]"
           } ${icon.props.className}`,
         })}
