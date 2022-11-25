@@ -7,7 +7,7 @@ import { useLiveQuery } from "dexie-react-hooks";
 // Router
 import { useSearchParams } from "react-router-dom";
 
-import { db } from "@/models/db";
+import { db } from "@/models";
 import {
   InboxDetail,
   InboxDialogDelete,

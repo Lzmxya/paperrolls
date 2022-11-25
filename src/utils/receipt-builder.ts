@@ -1,8 +1,7 @@
 import Papa, { ParseResult } from "papaparse";
 import { FileWithPath } from "file-selector";
 
-import { db } from "@/models/db";
-import { Receipt } from "@/models/Receipt";
+import { db, Receipt } from "@/models";
 
 const parseCsv = (csv: string) => {
   const result: ParseResult<string[]> = Papa.parse(csv, {

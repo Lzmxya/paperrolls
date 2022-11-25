@@ -10,8 +10,7 @@ import {
   setDeleting,
 } from "../inboxSlice";
 import { resetToast, setArchivedToast } from "@/features/toast";
-import { db } from "@/models/db";
-import { IReceipt } from "@/models/Receipt";
+import { db, IReceipt } from "@/models";
 
 import { SearchHighlighter } from "@/features/search";
 import Avatar from "@/components/Avatar";

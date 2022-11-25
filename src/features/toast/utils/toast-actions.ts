@@ -1,4 +1,4 @@
-import { db } from "@/models/db";
+import { db } from "@/models";
 
 export const toastActions = new Map([
   [

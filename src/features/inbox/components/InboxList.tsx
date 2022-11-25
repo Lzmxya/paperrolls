@@ -11,8 +11,7 @@ import { resetToast, setArchivedToast } from "@/features/toast";
 import { FixedSizeList, areEqual } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
-import { db } from "@/models/db";
-import { Receipt } from "@/models/Receipt";
+import { db, Receipt } from "@/models";
 
 import { SearchHighlighter } from "@/features/search";
 import Avatar from "@/components/Avatar";

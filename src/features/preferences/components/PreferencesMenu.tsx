@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Popover } from "@headlessui/react";
 
-import { resetDatabase } from "@/models/db";
+import { resetDatabase } from "@/models";
 
 import Button from "@/components/Button";
 import Dialog from "@/components/Dialog";

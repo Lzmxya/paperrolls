@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { clearKeywords, setKeywords } from "../search/searchSlice";
-import { Receipt } from "@/models/Receipt";
+import { Receipt } from "@/models";
 
 export interface InboxState {
   selectedReceipt: {

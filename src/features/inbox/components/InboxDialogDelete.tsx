@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { clearDeleting } from "../inboxSlice";
 
-import { db } from "@/models/db";
+import { db } from "@/models";
 
 import Button from "@/components/Button";
 import Dialog from "@/components/Dialog";
