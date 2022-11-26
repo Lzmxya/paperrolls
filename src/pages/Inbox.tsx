@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { clearKeywords, setKeywords } from "@/features/search/searchSlice";
+import { clearTerms, setTerms } from "@/features/search/searchSlice";
 // Dexie
 import { useLiveQuery } from "dexie-react-hooks";
 // Router
@@ -52,7 +52,7 @@ function Inbox() {
 
   useEffect(() => {
     const queryString = searchParams.get("q");
-    dispatch(queryString ? setKeywords(queryString) : clearKeywords());
+    dispatch(queryString ? setTerms(queryString) : clearTerms());
   }, [dispatch, searchParams]);
 
   if (!data) {

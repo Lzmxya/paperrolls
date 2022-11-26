@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { clearKeywords, setKeywords } from "../search/searchSlice";
+import { clearTerms, setTerms } from "../search/searchSlice";
 import { IReceipt } from "@/models";
 
 export interface InboxState {
@@ -68,8 +68,8 @@ const inboxSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(clearKeywords, () => initialState)
-      .addCase(setKeywords, () => initialState);
+      .addCase(clearTerms, () => initialState)
+      .addCase(setTerms, () => initialState);
   },
 });
 
