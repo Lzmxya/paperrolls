@@ -15,6 +15,7 @@ const searchSlice = createSlice({
     setTerms(state, action: PayloadAction<string>) {
       const terms = action.payload
         .trim()
+        .toLowerCase()
         .split(" ")
         .filter((element) => element !== "");
       state.terms = terms;
