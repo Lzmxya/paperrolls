@@ -38,8 +38,10 @@ export function SearchField() {
         role="search"
         onInvalid={(event) => {
           event.preventDefault();
+          inputRef.current?.blur();
           setSearchParams();
         }}
+        onSubmit={() => inputRef.current?.blur()}
         action="/inbox"
         className="flex h-full items-center"
       >
@@ -57,9 +59,6 @@ export function SearchField() {
           autoComplete="off"
           required
           value={searchQuery}
-          onKeyUp={(event) => {
-            event.code === "Enter" && event.currentTarget.blur();
-          }}
           onChange={(event) => {
             setSearchQuery(event.target.value);
           }}
