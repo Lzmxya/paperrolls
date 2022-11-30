@@ -147,7 +147,7 @@ export const InboxDetail = memo(function InboxDetail({
 
         <div
           ref={scrollContainerRef}
-          className="flex grow flex-col gap-4 overflow-auto px-6 pt-2"
+          className="flex grow flex-col gap-4 overflow-auto overscroll-contain px-6 pt-2"
         >
           {/* Header */}
           <div ref={uppermostElementRef} className="flex gap-6">
