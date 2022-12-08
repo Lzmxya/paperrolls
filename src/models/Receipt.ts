@@ -1,4 +1,4 @@
-import { formatDate } from "@/utils";
+import { parse } from "date-fns";
 
 export interface IReceipt {
   cardType: string;
@@ -44,7 +44,7 @@ export class Receipt implements IReceipt {
   ) {
     this.cardType = cardType;
     this.cardNo = cardNo;
-    this.invDate = new Date(formatDate(invDate, "####-##-##", "GMT+08:00"));
+    this.invDate = parse(`${invDate}+08`, "yyyyMMddX", new Date());
     this.sellerBan = +sellerBan;
     this.sellerName = sellerName;
     this.invNum = invNum;
