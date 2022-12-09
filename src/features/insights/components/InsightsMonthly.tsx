@@ -95,11 +95,11 @@ export function InsightsMonthly({ data }: InsightsMonthlyProps) {
 
     chart.setOption(option);
 
-    window.onresize = () => {
-      chart.resize();
-    };
+    const handleResize = () => chart.resize();
+    window.addEventListener("resize", handleResize);
 
     return () => {
+      window.removeEventListener("resize", handleResize);
       chart.dispose();
     };
   }, [data]);
