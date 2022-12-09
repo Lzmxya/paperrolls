@@ -10,6 +10,8 @@ import {
 import { resetToast, setArchivedToast } from "@/features/toast";
 import { FixedSizeList, areEqual } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
+import { format, isThisWeek, isThisYear } from "date-fns";
+import { zhTW } from "date-fns/locale";
 
 import { db, IReceipt } from "@/models";
 
@@ -19,8 +21,6 @@ import Avatar from "@/components/Avatar";
 import IconButton from "@/components/IconButton";
 import { ReactComponent as Delete } from "@/assets/images/icons/delete.svg";
 import { ReactComponent as Archive } from "@/assets/images/icons/archive.svg";
-import { ReactComponent as Star } from "@/assets/images/icons/star.svg";
-import { ReactComponent as Starred } from "@/assets/images/icons/starred.svg";
 import { ReactComponent as Unarchive } from "@/assets/images/icons/unarchive.svg";
 
 interface InboxListProps {
@@ -125,12 +125,19 @@ export function InboxList({ data }: InboxListProps) {
             <p className="text-sm">{amount} 元</p>
           </div>
           <div className="flex items-end">
-            <p className="mb-[0.625rem] text-xs  group-hover:invisible">
-              {invDate.toLocaleString("default", {
-                month: "long",
-                day: "numeric",
-              })}
-            </p>
+            <span className="mb-[0.625rem] text-xs  group-hover:invisible">
+              {format(
+                invDate,
+                isThisYear(invDate)
+                  ? isThisWeek(invDate)
+                    ? "iii"
+                    : "MMMdo"
+                  : "yyyy/M/d",
+                {
+                  locale: zhTW,
+                }
+              )}
+            </span>
             <ul
               className={`flex h-10 group-hover:opacity-100 ${
                 !starred && "opacity-60"
