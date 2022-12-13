@@ -19,6 +19,7 @@ import { InboxButtonStar } from "./InboxButtonStar";
 import { SearchHighlighter } from "@/features/search";
 import Avatar from "@/components/Avatar";
 import IconButton from "@/components/IconButton";
+import { ReactComponent as Check } from "@/assets/images/icons/check.svg";
 import { ReactComponent as Delete } from "@/assets/images/icons/delete.svg";
 import { ReactComponent as Archive } from "@/assets/images/icons/archive.svg";
 import { ReactComponent as Unarchive } from "@/assets/images/icons/unarchive.svg";
@@ -77,8 +78,14 @@ export function InboxList({ data }: InboxListProps) {
           })
         }
         className={`group relative flex border-b border-gray-200 transition-all hover:z-20 hover:shadow-md dark:border-neutral-700 dark:hover:text-white ${
-          selectedReceipt.current === index
-            ? "z-10 bg-blue-100 shadow-md dark:bg-blue-200/20 dark:text-white"
+          (selectedReceipt.current === index ||
+            checkedReceipts.includes(invNum)) &&
+          "z-10 shadow-md dark:text-white"
+        } ${
+          checkedReceipts.includes(invNum)
+            ? "bg-blue-200 dark:bg-blue-400/50"
+            : selectedReceipt.current === index
+            ? "bg-blue-100 dark:bg-blue-200/20"
             : archived
             ? "bg-black/5 dark:bg-black"
             : "bg-white dark:bg-neutral-900"
@@ -90,16 +97,17 @@ export function InboxList({ data }: InboxListProps) {
           <div className="absolute top-0 left-0 h-full w-1 bg-blue-400"></div>
         )}
         {/* Supporting visuals */}
-        <div className="h-20 w-20 shrink-0 p-4">
-          {/* <div
-            className={`h-12 w-12 rounded-full ${
-              checkedReceipts.includes(invNum)
-                ? "bg-blue-200"
-                : "bg-gray-200"
-            }`}
-            onClick={(event) => handleCheck(event, invNum)}
-          ></div> */}
-          <Avatar name={sellerName} />
+        <div
+          className="h-20 w-20 shrink-0 p-4"
+          onClick={(event) => handleCheck(event, invNum)}
+        >
+          {checkedReceipts.includes(invNum) ? (
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-400">
+              <Check className="fill-current" />
+            </div>
+          ) : (
+            <Avatar name={sellerName} />
+          )}
         </div>
         {/* Primary text */}
         <div className="m-auto grow overflow-hidden text-sm">
