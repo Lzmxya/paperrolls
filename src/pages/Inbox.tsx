@@ -9,6 +9,7 @@ import { useSearchParams } from "react-router-dom";
 
 import { db } from "@/models";
 import {
+  clearChecked,
   InboxDetail,
   InboxDialogDelete,
   InboxList,
@@ -55,6 +56,12 @@ function Inbox() {
     const queryString = searchParams.get("q");
     dispatch(queryString ? setTerms(queryString) : clearTerms());
   }, [dispatch, searchParams]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearChecked());
+    };
+  }, [dispatch]);
 
   if (!data) {
     return (
