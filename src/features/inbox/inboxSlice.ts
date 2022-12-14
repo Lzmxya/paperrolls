@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { clearTerms, setTerms } from "../search/searchSlice";
+import { clearTerms, setTerms } from "@/features/search";
 import { IReceipt } from "@/models";
 
 export interface InboxState {

@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 // import { useMedia } from "react-use";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 
-import { clearChecked } from "@/features/inbox/inboxSlice";
+import { clearChecked } from "@/features/inbox";
 import { SearchField } from "@/features/search";
 import { PreferencesMenu } from "@/features/preferences";
 

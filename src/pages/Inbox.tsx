@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 // Redux
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { clearTerms, setTerms } from "@/features/search/searchSlice";
+import { clearTerms, setTerms } from "@/features/search";
 // Dexie
 import { useLiveQuery } from "dexie-react-hooks";
 // Router
