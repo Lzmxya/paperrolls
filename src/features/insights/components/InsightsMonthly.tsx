@@ -5,6 +5,7 @@ import {
   format,
   sub,
 } from "date-fns";
+import { zhTW } from "date-fns/locale";
 import { IReceipt } from "@/models";
 import * as echarts from "echarts";
 
@@ -63,7 +64,26 @@ export function InsightsMonthly({ data }: InsightsMonthlyProps) {
     );
 
     const option: EChartsOption = {
-      tooltip: { trigger: "axis" },
+      tooltip: {
+        extraCssText: "border-radius: 9999px",
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        formatter: (params: any) => {
+          const { data } = params[0];
+          const total = `${data[1]} 元`;
+          const date = format(new Date(data[0]), "yyyy年 LLL", {
+            locale: zhTW,
+          });
+          return `<span class="text-blue-600">${total}</span> (${date})`;
+        },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        position: (point, params: any, dom, rect, size) => {
+          const { axisIndex, axisValue } = params[0];
+          const x = chart.convertToPixel({ xAxisIndex: axisIndex }, axisValue);
+          const { contentSize } = size;
+          return [x - contentSize[0] / 2, "2.5%"];
+        },
+        trigger: "axis",
+      },
       xAxis: {
         type: "time",
         axisLine: { lineStyle: { width: 2 } },
