@@ -65,12 +65,13 @@ export function InsightsMonthly({ data }: InsightsMonthlyProps) {
 
     const option: EChartsOption = {
       tooltip: {
+        confine: true,
         extraCssText: "border-radius: 9999px",
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         formatter: (params: any) => {
           const { data } = params[0];
           const total = `${data[1]} 元`;
-          const date = format(new Date(data[0]), "yyyy年 LLL", {
+          const date = format(new Date(data[0]), "yyyy年LLL", {
             locale: zhTW,
           });
           return `<span class="text-blue-600">${total}</span> (${date})`;
