@@ -7,9 +7,33 @@ import {
 } from "date-fns";
 import { zhTW } from "date-fns/locale";
 import { IReceipt } from "@/models";
-import * as echarts from "echarts";
 
-type EChartsOption = echarts.EChartsOption;
+import * as echarts from "echarts/core";
+import {
+  DataZoomComponent,
+  DataZoomComponentOption,
+  GridComponent,
+  GridComponentOption,
+  TooltipComponent,
+  TooltipComponentOption,
+} from "echarts/components";
+import { BarChart, BarSeriesOption } from "echarts/charts";
+import { SVGRenderer } from "echarts/renderers";
+
+echarts.use([
+  BarChart,
+  DataZoomComponent,
+  GridComponent,
+  SVGRenderer,
+  TooltipComponent,
+]);
+
+type EChartsOption = echarts.ComposeOption<
+  | BarSeriesOption
+  | DataZoomComponentOption
+  | GridComponentOption
+  | TooltipComponentOption
+>;
 
 interface InsightsMonthlyProps {
   data: IReceipt[];
