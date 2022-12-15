@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import * as ToastPrimitive from "@radix-ui/react-toast";
 
 import Header from "./Header";
@@ -18,7 +18,7 @@ export default function Layout({ children }: LayoutProps) {
         <Navigation />
         <main className="mb-20 flex grow overflow-hidden bg-white outline outline-white transition-all dark:bg-neutral-800 dark:outline-neutral-800 md:mb-2 md:mr-2 md:rounded-xl">
           <Uploader>
-            {children}
+            <Suspense>{children}</Suspense>
             <ToastPrimitive.ToastProvider>
               <Toast />
               <ToastPrimitive.Viewport />
