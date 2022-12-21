@@ -1,5 +1,7 @@
 import { lazy } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
+import { QueryParamProvider } from "use-query-params";
+import { ReactRouter6Adapter } from "use-query-params/adapters/react-router-6";
 
 import App from "@/App";
 import ErrorBoundary from "@/components/ErrorBoundary";
@@ -15,7 +17,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <App />,
+    element: (
+      <QueryParamProvider adapter={ReactRouter6Adapter}>
+        <App />
+      </QueryParamProvider>
+    ),
     errorElement: <ErrorBoundary />,
     children: [
       {
