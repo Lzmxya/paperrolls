@@ -90,7 +90,7 @@ export function InsightsMonthly({ data }: InsightsMonthlyProps) {
     const option: EChartsOption = {
       tooltip: {
         confine: true,
-        extraCssText: "border-radius: 9999px",
+        extraCssText: "border-radius: 9999px; z-index: 5;",
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         formatter: (params: any) => {
           const { data } = params[0];
