@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Form, useSearchParams } from "react-router-dom";
+import { useQueryParam, BooleanParam } from "use-query-params";
 import { useSearchHotkeys } from "@/features/search";
 
+import ChipFilter from "@/components/ChipFilter";
 import Divider from "@/components/Divider";
 import IconButton from "@/components/IconButton";
 import { ReactComponent as IconCancel } from "@/assets/images/icons/cancel.svg";
@@ -12,18 +14,17 @@ export function SearchField() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
-  // const [onComposition, setOnComposition] = useState(false);
 
-  // const handleComposition = (
-  //   event: React.CompositionEvent<HTMLInputElement>
-  // ) => {
-  //   if (event.type === "compositionstart") {
-  //     setOnComposition(true);
-  //   }
-  //   if (event.type === "compositionend") {
-  //     setOnComposition(false);
-  //   }
-  // };
+  const [filterStarred, setFilterStarred] = useQueryParam(
+    "starred",
+    BooleanParam
+  );
+  const [filterArchived, setFilterArchived] = useQueryParam(
+    "archived",
+    BooleanParam
+  );
+  const [isStarred, setIsStarred] = useState(!!filterStarred);
+  const [isArchived, setIsArchived] = useState(!!filterArchived);
 
   useSearchHotkeys(inputRef);
 
@@ -62,8 +63,6 @@ export function SearchField() {
           onChange={(event) => {
             setSearchQuery(event.target.value);
           }}
-          // onCompositionStart={handleComposition}
-          // onCompositionEnd={handleComposition}
         />
         {searchQuery !== "" && (
           <IconButton
@@ -85,10 +84,26 @@ export function SearchField() {
           <label className="p-3">
             <IconFilter className="fill-current" />
           </label>
-          <div></div>
+          <div className="flex items-center gap-2">
+            <ChipFilter
+              label="有星號"
+              isOn={isStarred}
+              setIsOn={setIsStarred}
+              onClick={() =>
+                setFilterStarred(isStarred ? null : true, "replaceIn")
+              }
+            />
+            <ChipFilter
+              label="已封存"
+              isOn={isArchived}
+              setIsOn={setIsArchived}
+              onClick={() =>
+                setFilterArchived(isArchived ? null : true, "replaceIn")
+              }
+            />
+          </div>
         </div>
         <Divider />
-        {/* <hr className="mx-3 dark:border-neutral-500" /> */}
         <div className="py-2 pl-10">
           <p className="text-sm">
             <kbd>↑</kbd> <kbd>↓</kbd> 以選取建議、<kbd>⏎</kbd> 以提交、
