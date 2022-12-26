@@ -8,6 +8,7 @@ import Divider from "@/components/Divider";
 import IconButton from "@/components/IconButton";
 import { ReactComponent as IconCancel } from "@/assets/images/icons/cancel.svg";
 import { ReactComponent as IconFilter } from "@/assets/images/icons/filter-list.svg";
+import { ReactComponent as IconInfo } from "@/assets/images/icons/info.svg";
 import { ReactComponent as IconSearch } from "@/assets/images/icons/search.svg";
 
 export function SearchField() {
@@ -104,12 +105,18 @@ export function SearchField() {
           </div>
         </div>
         <Divider />
-        <div className="py-2 pl-10">
-          <p className="text-sm">
-            <kbd>↑</kbd> <kbd>↓</kbd> 以選取建議、<kbd>⏎</kbd> 以提交、
-            <kbd>⎋</kbd> 以取消搜尋、
-            <kbd>/</kbd> 以聚焦搜尋列
-          </p>
+        <div className="flex">
+          <label className="p-3">
+            <IconInfo className="fill-current" />
+          </label>
+          <div className="py-2 text-sm">
+            <p>當票匣套用篩選器或搜尋字詞時，結果將包含「已封存」的發票。</p>
+            <p>
+              <kbd>↑</kbd> <kbd>↓</kbd> 以選取建議、<kbd>⏎</kbd> 以提交、
+              <kbd>⎋</kbd> 以取消搜尋、
+              <kbd>/</kbd> 以聚焦搜尋列。
+            </p>
+          </div>
         </div>
       </div>
     </div>
