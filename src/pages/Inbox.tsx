@@ -6,6 +6,7 @@ import { clearTerms, setTerms } from "@/features/search";
 import { useLiveQuery } from "dexie-react-hooks";
 // Router
 import { useSearchParams } from "react-router-dom";
+import { useQueryParam, BooleanParam } from "use-query-params";
 
 import { db } from "@/models";
 import {
@@ -20,6 +21,8 @@ import { UploaderHint } from "@/features/uploader";
 function Inbox() {
   const dispatch = useAppDispatch();
   const { terms } = useAppSelector((state) => state.search);
+  const [filterArchived] = useQueryParam("archived", BooleanParam);
+  const [filterStarred] = useQueryParam("starred", BooleanParam);
   const selectedIndex = useAppSelector(
     (state) => state.inbox.selectedReceipt.current
   );
@@ -27,6 +30,8 @@ function Inbox() {
     () =>
       db.receipts
         .orderBy("invDate")
+        .filter(filterArchived ? ({ archived }) => archived : () => true)
+        .filter(filterStarred ? ({ starred }) => starred : () => true)
         .filter(
           terms.length > 0
             ? ({ comment, sellerName, details }) => {
@@ -44,11 +49,13 @@ function Inbox() {
                     )
                 );
               }
+            : filterArchived || filterStarred
+            ? () => true
             : ({ archived }) => !archived
         )
         .reverse()
         .toArray(),
-    [terms]
+    [terms, filterArchived, filterStarred]
   );
   const [searchParams] = useSearchParams();
 
