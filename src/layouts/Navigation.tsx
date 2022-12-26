@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Ripples from "react-ripples";
 
 import { ReactComponent as IconInbox } from "@/assets/images/icons/inbox.svg";
@@ -12,6 +12,8 @@ const destinations = [
 ];
 
 export default function Navigation() {
+  const { search } = useLocation();
+
   return (
     <nav className="fixed bottom-0 z-10 w-full shrink-0 bg-blue-50 transition-all dark:bg-neutral-800 md:static md:w-20 md:bg-transparent md:dark:bg-transparent">
       {/* <button className="h-14 min-w-[3.5rem] rounded-2xl bg-blue-300 p-4 hover:shadow-lg">
@@ -24,7 +26,11 @@ export default function Navigation() {
         {destinations.map(({ icon, label, path }) => (
           <li key={path} className="flex h-14 items-center justify-center">
             <Ripples className="rounded-full">
-              <NavLink to={path} end={path === "/"} className="group p-2">
+              <NavLink
+                to={`${path}${search}`}
+                end={path === "/"}
+                className="group p-2"
+              >
                 {({ isActive }) => (
                   <>
                     <div className="relative my-1 flex h-8 w-14">
