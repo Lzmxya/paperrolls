@@ -30,8 +30,15 @@ function Inbox() {
     () =>
       db.receipts
         .orderBy("invDate")
-        .filter(filterArchived ? ({ archived }) => archived : () => true)
-        .filter(filterStarred ? ({ starred }) => starred : () => true)
+        .filter(
+          filterArchived && filterStarred
+            ? ({ archived, starred }) => archived && starred
+            : filterArchived
+            ? ({ archived }) => archived
+            : filterStarred
+            ? ({ starred }) => starred
+            : () => true
+        )
         .filter(
           terms.length > 0
             ? ({ comment, sellerName, details }) => {
