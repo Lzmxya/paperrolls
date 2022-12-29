@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Form, useSearchParams } from "react-router-dom";
-import { useQueryParam, BooleanParam } from "use-query-params";
+import { useQueryParam, BooleanParam, StringParam } from "use-query-params";
 import { useSearchHotkeys } from "@/features/search";
 
 import ChipFilter from "@/components/ChipFilter";
@@ -13,38 +12,45 @@ import { ReactComponent as IconSearch } from "@/assets/images/icons/search.svg";
 
 export function SearchField() {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchParams, setSearchParams] = useSearchParams();
 
-  const [filterStarred, setFilterStarred] = useQueryParam(
-    "starred",
-    BooleanParam
-  );
+  const [filterQ, setFilterQ] = useQueryParam("q", StringParam);
   const [filterArchived, setFilterArchived] = useQueryParam(
     "archived",
     BooleanParam
   );
-  const [isStarred, setIsStarred] = useState(!!filterStarred);
+  const [filterStarred, setFilterStarred] = useQueryParam(
+    "starred",
+    BooleanParam
+  );
+
+  const [searchInputValue, setSearchInputValue] = useState(filterQ || "");
   const [isArchived, setIsArchived] = useState(!!filterArchived);
+  const [isStarred, setIsStarred] = useState(!!filterStarred);
 
   useSearchHotkeys(inputRef);
 
   useEffect(() => {
-    setSearchQuery(searchParams.get("q") || "");
-  }, [searchParams]);
+    setSearchInputValue(filterQ || "");
+  }, [filterQ]);
+
+  useEffect(() => {
+    setIsArchived(!!filterArchived);
+  }, [filterArchived]);
+
+  useEffect(() => {
+    setIsStarred(!!filterStarred);
+  }, [filterStarred]);
 
   return (
     <div className="absolute z-10 flex h-full max-h-12 w-full flex-col overflow-hidden rounded-[1.75rem] bg-blue-100 transition-all focus-within:h-fit focus-within:max-h-80 focus-within:bg-white focus-within:shadow-md dark:bg-neutral-800 dark:focus-within:bg-neutral-700">
-      <Form
+      <form
         id="search-form"
         role="search"
-        onInvalid={(event) => {
+        onSubmit={(event) => {
           event.preventDefault();
           inputRef.current?.blur();
-          setSearchParams();
+          setFilterQ(searchInputValue || null);
         }}
-        onSubmit={() => inputRef.current?.blur()}
-        action="/inbox"
         className="flex h-full items-center"
       >
         <label htmlFor="q" className="p-3">
@@ -59,24 +65,23 @@ export function SearchField() {
           placeholder="在發票中搜尋"
           className="h-full grow bg-transparent focus:outline-none"
           autoComplete="off"
-          required
-          value={searchQuery}
+          value={searchInputValue}
           onChange={(event) => {
-            setSearchQuery(event.target.value);
+            setSearchInputValue(event.target.value);
           }}
         />
-        {searchQuery !== "" && (
+        {searchInputValue !== "" && (
           <IconButton
             label="清除"
             icon={<IconCancel />}
             onClick={() => {
-              setSearchQuery("");
+              setSearchInputValue("");
               inputRef.current?.focus();
             }}
             className="mr-1"
           />
         )}
-      </Form>
+      </form>
       <div
         className="flex flex-col border-t dark:border-neutral-500"
         tabIndex={-1}
