@@ -1,6 +1,7 @@
 import { NavLink, useLocation } from "react-router-dom";
 import Ripples from "react-ripples";
 
+import FloatingActionButton from "@/components/FloatingActionButton";
 import { ReactComponent as IconInbox } from "@/assets/images/icons/inbox.svg";
 import { ReactComponent as IconInsights } from "@/assets/images/icons/pie-chart.svg";
 import { ReactComponent as IconMap } from "@/assets/images/icons/map.svg";
@@ -16,12 +17,9 @@ export default function Navigation() {
 
   return (
     <nav className="fixed bottom-0 z-10 w-full shrink-0 bg-blue-50 transition-all dark:bg-neutral-800 md:static md:w-20 md:bg-transparent md:dark:bg-transparent">
-      {/* <button className="h-14 min-w-[3.5rem] rounded-2xl bg-blue-300 p-4 hover:shadow-lg">
-        +
-        <span className="ml-4 hidden whitespace-nowrap group-hover:inline">
-          新增發票
-        </span>
-      </button> */}
+      <div className="my-7 hidden justify-center md:flex">
+        <FloatingActionButton />
+      </div>
       <ul className="my-3 flex justify-evenly gap-3 md:mt-5 md:flex-col">
         {destinations.map(({ icon, label, path }) => (
           <li key={path} className="flex h-14 items-center justify-center">

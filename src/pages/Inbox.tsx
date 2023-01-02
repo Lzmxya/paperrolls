@@ -17,6 +17,7 @@ import {
   InboxToolbar,
 } from "@/features/inbox";
 import { UploaderHint } from "@/features/uploader";
+import FloatingActionButton from "@/components/FloatingActionButton";
 
 function Inbox() {
   const dispatch = useAppDispatch();
@@ -101,9 +102,12 @@ function Inbox() {
 
   return (
     <div className="flex grow dark:divide-neutral-800 md:divide-x">
-      <div className="flex w-full flex-col md:w-1/2">
+      <div className="relative flex w-full flex-col md:w-1/2">
         <InboxToolbar />
         <InboxList data={data} />
+        <div className="absolute right-4 bottom-4 md:invisible">
+          <FloatingActionButton />
+        </div>
       </div>
       <div
         className={`bg-white transition-all dark:bg-neutral-800 md:static md:z-auto md:flex md:w-1/2 ${
