@@ -105,7 +105,7 @@ function Inbox() {
       <div className="relative flex w-full flex-col md:w-1/2">
         <InboxToolbar />
         <InboxList data={data} />
-        <div className="absolute right-4 bottom-4 md:invisible">
+        <div className="absolute right-4 bottom-4 rounded-2xl dark:bg-black md:invisible">
           <FloatingActionButton />
         </div>
       </div>
