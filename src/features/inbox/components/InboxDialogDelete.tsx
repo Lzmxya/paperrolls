@@ -21,28 +21,23 @@ export function InboxDialogDelete() {
     setDialogIsOpen(true);
   }, [invNum]);
 
+  useEffect(() => {
+    if (!dialogIsOpen) dispatch(clearDeleting());
+  }, [dialogIsOpen, dispatch]);
+
   return (
     <Dialog
       isOpen={dialogIsOpen}
       setIsOpen={setDialogIsOpen}
       headline={dialogHeadline}
       content="這項操作無法復原。"
-      dismiss={
-        <Button
-          label="取消"
-          onClick={() => {
-            setDialogIsOpen(false);
-            dispatch(clearDeleting());
-          }}
-        />
-      }
+      dismiss={<Button label="取消" onClick={() => setDialogIsOpen(false)} />}
       confirm={
         <Button
           label="刪除"
           onClick={() => {
             if (!invNum) return;
             setDialogIsOpen(false);
-            dispatch(clearDeleting());
             db.receipts.delete(invNum);
           }}
         />
