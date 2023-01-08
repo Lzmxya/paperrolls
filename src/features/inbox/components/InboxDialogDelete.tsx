@@ -23,6 +23,8 @@ export function InboxDialogDelete() {
 
   return (
     <Dialog
+      isOpen={dialogIsOpen}
+      setIsOpen={setDialogIsOpen}
       headline={dialogHeadline}
       content="這項操作無法復原。"
       dismiss={
@@ -45,7 +47,6 @@ export function InboxDialogDelete() {
           }}
         />
       }
-      open={dialogIsOpen}
     />
   );
 }

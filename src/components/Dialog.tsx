@@ -1,8 +1,9 @@
-import { Fragment, ReactElement, useEffect, useState } from "react";
+import { Dispatch, Fragment, ReactElement, SetStateAction } from "react";
 import { Dialog as Modal, Transition } from "@headlessui/react";
 
 interface DialogProps {
-  open: boolean;
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
   icon?: ReactElement;
   headline: string;
   content: string;
@@ -11,17 +12,14 @@ interface DialogProps {
 }
 
 export default function Dialog({
-  open,
+  isOpen,
+  setIsOpen,
   icon,
   headline,
   content,
   confirm,
   dismiss,
 }: DialogProps) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => setIsOpen(open), [open]);
-
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Modal
