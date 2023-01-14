@@ -15,7 +15,7 @@ export default function ChipFilterMenu({
 }: ChipFilterMenuProps) {
   return (
     <Popover className="relative flex">
-      <Popover.Button aria-label="開啟帳戶選單" as="div">
+      <Popover.Button as="div">
         <button
           className={`flex h-8 items-center overflow-hidden rounded-lg border px-2 ${
             isOn
