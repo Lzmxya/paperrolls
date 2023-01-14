@@ -3,7 +3,7 @@ import * as TogglePrimitive from "@radix-ui/react-toggle";
 
 import { ReactComponent as IconCheck } from "@/assets/images/icons/check.svg";
 
-interface ChipFilterProps {
+export interface ChipFilterProps {
   isOn: boolean;
   setIsOn: Dispatch<SetStateAction<boolean>>;
   label: string;

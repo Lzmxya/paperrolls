@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useQueryParam, BooleanParam, StringParam } from "use-query-params";
 import { useSearchHotkeys } from "@/features/search";
 
+import { AmountFilter } from "./AmountFilter";
 import ChipFilter from "@/components/ChipFilter";
 import Divider from "@/components/Divider";
 import IconButton from "@/components/IconButton";
@@ -42,7 +43,7 @@ export function SearchField() {
   }, [filterStarred]);
 
   return (
-    <div className="absolute z-10 flex h-full max-h-12 w-full flex-col overflow-hidden rounded-[1.75rem] bg-blue-100 transition-all focus-within:h-fit focus-within:max-h-80 focus-within:bg-white focus-within:shadow-md dark:bg-neutral-800 dark:focus-within:bg-neutral-700">
+    <div className="absolute z-10 flex h-full max-h-12 w-full flex-col overflow-hidden rounded-[1.75rem] bg-blue-100 transition-all focus-within:h-fit focus-within:max-h-80 focus-within:overflow-visible focus-within:bg-white focus-within:shadow-md dark:bg-neutral-800 dark:focus-within:bg-neutral-700">
       <form
         id="search-form"
         role="search"
@@ -90,7 +91,7 @@ export function SearchField() {
           <label className="p-3">
             <IconFilter className="fill-current" />
           </label>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2 py-2">
             <ChipFilter
               label="有星號"
               isOn={isStarred}
@@ -107,6 +108,7 @@ export function SearchField() {
                 setFilterArchived(isArchived ? null : true, "replaceIn")
               }
             />
+            <AmountFilter />
           </div>
         </div>
         <Divider />

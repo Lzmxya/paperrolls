@@ -6,7 +6,11 @@ import { clearTerms, setTerms } from "@/features/search";
 import { useLiveQuery } from "dexie-react-hooks";
 // Router
 import { useSearchParams } from "react-router-dom";
-import { useQueryParam, BooleanParam } from "use-query-params";
+import {
+  useQueryParam,
+  BooleanParam,
+  NumericObjectParam,
+} from "use-query-params";
 
 import { db } from "@/models";
 import {
@@ -22,6 +26,7 @@ import FloatingActionButton from "@/components/FloatingActionButton";
 function Inbox() {
   const dispatch = useAppDispatch();
   const { terms } = useAppSelector((state) => state.search);
+  const [filterAmount] = useQueryParam("amount", NumericObjectParam);
   const [filterArchived] = useQueryParam("archived", BooleanParam);
   const [filterStarred] = useQueryParam("starred", BooleanParam);
   const selectedIndex = useAppSelector(
@@ -30,7 +35,13 @@ function Inbox() {
   const data = useLiveQuery(
     () =>
       db.receipts
-        .orderBy("invDate")
+        .where("amount")
+        .between(
+          filterAmount?.above || 0,
+          filterAmount?.below || Infinity,
+          true,
+          true
+        )
         .filter(
           filterArchived && filterStarred
             ? ({ archived, starred }) => archived && starred
@@ -57,13 +68,13 @@ function Inbox() {
                     )
                 );
               }
-            : filterArchived || filterStarred
+            : filterAmount || filterArchived || filterStarred
             ? () => true
             : ({ archived }) => !archived
         )
         .reverse()
-        .toArray(),
-    [terms, filterArchived, filterStarred]
+        .sortBy("invDate"),
+    [terms, filterAmount, filterArchived, filterStarred]
   );
   const [searchParams] = useSearchParams();
 
