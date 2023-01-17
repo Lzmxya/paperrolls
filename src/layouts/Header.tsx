@@ -2,19 +2,29 @@ import { NavLink } from "react-router-dom";
 // import { useMedia } from "react-use";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 
-import { clearChecked } from "@/features/inbox";
+import { clearChecked, setDeleting } from "@/features/inbox";
 import { SearchField } from "@/features/search";
 import { PreferencesMenu } from "@/features/preferences";
 
+import DropdownMenu from "@/components/DropdownMenu";
 import IconButton from "@/components/IconButton";
 import { ReactComponent as IconClose } from "@/assets/images/icons/close.svg";
+import { ReactComponent as IconDelete } from "@/assets/images/icons/delete.svg";
 
 function Header() {
   const dispatch = useAppDispatch();
   // const isLargeScreen = useMedia("(min-width: 768px)");
+  const { checkedReceipts } = useAppSelector((state) => state.inbox);
   const checkedReceiptsLength = useAppSelector(
     (state) => state.inbox.checkedReceipts.length
   );
+  const menuItems = [
+    {
+      label: "刪除",
+      icon: <IconDelete />,
+      onClick: () => dispatch(setDeleting(checkedReceipts)),
+    },
+  ];
 
   return (
     <header
@@ -23,7 +33,7 @@ function Header() {
       }`}
     >
       {checkedReceiptsLength ? (
-        <>
+        <div className="flex w-full justify-between">
           <div className="flex items-center gap-6">
             <IconButton
               label="全部取消選取"
@@ -34,7 +44,8 @@ function Header() {
               已選取 {checkedReceiptsLength} 張發票
             </span>
           </div>
-        </>
+          <DropdownMenu items={menuItems} icons />
+        </div>
       ) : (
         <>
           <NavLink to="/" className="flex shrink-0 items-center">

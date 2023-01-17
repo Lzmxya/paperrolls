@@ -155,7 +155,7 @@ export function InboxList({ data }: InboxListProps) {
                 <IconButton
                   label="刪除"
                   icon={<Delete />}
-                  onClick={() => dispatch(setDeleting(invNum))}
+                  onClick={() => dispatch(setDeleting([invNum]))}
                 />
               </li>
               <li className="hidden group-hover:list-item">

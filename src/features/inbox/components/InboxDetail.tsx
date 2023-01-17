@@ -113,7 +113,7 @@ export const InboxDetail = memo(function InboxDetail({
       {
         label: "刪除",
         icon: <Delete />,
-        onClick: () => dispatch(setDeleting(invNum)),
+        onClick: () => dispatch(setDeleting([invNum])),
       },
     ];
 

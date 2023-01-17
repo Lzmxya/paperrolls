@@ -9,7 +9,7 @@ export interface InboxState {
     next: number | null;
   };
   checkedReceipts: IReceipt["invNum"][];
-  deletingReceipt: IReceipt["invNum"] | null;
+  deletingReceipts: IReceipt["invNum"][];
   viewportDate: Date | null;
 }
 
@@ -20,7 +20,7 @@ const initialState: InboxState = {
     next: null,
   },
   checkedReceipts: [],
-  deletingReceipt: null,
+  deletingReceipts: [],
   viewportDate: null,
 };
 
@@ -54,12 +54,12 @@ const inboxSlice = createSlice({
     clearSelected(state) {
       state.selectedReceipt = initialState.selectedReceipt;
     },
-    // deleting receipt
-    setDeleting(state, action: PayloadAction<InboxState["deletingReceipt"]>) {
-      state.deletingReceipt = action.payload;
+    // deleting receipts
+    setDeleting(state, action: PayloadAction<InboxState["deletingReceipts"]>) {
+      state.deletingReceipts = action.payload;
     },
     clearDeleting(state) {
-      state.deletingReceipt = initialState.deletingReceipt;
+      state.deletingReceipts = initialState.deletingReceipts;
     },
     // viewport date
     setViewportDate(state, action: PayloadAction<InboxState["viewportDate"]>) {
