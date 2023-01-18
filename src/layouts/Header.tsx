@@ -1,51 +1,24 @@
 import { NavLink } from "react-router-dom";
 // import { useMedia } from "react-use";
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { useAppSelector } from "@/app/hooks";
 
-import { clearChecked, setDeleting } from "@/features/inbox";
-import { SearchField } from "@/features/search";
+import { InboxSelectionBar } from "@/features/inbox";
 import { PreferencesMenu } from "@/features/preferences";
-
-import DropdownMenu from "@/components/DropdownMenu";
-import IconButton from "@/components/IconButton";
-import { ReactComponent as IconClose } from "@/assets/images/icons/close.svg";
-import { ReactComponent as IconDelete } from "@/assets/images/icons/delete.svg";
+import { SearchField } from "@/features/search";
 
 function Header() {
-  const dispatch = useAppDispatch();
   // const isLargeScreen = useMedia("(min-width: 768px)");
-  const { checkedReceipts } = useAppSelector((state) => state.inbox);
-  const checkedReceiptsLength = useAppSelector(
-    (state) => state.inbox.checkedReceipts.length
-  );
-  const menuItems = [
-    {
-      label: "刪除",
-      icon: <IconDelete />,
-      onClick: () => dispatch(setDeleting(checkedReceipts)),
-    },
-  ];
+  const hasCheckedReceipts =
+    useAppSelector((state) => state.inbox.checkedReceipts.length) > 0;
 
   return (
     <header
       className={`flex h-16 items-center justify-between p-4 transition-all md:p-2 ${
-        checkedReceiptsLength && "bg-blue-200 dark:bg-blue-400/50"
+        hasCheckedReceipts && "bg-blue-200 dark:bg-blue-400/50"
       }`}
     >
-      {checkedReceiptsLength ? (
-        <div className="flex w-full justify-between">
-          <div className="flex items-center gap-6">
-            <IconButton
-              label="全部取消選取"
-              icon={<IconClose />}
-              onClick={() => dispatch(clearChecked())}
-            />
-            <span className="text-xl">
-              已選取 {checkedReceiptsLength} 張發票
-            </span>
-          </div>
-          <DropdownMenu items={menuItems} icons />
-        </div>
+      {hasCheckedReceipts ? (
+        <InboxSelectionBar />
       ) : (
         <>
           <NavLink to="/" className="flex shrink-0 items-center">
