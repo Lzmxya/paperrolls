@@ -19,7 +19,6 @@ export function AmountFilter() {
   const {
     register,
     handleSubmit,
-    getValues,
     setValue,
     reset,
     formState: { errors },
@@ -63,10 +62,8 @@ export function AmountFilter() {
               {...register("above", {
                 min: { value: 0, message: "最小值須不為負。" },
                 validate: {
-                  lessThenMax: (value) =>
-                    !getValues().below ||
-                    +value <= +getValues().below ||
-                    "最小值須不大於最大值。",
+                  lessThenMax: (_, { above, below }) =>
+                    !below || +above <= +below || "最小值須不大於最大值。",
                 },
               })}
             />
