@@ -1,7 +1,8 @@
 import Papa, { ParseResult } from "papaparse";
 import { FileWithPath } from "file-selector";
+import { format } from "date-fns";
 
-import { db, Receipt } from "@/models";
+import { db, Receipt, ReceiptGroup } from "@/models";
 
 const parseCsv = (csv: string) => {
   const result: ParseResult<string[]> = Papa.parse(csv, {
@@ -44,6 +45,36 @@ const organizeReceipts = async (file: FileWithPath) => {
   return receipts;
 };
 
+const organizeGroups = (receipts: Receipt[]) => {
+  const groups = receipts
+    .map(
+      ({ amount, invDate }): ReceiptGroup => ({
+        month: format(invDate, "yyyy-MM"),
+        total: amount,
+        counts: 1,
+      })
+    )
+    .reduce((accumulator: ReceiptGroup[], current) => {
+      const sameMonthIndex = accumulator.findIndex(
+        (element) => element.month === current.month
+      );
+
+      if (sameMonthIndex === -1) {
+        accumulator.push(current);
+      } else {
+        accumulator[sameMonthIndex] = {
+          ...accumulator[sameMonthIndex],
+          total: accumulator[sameMonthIndex].total + current.total,
+          counts: ++accumulator[sameMonthIndex].counts,
+        };
+      }
+
+      return accumulator;
+    }, []);
+
+  return groups;
+};
+
 export const importReceipts = async (acceptedFiles: FileWithPath[]) => {
   let bulkReceipts: Receipt[] = [];
   for (const file of acceptedFiles) {
@@ -54,5 +85,12 @@ export const importReceipts = async (acceptedFiles: FileWithPath[]) => {
     }
     bulkReceipts = bulkReceipts.concat(receipts);
   }
-  db.receipts.bulkPut(bulkReceipts);
+
+  db.transaction("rw", db.receipts, db.receiptGroups, async () => {
+    db.receipts.bulkPut(bulkReceipts);
+    const bulkGroups = await db.receipts.toArray((result) =>
+      organizeGroups(result)
+    );
+    db.receiptGroups.bulkPut(bulkGroups);
+  });
 };
