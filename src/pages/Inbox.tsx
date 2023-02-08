@@ -18,7 +18,6 @@ import {
   InboxDetail,
   InboxDialogDelete,
   InboxList,
-  InboxToolbar,
 } from "@/features/inbox";
 import { UploaderHint } from "@/features/uploader";
 import FloatingActionButton from "@/components/FloatingActionButton";
@@ -32,9 +31,10 @@ function Inbox() {
   const selectedIndex = useAppSelector(
     (state) => state.inbox.selectedReceipt.current
   );
-  const data = useLiveQuery(
-    () =>
-      db.receipts
+  const { receipts, receiptGroups } = useLiveQuery(
+    async () => {
+      let receiptGroups;
+      const receipts = await db.receipts
         .where("amount")
         .between(
           filterAmount?.above || 0,
@@ -73,8 +73,18 @@ function Inbox() {
             : ({ archived }) => !archived
         )
         .reverse()
-        .sortBy("invDate"),
-    [terms, filterAmount, filterArchived, filterStarred]
+        .sortBy("invDate");
+
+      if (terms.length > 0 || filterAmount || filterArchived || filterStarred) {
+        receiptGroups = [{ counts: receipts.length }];
+      } else {
+        receiptGroups = await db.receiptGroups.reverse().toArray();
+      }
+
+      return { receipts, receiptGroups };
+    },
+    [terms, filterAmount, filterArchived, filterStarred],
+    { receipts: null, receiptGroups: null }
   );
   const [searchParams] = useSearchParams();
 
@@ -89,7 +99,7 @@ function Inbox() {
     };
   }, [dispatch]);
 
-  if (!data) {
+  if (!receipts) {
     return (
       // TODO: skeleton loading
       <div className="grow self-center text-center">
@@ -98,36 +108,35 @@ function Inbox() {
     );
   }
 
-  if (terms.length > 0 && data.length === 0) {
+  if (receipts.length === 0 && receiptGroups.length > 0) {
     return (
       <div className="grow self-center text-center">
         <h2 className="m-2 text-xl">沒有相符的結果</h2>
-        <p className="text-gray-500">試試其他搜尋字詞</p>
+        <p className="text-gray-500">試試其他搜尋字詞或篩選條件</p>
       </div>
     );
   }
 
-  if (data.length === 0) {
+  if (receipts.length === 0) {
     return <UploaderHint />;
   }
 
   return (
     <div className="flex grow dark:divide-neutral-800 md:divide-x">
       <div className="relative flex w-full flex-col md:w-1/2">
-        <InboxToolbar />
-        <InboxList data={data} />
+        <InboxList receipts={receipts} receiptGroups={receiptGroups} />
         <div className="absolute right-4 bottom-4 rounded-2xl dark:bg-black md:invisible">
           <FloatingActionButton />
         </div>
       </div>
       <div
         className={`bg-white transition-all dark:bg-neutral-800 md:static md:z-auto md:flex md:w-1/2 ${
-          selectedIndex !== null && data[selectedIndex]
+          selectedIndex !== null && receipts[selectedIndex]
             ? "fixed inset-0 z-20"
             : "hidden"
         }`}
       >
-        <InboxDetail data={data} />
+        <InboxDetail data={receipts} />
       </div>
       <InboxDialogDelete />
     </div>
