@@ -42,7 +42,10 @@ export function InboxList({ receipts, receiptGroups }: InboxListProps) {
   const { selectedReceipt, checkedReceipts } = useAppSelector(
     (state) => state.inbox
   );
-  const counts = receiptGroups.map(({ counts }) => counts || 0);
+  const counts = receiptGroups.map(({ counts, archives }) => {
+    if (counts === undefined || archives === undefined) return 0;
+    return counts - archives;
+  });
   const handleSelect = (
     event: MouseEvent,
     payload: InboxState["selectedReceipt"]

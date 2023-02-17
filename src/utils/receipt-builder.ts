@@ -48,10 +48,11 @@ const organizeReceipts = async (file: FileWithPath) => {
 const organizeGroups = (receipts: Receipt[]) => {
   const groups = receipts
     .map(
-      ({ amount, invDate }): ReceiptGroup => ({
+      ({ amount, invDate, archived }): ReceiptGroup => ({
         month: format(invDate, "yyyy-MM"),
         total: amount,
         counts: 1,
+        archives: archived ? 1 : 0,
       })
     )
     .reduce((accumulator: ReceiptGroup[], current) => {
@@ -65,6 +66,7 @@ const organizeGroups = (receipts: Receipt[]) => {
         accumulator[sameMonthIndex] = {
           ...accumulator[sameMonthIndex],
           total: accumulator[sameMonthIndex].total + current.total,
+          archives: accumulator[sameMonthIndex].archives + current.archives,
           counts: ++accumulator[sameMonthIndex].counts,
         };
       }
