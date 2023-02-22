@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { format } from "date-fns";
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { clearChecked, clearDeleting, toggleChecked } from "../inboxSlice";
 
-import { db, ReceiptGroup } from "@/models";
+import { deleteReceipts } from "@/models";
 
 import Button from "@/components/Button";
 import Dialog from "@/components/Dialog";
@@ -17,23 +16,7 @@ export function InboxDialogDelete() {
   const [dialogHeadline, setDialogHeadline] = useState("");
   const handleDelete = () => {
     setDialogIsOpen(false);
-    db.transaction("rw", db.receipts, db.receiptGroups, async () => {
-      const deletingReceipts = await db.receipts.bulkGet(deletingReceiptIds);
-      deletingReceipts.forEach((deletingReceipt) => {
-        if (!deletingReceipt) return;
-        db.receiptGroups
-          .where({ month: format(deletingReceipt.invDate, "yyyy-MM") })
-          .modify((receiptGroup, ref: { value?: ReceiptGroup }) => {
-            if (receiptGroup.counts > 1) {
-              receiptGroup.counts -= 1;
-              receiptGroup.total -= deletingReceipt.amount;
-              return;
-            }
-            delete ref.value;
-          });
-      });
-      db.receipts.bulkDelete(deletingReceiptIds);
-    });
+    deleteReceipts(deletingReceiptIds);
     if (deletingReceiptIds.length > 1) {
       dispatch(clearChecked());
       dispatch(clearDeleting());
