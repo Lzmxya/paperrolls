@@ -11,7 +11,7 @@ import { GroupedVirtuoso, VirtuosoHandle } from "react-virtuoso";
 import { format, isThisWeek, isThisYear } from "date-fns";
 import { zhTW } from "date-fns/locale";
 
-import { db, IReceipt, ReceiptGroup } from "@/models";
+import { archiveReceipts, IReceipt, ReceiptGroup } from "@/models";
 import { InboxButtonStar } from "./InboxButtonStar";
 import { SearchHighlighter } from "@/features/search";
 import Avatar from "@/components/Avatar";
@@ -190,9 +190,7 @@ export function InboxList({ receipts, receiptGroups }: InboxListProps) {
                         label={archived ? "取消封存" : "封存"}
                         icon={archived ? <Unarchive /> : <Archive />}
                         onClick={() => {
-                          db.receipts.update(invNum, {
-                            archived: !archived,
-                          });
+                          archiveReceipts([invNum]);
                           dispatch(
                             archived ? resetToast() : setArchivedToast(invNum)
                           );
