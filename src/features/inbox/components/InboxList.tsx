@@ -60,9 +60,8 @@ export function InboxList({ receipts, receiptGroups }: InboxListProps) {
 
   useEffect(() => {
     if (selectedReceipt.current !== null) {
-      virtuoso.current?.scrollToIndex({
+      virtuoso.current?.scrollIntoView({
         index: selectedReceipt.current,
-        align: "center",
         behavior: "smooth",
       });
     }
