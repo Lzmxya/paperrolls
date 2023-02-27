@@ -1,12 +1,11 @@
-import { db } from "@/models";
+import { archiveReceipts } from "@/models";
 
 export const toastActions = new Map([
   [
     "ARCHIVE",
     {
       label: "復原",
-      callback: (target: string) =>
-        db.receipts.where({ invNum: target }).modify({ archived: false }),
+      callback: (target: string) => archiveReceipts([target]),
     },
   ],
   ["DELETE", { label: "復原", callback: () => null }],
