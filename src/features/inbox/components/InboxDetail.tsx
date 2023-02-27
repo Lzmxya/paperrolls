@@ -10,7 +10,7 @@ import {
   setDeleting,
 } from "../inboxSlice";
 import { resetToast, setArchivedToast } from "@/features/toast";
-import { db, IReceipt } from "@/models";
+import { archiveReceipts, db, IReceipt } from "@/models";
 
 import { InboxButtonStar } from "@/features/inbox";
 import { SearchHighlighter } from "@/features/search";
@@ -104,9 +104,7 @@ export const InboxDetail = memo(function InboxDetail({
         label: archived ? "取消封存" : "封存",
         icon: archived ? <Unarchive /> : <Archive />,
         onClick: () => {
-          db.receipts.update(invNum, {
-            archived: !archived,
-          });
+          archiveReceipts([invNum]);
           dispatch(archived ? resetToast() : setArchivedToast(invNum));
         },
       },

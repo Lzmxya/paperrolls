@@ -42,7 +42,10 @@ export function InboxList({ receipts, receiptGroups }: InboxListProps) {
   const { selectedReceipt, checkedReceipts } = useAppSelector(
     (state) => state.inbox
   );
-  const counts = receiptGroups.map(
+  const groups = receiptGroups.filter(
+    ({ counts, archives }) => counts !== archives
+  );
+  const counts = groups.map(
     ({ counts, archives }) => (counts || 0) - (archives || 0)
   );
   const handleSelect = (
@@ -76,7 +79,7 @@ export function InboxList({ receipts, receiptGroups }: InboxListProps) {
           return (
             <div className="relative z-30 flex h-14 items-center gap-0.5 border-b border-gray-200 bg-white px-2 transition-all dark:border-transparent dark:bg-neutral-800">
               <button className="rounded-lg p-2 text-xl opacity-80 transition-all hover:bg-black/10 dark:hover:bg-white/25">
-                {receiptGroups[index].month || "搜尋結果"}
+                {groups[index].month || "搜尋結果"}
               </button>
             </div>
           );
