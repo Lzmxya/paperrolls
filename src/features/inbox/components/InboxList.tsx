@@ -71,13 +71,13 @@ export function InboxList({ receipts, receiptGroups }: InboxListProps) {
   }, [selectedReceipt]);
 
   return (
-    <div className="grow">
+    <div className="isolate grow">
       <GroupedVirtuoso
         ref={virtuoso}
         groupCounts={counts}
         groupContent={(index) => {
           return (
-            <div className="relative z-30 flex h-14 items-center gap-0.5 border-b border-gray-200 bg-white px-2 transition-all dark:border-transparent dark:bg-neutral-800">
+            <div className="relative flex h-14 items-center gap-0.5 border-b border-gray-200 bg-white px-2 transition-all dark:border-transparent dark:bg-neutral-800">
               <button className="rounded-lg p-2 text-xl opacity-80 transition-all hover:bg-black/10 dark:hover:bg-white/25">
                 {groups[index].month || "搜尋結果"}
               </button>
