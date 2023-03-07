@@ -54,7 +54,7 @@ function Inbox() {
         .filter(
           terms.length > 0
             ? ({ comment, sellerName, details }) => {
-                // const uncasedComment = comment.toLowerCase();
+                const uncasedComment = comment.toLowerCase();
                 const uncasedSellerName = sellerName.toLowerCase();
                 const uncasedDescriptions = details.map(({ description }) =>
                   description.toLowerCase()
@@ -62,7 +62,7 @@ function Inbox() {
                 return terms.every(
                   (term) =>
                     uncasedSellerName.includes(term) ||
-                    // uncasedComment.includes(term) ||
+                    uncasedComment.includes(term) ||
                     uncasedDescriptions.some((description) =>
                       description.includes(term)
                     )
