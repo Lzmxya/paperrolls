@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useAppDispatch } from "@/app/hooks";
 import {
   differenceInCalendarMonths,
   eachMonthOfInterval,
@@ -7,6 +8,7 @@ import {
 } from "date-fns";
 import { zhTW } from "date-fns/locale";
 import { IReceipt } from "@/models";
+import { setSelectedMonth } from "../insightsSlice";
 
 import * as echarts from "echarts/core";
 import {
@@ -35,12 +37,15 @@ type EChartsOption = echarts.ComposeOption<
   | TooltipComponentOption
 >;
 
+type Source = [string, number];
+
 interface InsightsMonthlyProps {
   data: IReceipt[];
 }
 
 export function InsightsMonthly({ data }: InsightsMonthlyProps) {
   const chartRef = useRef(null);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     // Preparing source dataset
@@ -139,6 +144,10 @@ export function InsightsMonthly({ data }: InsightsMonthlyProps) {
     };
 
     chart.setOption(option);
+    chart.on("click", (event) => {
+      const data = event.data as Source;
+      dispatch(setSelectedMonth(data[0]));
+    });
 
     const handleResize = () => chart.resize();
     window.addEventListener("resize", handleResize);
@@ -147,7 +156,7 @@ export function InsightsMonthly({ data }: InsightsMonthlyProps) {
       window.removeEventListener("resize", handleResize);
       chart.dispose();
     };
-  }, [data]);
+  }, [data, dispatch]);
 
   return (
     <div className="h-80 w-screen md:w-[calc(100vw-5rem)]" ref={chartRef} />
