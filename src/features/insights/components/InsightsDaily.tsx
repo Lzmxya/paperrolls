@@ -77,6 +77,9 @@ export function InsightsDaily({ data, range }: InsightsDailyProps) {
           !dailyTotals.some((dailyTotal) => dailyTotal[0] === zeroFilling[0])
       )
     );
+    const largestTotal = Math.max(
+      ...dailyTotals.map((dailyTotal) => dailyTotal[1])
+    );
 
     // Theme
     const isDarkTheme =
@@ -92,11 +95,13 @@ export function InsightsDaily({ data, range }: InsightsDailyProps) {
     const option: EChartsOption = {
       backgroundColor: "transparent",
       title: {
-        // top: 0,
         left: "center",
         text: range,
       },
-      tooltip: {},
+      tooltip: {
+        extraCssText: "border-radius: 9999px; z-index: 5;",
+        position: "top",
+      },
       calendar: {
         orient: "vertical",
         top: 30,
@@ -115,7 +120,7 @@ export function InsightsDaily({ data, range }: InsightsDailyProps) {
       },
       series: {
         type: "scatter",
-        symbolSize: (value) => value[1] / 40,
+        symbolSize: (value) => value[1] / (largestTotal / 50),
         coordinateSystem: "calendar",
         label: {
           color: isDarkTheme ? "white" : "black",
