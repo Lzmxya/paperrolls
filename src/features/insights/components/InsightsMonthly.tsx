@@ -4,10 +4,11 @@ import {
   differenceInCalendarMonths,
   eachMonthOfInterval,
   format,
+  parse,
   sub,
 } from "date-fns";
 import { zhTW } from "date-fns/locale";
-import { IReceipt } from "@/models";
+import { ReceiptGroup } from "@/models";
 import { setSelectedMonth } from "../insightsSlice";
 
 import * as echarts from "echarts/core";
@@ -40,7 +41,7 @@ type EChartsOption = echarts.ComposeOption<
 type Source = [string, number];
 
 interface InsightsMonthlyProps {
-  data: IReceipt[];
+  data: ReceiptGroup[];
 }
 
 export function InsightsMonthly({ data }: InsightsMonthlyProps) {
@@ -51,7 +52,7 @@ export function InsightsMonthly({ data }: InsightsMonthlyProps) {
     // Preparing source dataset
     const xAxisTicks = 12;
     const currentDate = new Date();
-    const earliestDate = data[0].invDate;
+    const earliestDate = parse(data[0].month, "yyyy-MM", new Date());
 
     const zeroFillings: [string, number][] = eachMonthOfInterval({
       start:
@@ -61,20 +62,7 @@ export function InsightsMonthly({ data }: InsightsMonthlyProps) {
       end: currentDate,
     }).map((element) => [format(element, "yyyy-MM"), 0]);
 
-    const monthlyTotals: [string, number][] = data
-      .map(({ amount, invDate }): [string, number] => [
-        format(invDate, "yyyy-MM"),
-        amount,
-      ])
-      .reduce((accumulator: [string, number][], current) => {
-        if (accumulator.find((element) => element[0] === current[0])) {
-          accumulator.filter((element) => element[0] === current[0])[0][1] +=
-            current[1];
-        } else {
-          accumulator.push(current);
-        }
-        return accumulator;
-      }, []);
+    const monthlyTotals = data.map(({ month, total }) => [month, total]);
 
     const source = monthlyTotals.concat(
       zeroFillings.filter(

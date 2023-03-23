@@ -11,7 +11,7 @@ export default function Insights() {
     useAppSelector((state) => state.insights.selectedMonth) ||
     format(new Date(), "yyyy-MM");
   const monthlyData = useLiveQuery(() =>
-    db.receipts.orderBy("invDate").toArray()
+    db.receiptGroups.orderBy("month").toArray()
   );
   const dailyData = useLiveQuery(async () => {
     const insightsDailyRange = selectedMonth || format(new Date(), "yyyy-MM");
