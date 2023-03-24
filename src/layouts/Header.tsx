@@ -21,8 +21,10 @@ function Header() {
         <InboxSelectionBar />
       ) : (
         <>
-          <NavLink to="/" className="flex shrink-0 items-center">
-            <div className="mx-1 h-14 w-14 rounded-full bg-blue-200"></div>
+          <NavLink to="/" title="發票" className="flex shrink-0 items-center">
+            <div className="mx-1 h-9 w-9 md:mx-4">
+              <img src="/images/launcher-icon.svg" alt="Paperrolls" />
+            </div>
             <span className="ml-2 text-2xl">發票</span>
           </NavLink>
           <div className="relative h-12 w-3/5">

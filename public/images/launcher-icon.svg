@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" width="512"
+    height="512">
+    <defs>
+        <path id="paper" d="M 54 458 H 310 V 182 A 1 1 0 0 0 54 182 V 458 Z Z"></path>
+        <clipPath id="cellophane">
+            <use xlink:href="#paper"/>
+        </clipPath>
+    </defs>
+    <use xlink:href="#paper" fill="#ffcc00"/>
+    <circle fill="#4caf50" cx="330" cy="182" r="128"></circle>
+    <rect x="202" y="182" width="108" height="276" fill="#4caf50"></rect>
+    <circle clip-path="url(#cellophane)" fill="#087f23" cx="330" cy="182" r="128"></circle>
+</svg>
