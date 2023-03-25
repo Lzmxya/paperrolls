@@ -1,0 +1,14 @@
+{
+  "name": "發票",
+  "short_name": "發票",
+  "description": "集中管理你的發票，並從中洞悉消費習慣",
+  "icons": [
+    {
+      "src": "images/launcher-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone"
+}
