@@ -1,11 +1,6 @@
-import { MouseEvent, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import {
-  InboxState,
-  setSelected,
-  toggleChecked,
-  setDeleting,
-} from "../inboxSlice";
+import { setSelected, toggleChecked, setDeleting } from "../inboxSlice";
 import { resetToast, setArchivedToast } from "@/features/toast";
 import { GroupedVirtuoso, VirtuosoHandle } from "react-virtuoso";
 import { format, isThisWeek, isThisYear } from "date-fns";
@@ -48,18 +43,6 @@ export function InboxList({ receipts, receiptGroups }: InboxListProps) {
   const counts = groups.map(
     ({ counts, archives }) => (counts || 0) - (archives || 0)
   );
-  const handleSelect = (
-    event: MouseEvent,
-    payload: InboxState["selectedReceipt"]
-  ) => {
-    event.preventDefault();
-    dispatch(setSelected(payload));
-  };
-  const handleCheck = (event: MouseEvent, payload: IReceipt["invNum"]) => {
-    event.preventDefault();
-    event.stopPropagation();
-    dispatch(toggleChecked(payload));
-  };
 
   useEffect(() => {
     if (selectedReceipt.current !== null) {
@@ -97,12 +80,14 @@ export function InboxList({ receipts, receiptGroups }: InboxListProps) {
 
           return (
             <div
-              onClick={(event) =>
-                handleSelect(event, {
-                  previous: index - 1,
-                  current: index,
-                  next: index + 1,
-                })
+              onClick={() =>
+                dispatch(
+                  setSelected({
+                    previous: index - 1,
+                    current: index,
+                    next: index + 1,
+                  })
+                )
               }
               className={`group relative flex cursor-pointer border-b border-gray-200 transition-all hover:z-20 hover:shadow-md dark:border-neutral-700 dark:hover:text-white ${
                 (selectedReceipt.current === index ||
@@ -126,7 +111,10 @@ export function InboxList({ receipts, receiptGroups }: InboxListProps) {
               {/* Supporting visuals */}
               <div
                 className="h-20 w-20 shrink-0 p-4"
-                onClick={(event) => handleCheck(event, invNum)}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  dispatch(toggleChecked(invNum));
+                }}
               >
                 {checkedReceipts.includes(invNum) ? (
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-400">
