@@ -89,24 +89,26 @@ export function InboxList({ receipts, receiptGroups }: InboxListProps) {
                   })
                 )
               }
-              className={`group relative flex cursor-pointer border-b border-gray-200 transition-all hover:z-20 hover:shadow-md dark:border-neutral-700 dark:hover:text-white ${
+              className={`group relative my-1 mx-2 flex cursor-pointer rounded-2xl transition-all dark:border-neutral-700 dark:hover:text-white md:mx-1 ${
                 (selectedReceipt.current === index ||
                   checkedReceipts.includes(invNum)) &&
-                "z-10 shadow-md dark:text-white"
+                "dark:text-white"
               } ${
                 checkedReceipts.includes(invNum)
-                  ? "bg-blue-200 dark:bg-blue-400/50"
+                  ? "bg-blue-200 hover:bg-blue-300 dark:bg-blue-400/50 dark:hover:bg-blue-400/60"
                   : selectedReceipt.current === index
-                  ? "bg-blue-100 dark:bg-blue-200/20"
+                  ? "bg-blue-100 hover:bg-blue-200 dark:bg-blue-200/20 dark:hover:bg-blue-400/30"
                   : archived
-                  ? "bg-black/5 dark:bg-black"
-                  : "bg-white dark:bg-neutral-900"
+                  ? "bg-black/5 hover:bg-blue-50 dark:bg-black"
+                  : "bg-white hover:bg-blue-50 dark:bg-neutral-900"
               }
             }`}
             >
               {/* Indicator */}
               {selectedReceipt.current === index && (
-                <div className="absolute top-0 left-0 h-full w-1 bg-blue-400"></div>
+                <div className="absolute flex h-full w-4 items-center justify-center">
+                  <div className="h-6 w-1 rounded-full bg-blue-400"></div>
+                </div>
               )}
               {/* Supporting visuals */}
               <div
