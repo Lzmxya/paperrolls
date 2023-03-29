@@ -100,9 +100,8 @@ export function InboxList({ receipts, receiptGroups }: InboxListProps) {
                   ? "bg-blue-100 hover:bg-blue-200 dark:bg-blue-200/20 dark:hover:bg-blue-400/30"
                   : archived
                   ? "bg-black/5 hover:bg-blue-50 dark:bg-black"
-                  : "bg-white hover:bg-blue-50 dark:bg-neutral-900"
-              }
-            }`}
+                  : "hover:bg-blue-50 dark:hover:bg-neutral-800"
+              }`}
             >
               {/* Indicator */}
               {selectedReceipt.current === index && (

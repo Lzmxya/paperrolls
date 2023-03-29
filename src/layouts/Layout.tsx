@@ -16,7 +16,7 @@ export default function Layout({ children }: LayoutProps) {
       <Header />
       <div className="flex h-[calc(100vh-4rem)]">
         <Navigation />
-        <main className="mb-20 flex grow overflow-hidden bg-white outline outline-white transition-all dark:bg-neutral-800 dark:outline-neutral-800 md:mb-2 md:mr-2 md:rounded-xl">
+        <main className="mb-20 flex grow overflow-hidden border-white bg-white transition-all dark:border-neutral-800 dark:bg-neutral-800 md:mb-2 md:mr-2 md:rounded-xl md:border">
           <Uploader>
             <Suspense>{children}</Suspense>
             <ToastPrimitive.ToastProvider>
