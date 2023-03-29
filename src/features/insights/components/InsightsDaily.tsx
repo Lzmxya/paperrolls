@@ -122,6 +122,7 @@ export function InsightsDaily({ data, range }: InsightsDailyProps) {
         type: "scatter",
         symbolSize: (value) => value[1] / (largestTotal / 50),
         coordinateSystem: "calendar",
+        itemStyle: { color: "#60a5fa" },
         label: {
           color: isDarkTheme ? "white" : "black",
           show: true,

@@ -126,6 +126,7 @@ export function InsightsMonthly({ data }: InsightsMonthlyProps) {
           type: "bar",
           itemStyle: {
             borderRadius: [8, 8, 0, 0],
+            color: "#60a5fa", // The screen will blink irregularly when using a custom color.
           },
         },
       ],
