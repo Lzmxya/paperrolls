@@ -25,12 +25,12 @@ function Header() {
             <div className="mx-1 h-9 w-9 md:mx-4">
               <img src="/images/launcher-icon.svg" alt="Paperrolls" />
             </div>
-            <span className="ml-2 text-2xl">發票</span>
+            <div className="ml-2 hidden text-2xl md:block">發票</div>
           </NavLink>
-          <div className="relative h-12 w-3/5">
+          <div className="relative mx-2 h-12 w-full md:w-3/5">
             <SearchField />
           </div>
-          <div className="mr-2">
+          <div className="md:mr-2">
             <PreferencesMenu />
           </div>
         </>

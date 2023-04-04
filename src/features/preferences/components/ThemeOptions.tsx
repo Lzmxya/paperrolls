@@ -32,7 +32,7 @@ export function ThemeOptions() {
     <RadioGroup
       value={theme}
       onChange={setTheme}
-      className="flex items-center justify-between gap-6 px-3"
+      className="flex w-full items-center justify-between gap-6 px-3"
     >
       <RadioGroup.Label>主題</RadioGroup.Label>
       <SegmentedButtons options={themes} />
