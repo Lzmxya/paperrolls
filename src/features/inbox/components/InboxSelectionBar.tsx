@@ -52,9 +52,9 @@ export function InboxSelectionBar() {
         <IconButton
           label="刪除"
           icon={<IconDelete />}
-          onClick={() => dispatch(setDeleting(checkedReceipts))}
+          onClick={() => dispatch(setDeleting([...checkedReceipts]))}
         />
-        <DropdownMenu items={menuItems} icons />
+        {/* <DropdownMenu items={menuItems} icons /> */}
       </div>
     </div>
   );
