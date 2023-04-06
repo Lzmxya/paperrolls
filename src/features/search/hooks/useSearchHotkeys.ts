@@ -5,19 +5,22 @@ export const useSearchHotkeys = (
 ) => {
   useEffect(() => {
     function handleKeydown(event: KeyboardEvent) {
-      const input = inputRef.current;
+      const eventTarget = event.target as HTMLElement;
+      const searchField = inputRef.current;
       const active = document.activeElement;
 
-      if (!input) {
-        return;
-      }
-      if (event.code === "Slash" && active !== input) {
-        event.preventDefault();
-        input.focus();
-      }
-      if (event.code === "Escape" && active === input && input.value === "") {
-        input.blur();
-      }
+      if (!searchField) return;
+      if (
+        event.key === "Escape" &&
+        active === searchField &&
+        searchField.value === ""
+      )
+        searchField.blur();
+      if (event.key !== "/" || event.ctrlKey || event.metaKey) return;
+      if (/^(?:input|textarea)$/i.test(eventTarget.tagName)) return;
+
+      event.preventDefault();
+      searchField.focus();
     }
 
     document.addEventListener("keydown", handleKeydown);
