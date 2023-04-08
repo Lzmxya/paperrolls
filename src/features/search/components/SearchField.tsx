@@ -64,7 +64,7 @@ export function SearchField() {
           type="search"
           title="在發票中搜尋"
           placeholder="在發票中搜尋"
-          className="h-full grow bg-transparent focus:outline-none"
+          className="h-full min-w-0 grow bg-transparent focus:outline-none"
           autoComplete="off"
           value={searchInputValue}
           onChange={(event) => {
@@ -79,7 +79,7 @@ export function SearchField() {
               setSearchInputValue("");
               inputRef.current?.focus();
             }}
-            className="mr-1"
+            className="mr-1 shrink-0"
           />
         )}
       </form>
