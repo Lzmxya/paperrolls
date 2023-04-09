@@ -125,7 +125,7 @@ function Inbox() {
     <div className="flex grow dark:divide-neutral-800 md:divide-x">
       <div className="relative flex w-full flex-col dark:bg-neutral-900 md:w-1/2">
         <InboxList receipts={receipts} receiptGroups={receiptGroups} />
-        <div className="absolute right-4 bottom-4 rounded-2xl dark:bg-black md:invisible">
+        <div className="absolute bottom-4 right-4 rounded-2xl dark:bg-black md:invisible">
           <FloatingActionButton />
         </div>
       </div>
