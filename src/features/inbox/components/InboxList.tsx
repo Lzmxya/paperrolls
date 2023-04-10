@@ -89,7 +89,7 @@ export function InboxList({ receipts, receiptGroups }: InboxListProps) {
                   })
                 )
               }
-              className={`group relative my-1 mx-2 flex cursor-pointer rounded-2xl transition-all dark:border-neutral-700 dark:hover:text-white md:mx-1 ${
+              className={`group relative mx-2 my-1 flex cursor-pointer rounded-2xl transition-all dark:border-neutral-700 dark:hover:text-white md:mx-1 ${
                 (selectedReceipt.current === index ||
                   checkedReceipts.includes(invNum)) &&
                 "dark:text-white"
@@ -130,7 +130,7 @@ export function InboxList({ receipts, receiptGroups }: InboxListProps) {
                 <p
                   className={`truncate font-bold after:ml-2 ${
                     archived &&
-                    "after:rounded after:bg-black/50 after:py-0.5 after:px-1 after:text-xs after:font-normal after:text-white after:content-['封存'] dark:after:bg-white dark:after:text-black"
+                    "after:rounded after:bg-black/50 after:px-1 after:py-0.5 after:text-xs after:font-normal after:text-white after:content-['封存'] dark:after:bg-white dark:after:text-black"
                   }`}
                 >
                   {invNum}
@@ -147,7 +147,7 @@ export function InboxList({ receipts, receiptGroups }: InboxListProps) {
               {/* Metadata */}
               {/* TODO: FormatJS */}
               <div className="flex flex-col items-end justify-between whitespace-nowrap pl-2">
-                <div className="mt-[0.625rem] mr-3">
+                <div className="mr-3 mt-[0.625rem]">
                   <p className="text-sm">{amount} 元</p>
                 </div>
                 <div className="flex items-end">

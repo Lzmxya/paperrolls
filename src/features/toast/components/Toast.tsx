@@ -33,7 +33,7 @@ export function Toast() {
     <ToastPrimitive.Root
       open={open}
       onOpenChange={setOpen}
-      className={`absolute inset-x-0 bottom-6 z-50 mx-6 flex h-12 items-center justify-between rounded-lg bg-black pr-2 pl-4 text-white md:mx-auto md:w-80 ${radixClassNames}`}
+      className={`absolute inset-x-0 bottom-6 z-50 mx-6 flex h-12 items-center justify-between rounded-lg bg-black pl-4 pr-2 text-white md:mx-auto md:w-80 ${radixClassNames}`}
     >
       <ToastPrimitive.Description>{description}</ToastPrimitive.Description>
       {type && toastActions.has(type) && (

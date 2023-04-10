@@ -255,7 +255,7 @@ export const InboxDetail = memo(function InboxDetail({
                 );
               }}
               minRows={2}
-              className="mt-2 mb-4 w-full resize-none bg-transparent outline-none"
+              className="mb-4 mt-2 w-full resize-none bg-transparent outline-none"
             />
           </div>
         </div>
