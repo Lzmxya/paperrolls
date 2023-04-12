@@ -45,6 +45,15 @@ export function PreferencesMenu() {
           >
             在 GitHub 上檢視本專案
           </Popover.Button>
+          <Popover.Button
+            as="a"
+            href="https://github.com/Lzmxya/paperrolls#faq"
+            target="_blank"
+            rel="noreferrer"
+            className="flex h-12 w-full items-center px-3 hover:bg-blue-200 dark:hover:bg-blue-200/20"
+          >
+            說明
+          </Popover.Button>
         </div>
       </Popover.Panel>
       <Dialog
