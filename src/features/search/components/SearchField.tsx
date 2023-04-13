@@ -55,7 +55,7 @@ export function SearchField() {
         className="flex h-full items-center"
       >
         <label htmlFor="q" className="p-3">
-          <IconSearch className="fill-current" />
+          <IconSearch className="fill-current opacity-60" />
         </label>
         <input
           ref={inputRef}
