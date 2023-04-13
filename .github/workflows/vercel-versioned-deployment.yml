@@ -10,6 +10,9 @@ on:
 jobs:
   Deploy-Production:
     runs-on: ubuntu-latest
+    environment:
+      name: Production
+      url: ${{ steps.deploy-to-vercel.outputs.console }}
     steps:
       - uses: actions/checkout@v3
       - name: Install Vercel CLI
@@ -19,4 +22,20 @@ jobs:
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+        run: echo "console=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }})" >> $GITHUB_OUTPUT
+        id: deploy-to-vercel
+      - name: Leave Comment on Commit
+        uses: peter-evans/commit-comment@v2
+        with:
+          body: |
+            Successfully deployed to the following URLs:
+
+            ## paperrolls – ./
+
+            [paperrolls-lzmxya.vercel.app](https://paperrolls-lzmxya.vercel.app)
+            [paperrolls-git-master-lzmxya.vercel.app](https://paperrolls-git-master-lzmxya.vercel.app)
+            [paperrolls.vercel.app](https://paperrolls.vercel.app)
+
+            ## Preview URL of this commit deployment
+
+            ${{ steps.deploy-to-vercel.outputs.console }}
