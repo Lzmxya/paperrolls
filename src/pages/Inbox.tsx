@@ -20,6 +20,7 @@ import {
   InboxList,
 } from "@/features/inbox";
 import { UploaderHint } from "@/features/uploader";
+import EmptyScreen from "@/components/EmptyScreen";
 import FloatingActionButton from "@/components/FloatingActionButton";
 
 function Inbox() {
@@ -102,18 +103,18 @@ function Inbox() {
   if (!receipts) {
     return (
       // TODO: skeleton loading
-      <div className="grow self-center text-center">
-        <h2 className="m-2 text-xl">正在載入…</h2>
-      </div>
+      <EmptyScreen>
+        <h2 className="text-xl">正在載入…</h2>
+      </EmptyScreen>
     );
   }
 
   if (receipts.length === 0 && receiptGroups.length > 0) {
     return (
-      <div className="grow self-center text-center">
-        <h2 className="m-2 text-xl">沒有相符的結果</h2>
+      <EmptyScreen>
+        <h2 className="text-xl">沒有相符的結果</h2>
         <p className="text-gray-500">試試其他搜尋字詞或篩選條件</p>
-      </div>
+      </EmptyScreen>
     );
   }
 

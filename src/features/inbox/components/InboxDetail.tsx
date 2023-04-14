@@ -17,6 +17,7 @@ import { SearchHighlighter } from "@/features/search";
 import Avatar from "@/components/Avatar";
 import Divider from "@/components/Divider";
 import DropdownMenu from "@/components/DropdownMenu";
+import EmptyScreen from "@/components/EmptyScreen";
 import IconButton from "@/components/IconButton";
 import Label from "@/components/Label";
 import { ReactComponent as ChevronLeft } from "@/assets/images/icons/chevron-left.svg";
@@ -264,8 +265,8 @@ export const InboxDetail = memo(function InboxDetail({
   }
 
   return (
-    <div className="m-auto">
+    <EmptyScreen>
       <p className="text-xl">尚未選取任何發票</p>
-    </div>
+    </EmptyScreen>
   );
 });

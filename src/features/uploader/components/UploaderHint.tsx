@@ -1,12 +1,13 @@
 import { useAppDispatch } from "@/app/hooks";
 import { setPickerIsOpen } from "../uploaderSlice";
+import EmptyScreen from "@/components/EmptyScreen";
 
 export function UploaderHint() {
   const dispatch = useAppDispatch();
 
   return (
-    <div className="grow space-y-2 self-center text-center">
-      <h2 className="m-2 text-xl">沒有發票</h2>
+    <EmptyScreen>
+      <h2 className="text-xl">沒有發票</h2>
       <p className="text-gray-500">
         將財政部寄送的「消費資訊」郵件中的 .csv 附件拖放至此，或
         <button
@@ -26,6 +27,6 @@ export function UploaderHint() {
           入門指南
         </a>
       </p>
-    </div>
+    </EmptyScreen>
   );
 }
