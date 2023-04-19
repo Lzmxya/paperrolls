@@ -74,6 +74,32 @@ Paperrolls 是一款網路應用程式，這意味著只要有網頁瀏覽器，
 
 尚無此功能。
 
+## 開發
+
+### 仰賴
+[![React][badge-react]][react] [![TypeScript][badge-typescript]][typescript] [![Dexie][badge-dexie]][dexie] [![Tailwind CSS][badge-tailwindcss]][tailwindcss] [![Vite][badge-vite]][vite] ……等工具。
+
+### 建構
+
+若要自行建構，請參考以下步驟：
+
+1. 將本專案儲存庫下載至本機
+   ```sh
+   git clone https://github.com/Lzmxya/paperrolls.git
+   ```
+2. 安裝相依套件
+   ```sh
+   npm install
+   ```
+3. 建構
+   ```sh
+   npm run build
+   ```
+4. 如要啟動即時預覽伺服器
+   ```sh
+   npm run dev
+   ```
+
 ## 藍圖
 
 參見 [Projects][roadmap] 頁面。
@@ -84,3 +110,17 @@ Paperrolls 是一款網路應用程式，這意味著只要有網頁瀏覽器，
 [sign-up-einvoice]: https://www.einvoice.nat.gov.tw/APCONSUMER/BTC501W
 [opt-in-csv]: https://www.einvoice.nat.gov.tw/APCONSUMER/BTC513W
 [roadmap]: https://github.com/Lzmxya/paperrolls/projects
+
+[//]: # (badges)
+[badge-react]: https://img.shields.io/static/v1?message=React&color=222222&logo=React&logoColor=61DAFB&label=
+[badge-typescript]: https://img.shields.io/static/v1?message=TypeScript&color=3178C6&logo=TypeScript&logoColor=FFFFFF&label=
+[badge-dexie]: https://img.shields.io/static/v1?message=Dexie&color=266FC1&logo=Adminer&logoColor=FFFFFF&label=
+[badge-tailwindcss]: https://img.shields.io/static/v1?message=Tailwind+CSS&color=38BDF8&logo=Tailwind+CSS&logoColor=FFFFFF&label=
+[badge-vite]: https://img.shields.io/static/v1?message=Vite&color=646CFF&logo=Vite&logoColor=FFDD35&label=
+
+[//]: # (badge-links)
+[react]: https://react.dev
+[typescript]: https://www.typescriptlang.org
+[dexie]: https://dexie.org
+[tailwindcss]: https://tailwindcss.com
+[vite]: https://vitejs.dev
