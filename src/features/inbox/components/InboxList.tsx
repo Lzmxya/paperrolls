@@ -1,6 +1,11 @@
 import { useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { setSelected, toggleChecked, setDeleting } from "../inboxSlice";
+import {
+  setSelected,
+  toggleChecked,
+  setDeleting,
+  clearChecked,
+} from "../inboxSlice";
 import { resetToast, setArchivedToast } from "@/features/toast";
 import { GroupedVirtuoso, VirtuosoHandle } from "react-virtuoso";
 import { format, isThisWeek, isThisYear } from "date-fns";
@@ -52,6 +57,25 @@ export function InboxList({ receipts, receiptGroups }: InboxListProps) {
       });
     }
   }, [selectedReceipt]);
+
+  useEffect(() => {
+    const hasHash = window.location.hash === "#selecting";
+    const isSelecting = checkedReceipts.length !== 0;
+    const handelPopstate = () => dispatch(clearChecked());
+
+    window.addEventListener("popstate", handelPopstate);
+
+    if (isSelecting && !hasHash) {
+      history.pushState(null, "", "#selecting");
+    }
+    if (!isSelecting && hasHash) {
+      history.go(-1);
+    }
+
+    return () => {
+      window.removeEventListener("popstate", handelPopstate);
+    };
+  }, [checkedReceipts, dispatch]);
 
   return (
     <div className="isolate grow">
