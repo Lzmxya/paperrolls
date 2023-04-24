@@ -6,16 +6,17 @@
 
 ## 功能
 
-<div style="height: 12rem; display: flex; gap: 0.25rem; overflow: scroll;">
-  <img src="docs/images/screenshot-mobile-empty.png" style="object-fit: contain;" />
-  <img src="docs/images/screenshot-mobile-inbox.png" style="object-fit: contain;" />
-  <img src="docs/images/screenshot-mobile-selecting.png" style="object-fit: contain;" />
-  <img src="docs/images/screenshot-mobile-reading.png" style="object-fit: contain;" />
-  <img src="docs/images/screenshot-mobile-insights.png" style="object-fit: contain;" />
-  <img src="docs/images/screenshot-mobile-settings.png" style="object-fit: contain;" />
-  <img src="docs/images/screenshot-desktop-inbox.png" style="object-fit: contain;" />
-  <img src="docs/images/screenshot-desktop-search.png" style="object-fit: contain;" />
-</div>
+<p>
+  <img src="docs/images/screenshot-mobile-empty.png" width="12%" />
+  <img src="docs/images/screenshot-mobile-inbox.png" width="12%" />
+  <img src="docs/images/screenshot-mobile-selecting.png" width="12%" />
+  <img src="docs/images/screenshot-mobile-reading.png" width="12%" />
+  <img src="docs/images/screenshot-mobile-insights.png" width="12%" />
+  <img src="docs/images/screenshot-mobile-settings.png" width="12%" />
+  <br>
+  <img src="docs/images/screenshot-desktop-inbox.png" width="24%" />
+  <img src="docs/images/screenshot-desktop-search.png" width="24%" />
+</p>
 
 - 📩 匯入「消費發票彙整」CSV 檔
 - 🔍 搜尋發票
