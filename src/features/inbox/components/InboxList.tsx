@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useBack } from "@/utils";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import {
   setSelected,
@@ -58,24 +59,11 @@ export function InboxList({ receipts, receiptGroups }: InboxListProps) {
     }
   }, [selectedReceipt]);
 
-  useEffect(() => {
-    const hasHash = window.location.hash === "#selecting";
-    const isSelecting = checkedReceipts.length !== 0;
-    const handelPopstate = () => dispatch(clearChecked());
-
-    window.addEventListener("popstate", handelPopstate);
-
-    if (isSelecting && !hasHash) {
-      history.pushState(null, "", "#selecting");
-    }
-    if (!isSelecting && hasHash) {
-      history.go(-1);
-    }
-
-    return () => {
-      window.removeEventListener("popstate", handelPopstate);
-    };
-  }, [checkedReceipts, dispatch]);
+  useBack(
+    checkedReceipts.length !== 0,
+    () => dispatch(clearChecked()),
+    "selecting"
+  );
 
   return (
     <div className="isolate grow">
