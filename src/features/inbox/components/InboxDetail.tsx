@@ -1,4 +1,5 @@
 import { memo, useEffect, useRef, useState } from "react";
+import { useBack } from "@/utils";
 import { useIntersection } from "react-use";
 import TextareaAutosize from "react-textarea-autosize";
 
@@ -57,6 +58,8 @@ export const InboxDetail = memo(function InboxDetail({
     rootMargin: "0px",
     threshold: 1,
   });
+
+  useBack(index !== null, handleClose, "reading");
 
   useEffect(() => {
     setEdited(false);
