@@ -215,27 +215,15 @@ export const InboxDetail = memo(function InboxDetail({
           </table>
           <Divider />
           <div>
-            <p className="mb-2 text-sm">載具</p>
-            <a
-              className="group relative"
-              href=""
-              title="輕觸即可查看此載具的全部發票"
-            >
-              {/* Hover Highlight Effect */}
-              <div
-                className="absolute -inset-2 h-[calc(100%+1rem)] w-[calc(100%+1rem)] rounded-lg transition-all group-hover:bg-black/10 dark:group-hover:bg-white/25"
-                aria-hidden="true"
-              ></div>
-              {/* Card Info */}
-              <div className="relative flex justify-between">
-                <div>
-                  <p>{cardType}</p>
-                  <p className="text-sm">{cardNo}</p>
-                </div>
-                {/* Card Face */}
-                <div className="aspect-[1.6/1] h-11 rounded border border-gray-400 bg-white"></div>
+            <Label>載具</Label>
+            <div className="mt-2 flex justify-between">
+              <div>
+                <p>{cardType}</p>
+                <p className="text-sm">{cardNo}</p>
               </div>
-            </a>
+              {/* Card Face */}
+              <div className="aspect-[1.6/1] h-11 rounded border border-gray-400 bg-white"></div>
+            </div>
           </div>
           <Divider />
           <div>

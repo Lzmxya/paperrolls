@@ -4,12 +4,12 @@ import Ripples from "react-ripples";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import { ReactComponent as IconInbox } from "@/assets/images/icons/inbox.svg";
 import { ReactComponent as IconInsights } from "@/assets/images/icons/pie-chart.svg";
-import { ReactComponent as IconMap } from "@/assets/images/icons/map.svg";
+// import { ReactComponent as IconMap } from "@/assets/images/icons/map.svg";
 
 const destinations = [
   { label: "票匣", path: "inbox", icon: <IconInbox /> },
   { label: "洞悉", path: "insights", icon: <IconInsights /> },
-  { label: "地圖", path: "map", icon: <IconMap /> },
+  // { label: "地圖", path: "map", icon: <IconMap /> },
 ];
 
 export default function Navigation() {

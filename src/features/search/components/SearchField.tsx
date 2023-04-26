@@ -119,7 +119,7 @@ export function SearchField() {
           <div className="py-2 text-sm">
             <p>當票匣套用篩選器或搜尋字詞時，結果將包含「已封存」的發票。</p>
             <p>
-              <kbd>↑</kbd> <kbd>↓</kbd> 以選取建議、<kbd>⏎</kbd> 以提交、
+              <kbd>⏎</kbd> 以提交、
               <kbd>⎋</kbd> 以取消搜尋、
               <kbd>/</kbd> 以聚焦搜尋列。
             </p>
