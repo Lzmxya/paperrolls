@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       {
         path: "inbox",
         element: (
-          <Suspense fallback={<Loading />}>
+          <Suspense fallback={<Loading prompt="正在載入功能" />}>
             <Inbox />
           </Suspense>
         ),
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
       {
         path: "insights",
         element: (
-          <Suspense fallback={<Loading />}>
+          <Suspense fallback={<Loading prompt="正在載入功能" />}>
             <Insights />
           </Suspense>
         ),

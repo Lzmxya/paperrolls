@@ -1,9 +1,13 @@
 import EmptyScreen from "./EmptyScreen";
 
-export default function Loading() {
+interface LoadingProps {
+  prompt: string;
+}
+
+export default function Loading({ prompt }: LoadingProps) {
   return (
     <EmptyScreen>
-      <h2 className="text-xl">正在載入…</h2>
+      <h2 className="text-xl">{prompt}…</h2>
     </EmptyScreen>
   );
 }

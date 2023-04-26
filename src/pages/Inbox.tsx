@@ -22,6 +22,7 @@ import {
 import { UploaderHint } from "@/features/uploader";
 import EmptyScreen from "@/components/EmptyScreen";
 import FloatingActionButton from "@/components/FloatingActionButton";
+import Loading from "@/components/Loading";
 
 function Inbox() {
   const dispatch = useAppDispatch();
@@ -103,9 +104,7 @@ function Inbox() {
   if (!receipts) {
     return (
       // TODO: skeleton loading
-      <EmptyScreen>
-        <h2 className="text-xl">正在載入…</h2>
-      </EmptyScreen>
+      <Loading prompt="正在載入" />
     );
   }
 
