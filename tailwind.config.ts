@@ -1,6 +1,8 @@
-/* eslint-env node */
-/** @type {import("tailwindcss").Config} */
-module.exports = {
+import type { Config } from "tailwindcss";
+import pluginHeadlessui from "@headlessui/tailwindcss";
+import pluginRadix from "tailwindcss-radix";
+
+export default {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   darkMode: "class",
   theme: {
@@ -17,5 +19,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("@headlessui/tailwindcss"), require("tailwindcss-radix")],
-};
+  plugins: [pluginHeadlessui, pluginRadix],
+} satisfies Config;
