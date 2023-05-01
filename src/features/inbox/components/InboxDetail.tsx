@@ -59,7 +59,26 @@ export const InboxDetail = memo(function InboxDetail({
     threshold: 1,
   });
 
-  useBack(index !== null, handleClose, "reading");
+  useEffect(() => {
+    const hasHash = window.location.hash === "#reading";
+    const isSelecting = index !== null;
+    const handelPopstate = () => dispatch(clearSelected());
+
+    window.addEventListener("popstate", handelPopstate);
+
+    if (isSelecting && !hasHash) {
+      history.pushState(null, "", "#reading");
+    }
+    if (!isSelecting && hasHash) {
+      history.go(-1);
+    }
+
+    return () => {
+      window.removeEventListener("popstate", handelPopstate);
+    };
+  }, [dispatch, index]);
+
+  // useBack(index !== null, handleClose, "reading");
 
   useEffect(() => {
     setEdited(false);
