@@ -15,6 +15,7 @@ import {
 import { db } from "@/models";
 import {
   clearChecked,
+  clearSelected,
   InboxDetail,
   InboxDialogDelete,
   InboxList,
@@ -98,6 +99,28 @@ function Inbox() {
   useEffect(() => {
     return () => {
       dispatch(clearChecked());
+    };
+  }, [dispatch]);
+
+  useEffect(() => {
+    const handleHashchange = (event: HashChangeEvent) => {
+      const hash = event.oldURL.split("#")[1];
+
+      if (hash === "selecting") {
+        dispatch(clearChecked());
+        return;
+      }
+
+      if (hash === "reading") {
+        dispatch(clearSelected());
+        return;
+      }
+    };
+
+    window.addEventListener("hashchange", handleHashchange);
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashchange);
     };
   }, [dispatch]);
 

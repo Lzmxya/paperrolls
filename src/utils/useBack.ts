@@ -1,30 +1,17 @@
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect } from "react";
 
-export function useBack(
-  isActive: boolean,
-  onBack: () => void,
-  urlHash: string
-) {
-  const callbackRef = useRef(onBack);
-
-  useLayoutEffect(() => {
-    callbackRef.current = onBack;
-  });
-
+export function useBack(isActive: boolean, urlHash: string) {
   useEffect(() => {
     const hasHash = window.location.hash === `#${urlHash}`;
 
-    window.addEventListener("popstate", () => callbackRef.current());
-
     if (isActive && !hasHash) {
-      history.pushState(null, "", `#${urlHash}`);
-    }
-    if (!isActive && hasHash) {
-      history.go(-1);
+      window.history.pushState(null, "", `#${urlHash}`);
+      return;
     }
 
-    return () => {
-      window.removeEventListener("popstate", () => callbackRef.current());
-    };
-  }, [isActive, onBack, urlHash]);
+    if (!isActive && hasHash) {
+      window.history.go(-1);
+      return;
+    }
+  }, [isActive, urlHash]);
 }
