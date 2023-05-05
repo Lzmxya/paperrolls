@@ -66,6 +66,10 @@ Paperrolls 是一款網路應用程式，這意味著只要有網頁瀏覽器，
 
 現在你可以前往 Paperrolls 匯入你的發票了。（詳見下一小節）
 
+> **Note**
+>
+> 想試用看看，但手邊尚無彙整檔嗎？歡迎[下載範例檔案][csv-examples]。
+
 ### 問：我已經有「彙整檔」了，該怎麼匯入？
 
 要將彙整檔匯入 Paperrolls ，有多種方式：
@@ -121,6 +125,7 @@ Paperrolls 是一款網路應用程式，這意味著只要有網頁瀏覽器，
 [idb]: https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
 [sign-up-einvoice]: https://www.einvoice.nat.gov.tw/APCONSUMER/BTC501W
 [opt-in-csv]: https://www.einvoice.nat.gov.tw/APCONSUMER/BTC513W
+[csv-examples]:https://drive.google.com/drive/folders/17GiSy3e_ail4zeS1rsWGwNXbsTmJnP3i
 [roadmap]: https://github.com/Lzmxya/paperrolls/projects
 
 [//]: # (badges)
