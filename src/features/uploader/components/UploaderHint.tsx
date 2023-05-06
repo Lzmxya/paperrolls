@@ -9,7 +9,7 @@ export function UploaderHint() {
     <EmptyScreen>
       <h2 className="text-xl">沒有發票</h2>
       <p className="text-gray-500">
-        將財政部寄送的「消費資訊」郵件中的 .csv 附件拖放至此，或
+        將財政部寄送的「消費發票彙整通知」郵件中的 .csv 附件拖放至此，或
         <button
           className="text-blue-600 hover:underline dark:text-blue-400"
           onClick={() => dispatch(setPickerIsOpen(true))}
