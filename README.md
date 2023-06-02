@@ -107,11 +107,18 @@ Paperrolls 是一款網路應用程式，這意味著只要有網頁瀏覽器，
    ```sh
    npm install
    ```
-3. 建構
+3. 在根目錄建立 `.env.local` 檔案以新增環境變數
+   ```sh
+   VITE_META_TITLE="Paperrolls"
+   VITE_META_DESCRIPTION="讓你以使用收件匣般的方式管理你的統一發票！"
+   VITE_META_OG_URL="https://預計部署網址"
+   VITE_META_OG_IMAGE="https://開放社交關係圖縮圖網址"
+   ```
+4. 建構
    ```sh
    npm run build
    ```
-4. 如要啟動即時預覽伺服器
+5. 如要啟動即時預覽伺服器
    ```sh
    npm run dev
    ```
