@@ -19,10 +19,7 @@
     ]
   },
   "prettier": {
-    "bracketSpacing": true,
-    "semi": true,
-    "singleQuote": false,
-    "tabWidth": 2
+    "quoteProps": "consistent"
   },
   "eslintConfig": {
     "env": {
